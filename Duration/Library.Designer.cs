@@ -69,20 +69,20 @@
             // menu_library_play
             // 
             this.menu_library_play.Name = "menu_library_play";
-            this.menu_library_play.Size = new System.Drawing.Size(152, 22);
+            this.menu_library_play.Size = new System.Drawing.Size(117, 22);
             this.menu_library_play.Text = "Play";
             this.menu_library_play.Click += new System.EventHandler(this.menu_library_play_Click);
             // 
             // menu_library_remove
             // 
             this.menu_library_remove.Name = "menu_library_remove";
-            this.menu_library_remove.Size = new System.Drawing.Size(152, 22);
+            this.menu_library_remove.Size = new System.Drawing.Size(117, 22);
             this.menu_library_remove.Text = "Remove";
             // 
             // menu_library_artwork
             // 
             this.menu_library_artwork.Name = "menu_library_artwork";
-            this.menu_library_artwork.Size = new System.Drawing.Size(152, 22);
+            this.menu_library_artwork.Size = new System.Drawing.Size(117, 22);
             this.menu_library_artwork.Text = "Artwork";
             // 
             // Library
@@ -101,11 +101,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView data_library;
         private System.Windows.Forms.ContextMenuStrip menuLibrary;
         private System.Windows.Forms.ToolStripMenuItem menu_library_play;
         private System.Windows.Forms.ToolStripMenuItem menu_library_remove;
         private System.Windows.Forms.ToolStripMenuItem menu_library_artwork;
+        public System.Windows.Forms.DataGridView data_library;
     }
 }

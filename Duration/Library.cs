@@ -29,13 +29,12 @@ namespace Duration
                 // get id
                 DataGridViewRow row = data_library.Rows[e.RowIndex];
                 var path = con.ReadString($"SELECT path FROM library WHERE id = {int.Parse(row.Cells[0].Value.ToString())}");
-
+                // pass id to database
                 con.ExecuteQuery($"UPDATE session SET selectedFilePath = '{path}' WHERE id = 1");
-                // Utils.FilePath = row.Cells[1].Value.ToString();
             }
             catch (Exception)
             {
-                MessageBox.Show("Still Buggy!");
+                MessageBox.Show("Failed to select!");
             }
         }
         // when selecting a track from the library

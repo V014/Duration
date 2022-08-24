@@ -12,6 +12,8 @@ namespace Duration
             InitializeComponent();
         }
         Connection con = new Connection();
+        DataGridStyling styling = new DataGridStyling();
+        Library library = new Library();
         // Songs songs = new Songs();
         public int startIndex = 0;
         string[] FileName, FilePath;
@@ -46,11 +48,13 @@ namespace Duration
         }
         void loadNowPlaying()
         {
-            this.panel_main.Controls.Clear();
+            panel_main.Controls.Clear();
             this.panel_main.Controls.Add(panel_nowPlaying);
             panel_nowPlaying.Dock = DockStyle.Fill;
-            panel_nowPlaying.AutoSize = true;
             panel_nowPlaying.Show();
+            lbl_title_mini.Visible = false;
+            lbl_artist_mini.Visible = false;
+            image_mini.Visible = false;
         }
         // stop music method
         public void StopPlayer()
@@ -70,47 +74,8 @@ namespace Duration
             }
             player.settings.autoStart = true;
             player.URL = FilePath[PLayListIndex];
-            // axWindowsMediaPlayer.Ctlcontrols.next();
-            // axWindowsMediaPlayer.Ctlcontrols.play();
-        }
-        // change song when selected from list
-        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TagLib.File file = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
-            startIndex = list_recent.SelectedIndex;
-            PlayFile(startIndex);
-           
-            try
-            {
-                lbl_title.Text = "Title : " + list_recent.Text;
-                lbl_title_mini.Text = list_recent.Text;
-                lbl_album.Text = "Album : " + file.Tag.Album;
-                lbl_year.Text = "Year : " + file.Tag.Year;
-                lbl_artist.Text = "Artist : " + file.Tag.AlbumArtists[0];
-                lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
-                lbl_genre.Text = "Genre : " + file.Tag.Genres[0];
-
-                try
-                {
-                    con.ExecuteQuery($"INSERT INTO library (path, title, album, year, artist, genre) VALUES('{FilePath[list_recent.SelectedIndex]}','{list_recent.Text}','{file.Tag.Album}','{file.Tag.Year}','{ file.Tag.AlbumArtists[0]}','{file.Tag.Genres[0]}')");
-                }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.ToString());
-                }                
-
-                var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
-                var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
-                image_artwork.Image = Image.FromStream(new MemoryStream(bin));
-                image_mini.Image = Image.FromStream(new MemoryStream(bin));
-            }
-            catch (Exception)
-            {
-                image_artwork.Image = Image.FromFile(@"res/music.png");
-                lbl_artist.Text = "Artist : Unknown";
-                lbl_genre.Text = "Genre : Unknown";
-                lbl_year.Text = "Year : Unknown";
-            }
+            player.Ctlcontrols.next();
+            player.Ctlcontrols.play();
         }
         // browse for music
         private void btn_browse_Click(object sender, EventArgs e)
@@ -177,6 +142,21 @@ namespace Duration
                 startIndex = startIndex - 1;
                 list_recent.SelectedIndex --;
             }
+            PlayFile(startIndex);
+        }
+        // play next track
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            if (startIndex == list_recent.Items.Count - 1)
+            {
+                startIndex = list_recent.Items.Count - 1;
+            }
+            else if (startIndex < list_recent.Items.Count)
+            {
+                startIndex = startIndex + 1;
+            }
+            // fuction crashing
+            list_recent.SelectedIndex++;
             PlayFile(startIndex);
         }
         // progress bar timer
@@ -251,43 +231,54 @@ namespace Duration
                 list_recent.SelectedIndex = index;
             }
         }
+        // when user hides the recent list
         private void btn_mini_recent_Click(object sender, EventArgs e)
         {
             if(list_recent.Visible == true)
             {
                 list_recent.Visible = false;
+                /*
                 btn_extra.Visible = true;
                 btn_about.Visible = true;
                 btn_visualize.Visible = true;
+                */
             }
             else
             {
                 list_recent.Visible = true;
+                /*
                 btn_extra.Visible = false;
                 btn_about.Visible = false;
                 btn_visualize.Visible = false;
+                */
             }
         }
-
-        private void btn_mini_library_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // when user clicks the visulize button
         private void btn_visualize_Click(object sender, EventArgs e)
         {
             if (player.Visible == Visible)
             {
                 player.Visible = false;
+                image_mini.Visible = false;
+                lbl_title_mini.Visible = false;
+                lbl_artist_mini.Visible = false;
             }
             else
             {
                 player.Visible = true;
+                image_mini.Visible = true;
+                lbl_title_mini.Visible = true;
+                lbl_artist_mini.Visible = true;
             }
         }
-
+        // when user clicks the library button
         private void btn_library_Click(object sender, EventArgs e)
         {
+            /*
+            data_library.BringToFront();
+            loadLibrary(data_library);
+            styling.styleDataGrid(data_library);
+            */
             this.panel_main.Controls.Clear();
             Library library = new Library();
             this.panel_main.Controls.Add(library);
@@ -296,30 +287,82 @@ namespace Duration
             lbl_title_mini.Visible = true;
             lbl_artist_mini.Visible = true;
             image_mini.Visible = true;
+            
         }
-
+        // when user clicks the now playing button
         private void btn_nowPlaying_Click(object sender, EventArgs e)
         {
             loadNowPlaying();
-            lbl_title_mini.Visible = false;
-            lbl_artist_mini.Visible = false;
-            image_mini.Visible = false;
         }
-
-        // play next track
-        private void btn_next_Click(object sender, EventArgs e)
+        // when user clicks the menu button
+        private void btn_menu_Click(object sender, EventArgs e)
         {
-            if (startIndex == list_recent.Items.Count - 1)
+            if(panel_nav.Width == 224)
             {
-                startIndex = list_recent.Items.Count - 1;
+                panel_nav.Width = 75;
+                btn_menu.Text = "";
+                btn_nowPlaying.Text = "";
+                btn_browse.Text = "";
+                btn_browse.Text = "";
+                btn_library.Text = "";
+                btn_visualize.Text = "";
+                btn_extra.Text = "";
+                btn_about.Text = "";
             }
-            else if (startIndex < list_recent.Items.Count)
+            else
             {
-                startIndex = startIndex + 1;
+                panel_nav.Width = 224;
+                btn_menu.Text = "Menu";
+                btn_nowPlaying.Text = "Now Playing";
+                btn_browse.Text = "Browse";
+                btn_library.Text = "Library";
+                btn_visualize.Text = "Visualize";
+                btn_extra.Text = "Extra";
+                btn_about.Text = "About";
             }
-            // fuction crashing
-            list_recent.SelectedIndex ++;
+        }
+        // when the recent list is changed
+        private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TagLib.File file = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
+            startIndex = list_recent.SelectedIndex;
             PlayFile(startIndex);
+
+            try
+            {
+                lbl_title.Text = "Title : " + list_recent.Text;
+                lbl_genre.Text = "Genre : " + file.Tag.Genres[0];
+                lbl_album.Text = "Album : " + file.Tag.Album;
+                lbl_year.Text = "Year : " + file.Tag.Year;
+                lbl_artist.Text = "Artist : " + file.Tag.AlbumArtists[0];
+
+                lbl_title_mini.Text = list_recent.Text;
+                lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
+
+
+                try
+                {
+                    con.ExecuteQuery($"INSERT INTO library (path, title, album, year, artist, genre) VALUES('{FilePath[list_recent.SelectedIndex]}','{list_recent.Text}','{file.Tag.Album}','{file.Tag.Year}','{ file.Tag.AlbumArtists[0]}','{file.Tag.Genres[0]}')");
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.ToString());
+                }
+
+                var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
+                var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
+                image_artwork.Image = Image.FromStream(new MemoryStream(bin));
+                image_mini.Image = Image.FromStream(new MemoryStream(bin));
+            }
+            catch (Exception)
+            {
+                image_artwork.Image = Image.FromFile(@"res/music.png");
+
+                lbl_artist.Text = "Artist : Unknown";
+                lbl_genre.Text = "Genre : Unknown";
+                lbl_year.Text = "Year : Unknown";
+
+            }
         }
     }
 }
