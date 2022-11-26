@@ -8,7 +8,7 @@ namespace Duration
     {
         Connection con = new Connection();
         DataGridStyling styling = new DataGridStyling();
-        Home home = new Home();
+        // Home home = new Home();
         public Library()
         {
             InitializeComponent();
