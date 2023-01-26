@@ -38,6 +38,7 @@ namespace Duration
             }
         }
         // when selecting a track from the library
+        /*
         private void menu_library_play_Click(object sender, EventArgs e)
         {
             // stop the current song
@@ -56,5 +57,6 @@ namespace Duration
             home.list_recent.Refresh();
             home.btn_play.Image = Image.FromFile(@"res/pause.png");
         }
+        */
     }
 }

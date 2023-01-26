@@ -2,10 +2,12 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Duration
 {
-    public partial class Home : MetroFramework.Forms.MetroForm
+    public partial class Home : Form
     {
         public Home()
         {
@@ -18,6 +20,7 @@ namespace Duration
         public int startIndex = 0;
         string[] FileName, FilePath;
         public Boolean playnext = false;
+        private int OldFocusedIndex = 0;
 
         bool _playing = false;
         public bool isplaying
@@ -80,28 +83,74 @@ namespace Duration
         // browse for music
         private void btn_browse_Click(object sender, EventArgs e)
         {
-            startIndex = 0;
-            playnext = false;
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = true;
-            ofd.Filter = "mp3 ,wav ,wmv ,3gp, m4a|*.mp3*;*.wav*;*.3gp*;*.wmv*;*.m4a*";
-            if(ofd.ShowDialog() == DialogResult.OK)
+            // if there is already music on the list
+            if(list_recent.Items.Count > 0)
             {
-                FileName = ofd.SafeFileNames;
-                FilePath = ofd.FileNames;
-
-                foreach(var items in FilePath)
+                try
                 {
-                    TagLib.File file = TagLib.File.Create(items);
-                    list_recent.Items.Add(file.Tag.Title);
-                    this.Refresh();
-                }
+                    startIndex = list_recent.Items.Count - 1;
+                    list_recent.SelectedIndex = OldFocusedIndex;
+                    playnext = false;
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.Multiselect = true;
+                    ofd.Filter = "mp3 ,wav ,wmv ,3gp, m4a|*.mp3*;*.wav*;*.3gp*;*.wmv*;*.m4a*";
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        FileName = ofd.SafeFileNames;
+                        FilePath = ofd.FileNames;
 
-                startIndex = 0;
-                PlayFile(0);
-                list_recent.SelectedIndex = 0;
-                btn_play.Image = Image.FromFile(@"res/pause.png");
+                        foreach (var items in FilePath)
+                        {
+                            TagLib.File file = TagLib.File.Create(items);
+                            list_recent.Items.Add(file.Tag.Title);
+                            this.Refresh();
+                        }
+
+                        startIndex = 0;
+                        PlayFile(0);
+                        list_recent.SelectedIndex = 0;
+                        btn_play.Image = Image.FromFile(@"res/pause.png");
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Feature not available!", "Assistant");
+                }
+                
+            }else
+            {
+                try
+                {
+                    startIndex = 0;
+                    playnext = false;
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.Multiselect = true;
+                    ofd.Filter = "mp3 ,wav ,wmv ,3gp, m4a|*.mp3*;*.wav*;*.3gp*;*.wmv*;*.m4a*";
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        FileName = ofd.SafeFileNames;
+                        FilePath = ofd.FileNames;
+
+                        foreach (var items in FilePath)
+                        {
+                            TagLib.File file = TagLib.File.Create(items);
+                            list_recent.Items.Add(file.Tag.Title);
+                            this.Refresh();
+                        }
+
+                        startIndex = 0;
+                        PlayFile(0);
+                        list_recent.SelectedIndex = 0;
+                        btn_play.Image = Image.FromFile(@"res/pause.png");
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Feature not available!", "Assistant");
+                }
+                
             }
+            
         }
         // change the volume
         private void volume_ValueChanged(object sender, EventArgs e)
@@ -321,15 +370,21 @@ namespace Duration
                 btn_about.Text = "About";
             }
         }
+
+        private void List_recent_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            startIndex = list_recent.SelectedIndex;
+            PlayFile(startIndex);
+        }
+
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TagLib.File file = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
-            startIndex = list_recent.SelectedIndex;
-            PlayFile(startIndex);
-
             try
             {
+                // obtain audio tag details
+                TagLib.File file = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
+
                 lbl_title.Text = "Title : " + list_recent.Text;
                 lbl_genre.Text = "Genre : " + file.Tag.Genres[0];
                 lbl_album.Text = "Album : " + file.Tag.Album;
@@ -339,20 +394,22 @@ namespace Duration
                 lbl_title_mini.Text = list_recent.Text;
                 lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
 
-
-                try
-                {
-                    con.ExecuteQuery($"INSERT INTO library (path, title, album, year, artist, genre) VALUES('{FilePath[list_recent.SelectedIndex]}','{list_recent.Text}','{file.Tag.Album}','{file.Tag.Year}','{ file.Tag.AlbumArtists[0]}','{file.Tag.Genres[0]}')");
-                }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.ToString());
-                }
-
                 var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
                 image_mini.Image = Image.FromStream(new MemoryStream(bin));
+
+                // insert into library
+                /*
+                try
+                {
+                    con.ExecuteQuery($"INSERT INTO library (path, title, album, year, artist, genre) VALUES('{FilePath[list_recent.SelectedIndex]}','{list_recent.Text}','{file.Tag.Album}','{file.Tag.Year}','{ file.Tag.AlbumArtists[0]}','{file.Tag.Genres[0]}')");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Current list not saved!", "Assistant");
+                }
+                */
             }
             catch (Exception)
             {
