@@ -11,14 +11,15 @@ namespace Duration
         {
             InitializeComponent();
         }
-        Connection con = new Connection();
-        DataGridStyling styling = new DataGridStyling();
-        Library library = new Library();
+
+        private readonly Connection con = new Connection();
+        private readonly DataGridStyling styling = new DataGridStyling();
+        //Library library = new Library();
         // Songs songs = new Songs();
         public int startIndex = 0;
         string[] FileName, FilePath;
         public Boolean playnext = false;
-        private int OldFocusedIndex = 0;
+        //private int OldFocusedIndex = 0;
 
         bool _playing = false;
         public bool isplaying
@@ -53,8 +54,8 @@ namespace Duration
             this.panel_main.Controls.Add(panel_nowPlaying);
             panel_nowPlaying.Dock = DockStyle.Fill;
             panel_nowPlaying.Show();
-            lbl_title_mini.Visible = false;
-            lbl_artist_mini.Visible = false;
+            //lbl_title_mini.Visible = false;
+            //lbl_artist_mini.Visible = false;
             image_mini.Visible = false;
         }
         // stop music method
@@ -196,20 +197,20 @@ namespace Duration
             {
                 progressBar.Maximum = (int)player.Ctlcontrols.currentItem.duration;
                 timer.Start();
-                lbl_details.Text = "Now Playing";
+                //lbl_details.Text = "Now Playing";
                 btn_play.FlatAppearance.MouseOverBackColor = Color.Crimson;
             }
             else if(player.playState == WMPLib.WMPPlayState.wmppsPaused)
             {
                 timer.Stop();
-                lbl_details.Text = "On Pause";
+                //lbl_details.Text = "On Pause";
                 btn_play.FlatAppearance.MouseOverBackColor = Color.MediumSeaGreen;
             }
             else if(player.playState == WMPLib.WMPPlayState.wmppsStopped)
             {
                 timer.Stop();
                 progressBar.Value = 0;
-                lbl_details.Text = "On Stop";
+                //lbl_details.Text = "On Stop";
                 btn_play.Image = Image.FromFile(@"res/stop.png");
                 btn_play.FlatAppearance.MouseOverBackColor = Color.Orange;
             }
@@ -248,20 +249,10 @@ namespace Duration
             if(list_recent.Visible == true)
             {
                 list_recent.Visible = false;
-                /*
-                btn_extra.Visible = true;
-                btn_about.Visible = true;
-                btn_visualize.Visible = true;
-                */
             }
             else
             {
                 list_recent.Visible = true;
-                /*
-                btn_extra.Visible = false;
-                btn_about.Visible = false;
-                btn_visualize.Visible = false;
-                */
             }
         }
         // when user clicks the visulize button
@@ -271,32 +262,27 @@ namespace Duration
             {
                 player.Visible = false;
                 image_mini.Visible = false;
-                lbl_title_mini.Visible = false;
-                lbl_artist_mini.Visible = false;
+                //lbl_title_mini.Visible = false;
+                //lbl_artist_mini.Visible = false;
             }
             else
             {
                 player.Visible = true;
                 image_mini.Visible = true;
-                lbl_title_mini.Visible = true;
-                lbl_artist_mini.Visible = true;
+                //lbl_title_mini.Visible = true;
+                //lbl_artist_mini.Visible = true;
             }
         }
         // when user clicks the library button
         private void btn_library_Click(object sender, EventArgs e)
         {
-            /*
-            data_library.BringToFront();
-            loadLibrary(data_library);
-            styling.styleDataGrid(data_library);
-            */
             this.panel_main.Controls.Clear();
             Library library = new Library();
             this.panel_main.Controls.Add(library);
             library.Dock = DockStyle.Fill;
             library.Show();
-            lbl_title_mini.Visible = true;
-            lbl_artist_mini.Visible = true;
+            //lbl_title_mini.Visible = true;
+            //lbl_artist_mini.Visible = true;
             image_mini.Visible = true;
             
         }
@@ -357,14 +343,14 @@ namespace Duration
                 // obtain audio tag details
                 TagLib.File file = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
 
-                lbl_title.Text = "Title : " + list_recent.Text;
-                lbl_genre.Text = "Genre : " + file.Tag.Genres[0];
-                lbl_album.Text = "Album : " + file.Tag.Album;
-                lbl_year.Text = "Year : " + file.Tag.Year;
-                lbl_artist.Text = "Artist : " + file.Tag.AlbumArtists[0];
+                lbl_title.Text = list_recent.Text;
+                lbl_genre.Text = file.Tag.Genres[0];
+                lbl_album.Text = file.Tag.Album;
+                lbl_year.Text = file.Tag.Year.ToString();
+                lbl_artist.Text = file.Tag.AlbumArtists[0];
 
-                lbl_title_mini.Text = list_recent.Text;
-                lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
+                //lbl_title_mini.Text = list_recent.Text;
+                //lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
 
                 var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
