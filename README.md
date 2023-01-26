@@ -14,4 +14,4 @@ No fuss, no distractions, just select a folder of your music and let it play thr
 ## Home Page
 The main page features an area where the album artwork is displayed followed by a list of current playing items and some controls.
 Users are free to experiment with the interface and see how it reacts.
-![Main Page](/assets/images/san-juan-mountains.jpg "San Juan Mountains")
+![Main Page](https://github.com/V014/Duration/blob/master/Screenshots/Main.png)
