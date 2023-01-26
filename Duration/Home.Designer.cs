@@ -216,6 +216,7 @@
             this.txt_search.WordWrap = false;
             this.txt_search.Click += new System.EventHandler(this.txt_search_Click);
             this.txt_search.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_search_KeyPress);
+            this.txt_search.Leave += new System.EventHandler(this.Txt_search_Leave);
             // 
             // panel_artwork
             // 
@@ -501,6 +502,7 @@
             this.progressBar.TabIndex = 0;
             this.progressBar.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.progressBar.Value = 0;
+            this.progressBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ProgressBar_Scroll);
             // 
             // panel_end
             // 

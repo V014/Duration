@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Duration
 {
@@ -83,74 +81,38 @@ namespace Duration
         // browse for music
         private void btn_browse_Click(object sender, EventArgs e)
         {
-            // if there is already music on the list
-            if(list_recent.Items.Count > 0)
+            try
             {
-                try
+                startIndex = 0;
+                playnext = false;
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Multiselect = true;
+                ofd.Filter = "mp3 ,wav ,wmv ,3gp, m4a|*.mp3*;*.wav*;*.3gp*;*.wmv*;*.m4a*";
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    startIndex = list_recent.Items.Count - 1;
-                    list_recent.SelectedIndex = OldFocusedIndex;
-                    playnext = false;
-                    OpenFileDialog ofd = new OpenFileDialog();
-                    ofd.Multiselect = true;
-                    ofd.Filter = "mp3 ,wav ,wmv ,3gp, m4a|*.mp3*;*.wav*;*.3gp*;*.wmv*;*.m4a*";
-                    if (ofd.ShowDialog() == DialogResult.OK)
+                    // clear previous list
+                    list_recent.Items.Clear();
+                    FileName = ofd.SafeFileNames;
+                    FilePath = ofd.FileNames;
+
+                    foreach (var items in FilePath)
                     {
-                        FileName = ofd.SafeFileNames;
-                        FilePath = ofd.FileNames;
-
-                        foreach (var items in FilePath)
-                        {
-                            TagLib.File file = TagLib.File.Create(items);
-                            list_recent.Items.Add(file.Tag.Title);
-                            this.Refresh();
-                        }
-
-                        startIndex = 0;
-                        PlayFile(0);
-                        list_recent.SelectedIndex = 0;
-                        btn_play.Image = Image.FromFile(@"res/pause.png");
+                        TagLib.File file = TagLib.File.Create(items);
+                        list_recent.Items.Add(file.Tag.Title);
+                        this.Refresh();
                     }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Feature not available!", "Assistant");
-                }
-                
-            }else
-            {
-                try
-                {
+                    // auto play music
                     startIndex = 0;
-                    playnext = false;
-                    OpenFileDialog ofd = new OpenFileDialog();
-                    ofd.Multiselect = true;
-                    ofd.Filter = "mp3 ,wav ,wmv ,3gp, m4a|*.mp3*;*.wav*;*.3gp*;*.wmv*;*.m4a*";
-                    if (ofd.ShowDialog() == DialogResult.OK)
-                    {
-                        FileName = ofd.SafeFileNames;
-                        FilePath = ofd.FileNames;
-
-                        foreach (var items in FilePath)
-                        {
-                            TagLib.File file = TagLib.File.Create(items);
-                            list_recent.Items.Add(file.Tag.Title);
-                            this.Refresh();
-                        }
-
-                        startIndex = 0;
-                        PlayFile(0);
-                        list_recent.SelectedIndex = 0;
-                        btn_play.Image = Image.FromFile(@"res/pause.png");
-                    }
+                    PlayFile(0);
+                    list_recent.SelectedIndex = 0;
+                    btn_play.Image = Image.FromFile(@"res/pause.png");
                 }
-                catch (Exception)
-                {
-                    MessageBox.Show("Feature not available!", "Assistant");
-                }
-                
             }
-            
+            catch (Exception)
+            {
+                MessageBox.Show("Feature not available!", "Assistant");
+            }
+
         }
         // change the volume
         private void volume_ValueChanged(object sender, EventArgs e)
@@ -375,6 +337,16 @@ namespace Duration
         {
             startIndex = list_recent.SelectedIndex;
             PlayFile(startIndex);
+        }
+
+        private void ProgressBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            player.Ctlcontrols.currentPosition = progressBar.Value;
+        }
+
+        private void Txt_search_Leave(object sender, EventArgs e)
+        {
+            txt_search.Text = "🔎 Search library...";
         }
 
         // when the recent list is changed
