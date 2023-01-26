@@ -45,6 +45,6 @@ to the tones in the song thats playing.
 ## Screen economy
 
 This is how much of the player takes on your screen leaving space for other applications to function without being blocked by 
-a music player. In the later builds, the player will manage its pressese without intruding on other applications.
+a music player. In the later builds, the player will manage its functions without intruding on other applications.
 
 ![Smallest size the app can be](https://github.com/V014/Duration/blob/master/Screenshots/economy.png)
