@@ -337,13 +337,15 @@ namespace Duration
         // hide or show search depending on size of window
         private void Home_SizeChanged(object sender, EventArgs e)
         {
-            if(this.Width < 1000)
+            if(this.Width < 800)
             {
                 panel_search.Visible = false;
+                panel_artwork.Visible = false;
             }
-            else
+            else if(this.Width > 1000)
             {
                 panel_search.Visible = true;
+                panel_artwork.Visible = true;
             }
         }
 
