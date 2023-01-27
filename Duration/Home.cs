@@ -294,7 +294,7 @@ namespace Duration
         // when user clicks the menu button
         private void btn_menu_Click(object sender, EventArgs e)
         {
-            if(panel_nav.Width == 224)
+            if(panel_nav.Width == 172)
             {
                 panel_nav.Width = 75;
                 btn_menu.Text = "";
@@ -303,18 +303,18 @@ namespace Duration
                 btn_browse.Text = "";
                 btn_library.Text = "";
                 btn_visualize.Text = "";
-                btn_extra.Text = "";
+                //btn_extra.Text = "";
                 btn_about.Text = "";
             }
             else
             {
-                panel_nav.Width = 224;
+                panel_nav.Width = 172;
                 btn_menu.Text = "Menu";
-                btn_nowPlaying.Text = "Now Playing";
+                btn_nowPlaying.Text = "Playing";
                 btn_browse.Text = "Browse";
                 btn_library.Text = "Library";
                 btn_visualize.Text = "Visualize";
-                btn_extra.Text = "Extra";
+                //btn_extra.Text = "Extra";
                 btn_about.Text = "About";
             }
         }
@@ -333,6 +333,18 @@ namespace Duration
         private void Txt_search_Leave(object sender, EventArgs e)
         {
             txt_search.Text = "🔎 Search library...";
+        }
+        // hide or show search depending on size of window
+        private void Home_SizeChanged(object sender, EventArgs e)
+        {
+            if(this.Width < 1000)
+            {
+                panel_search.Visible = false;
+            }
+            else
+            {
+                panel_search.Visible = true;
+            }
         }
 
         // when the recent list is changed

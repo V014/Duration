@@ -20,16 +20,16 @@ namespace Duration
             dataGrid.ColumnHeadersHeight = 50;
 
             dataGrid.BackgroundColor = Color.FromArgb(17,17,17);
-            dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(17, 17, 17);
-            dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.White;
+            dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
+            dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
 
-            dataGrid.RowsDefaultCellStyle.BackColor = Color.FromArgb(17, 17, 17);
-            dataGrid.RowsDefaultCellStyle.ForeColor = Color.White;
+            dataGrid.RowsDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
+            dataGrid.RowsDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
             // dataGrid.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(34, 34, 34);
 
             dataGrid.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
-            dataGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(34, 34, 34);
-            dataGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
+            dataGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
 
             dataGrid.DefaultCellStyle.Font = new Font("Roboto", 9);
             dataGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Roboto", 12);

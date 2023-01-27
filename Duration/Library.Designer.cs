@@ -43,7 +43,7 @@
             this.data_library.AllowUserToAddRows = false;
             this.data_library.AllowUserToDeleteRows = false;
             this.data_library.AllowUserToResizeRows = false;
-            this.data_library.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.data_library.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.data_library.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.data_library.ColumnHeadersHeight = 30;
             this.data_library.ContextMenuStrip = this.menuLibrary;
@@ -64,24 +64,24 @@
             this.menu_library_remove,
             this.menu_library_artwork});
             this.menuLibrary.Name = "menuLibrary";
-            this.menuLibrary.Size = new System.Drawing.Size(153, 92);
+            this.menuLibrary.Size = new System.Drawing.Size(118, 70);
             // 
             // menu_library_play
             // 
             this.menu_library_play.Name = "menu_library_play";
-            this.menu_library_play.Size = new System.Drawing.Size(152, 22);
+            this.menu_library_play.Size = new System.Drawing.Size(117, 22);
             this.menu_library_play.Text = "Play";
             // 
             // menu_library_remove
             // 
             this.menu_library_remove.Name = "menu_library_remove";
-            this.menu_library_remove.Size = new System.Drawing.Size(152, 22);
+            this.menu_library_remove.Size = new System.Drawing.Size(117, 22);
             this.menu_library_remove.Text = "Remove";
             // 
             // menu_library_artwork
             // 
             this.menu_library_artwork.Name = "menu_library_artwork";
-            this.menu_library_artwork.Size = new System.Drawing.Size(152, 22);
+            this.menu_library_artwork.Size = new System.Drawing.Size(117, 22);
             this.menu_library_artwork.Text = "Artwork";
             // 
             // Library
