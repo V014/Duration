@@ -20,8 +20,8 @@ namespace Duration
         string[] FileName, FilePath;
         public Boolean playnext = false;
         //private int OldFocusedIndex = 0;
-
         bool _playing = false;
+
         public bool isplaying
         {
             get
@@ -88,7 +88,7 @@ namespace Duration
                 playnext = false;
                 OpenFileDialog ofd = new OpenFileDialog();
                 ofd.Multiselect = true;
-                ofd.Filter = "mp3 ,wav ,wmv ,3gp, m4a|*.mp3*;*.wav*;*.3gp*;*.wmv*;*.m4a*";
+                ofd.Filter = "mp3 ,wav ,wma,3gp, m4a, flac|*.mp3*;*.wav*;*.3gp*;*.wma*;*.m4a*;*.flac*";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     // clear previous list
@@ -167,7 +167,6 @@ namespace Duration
             {
                 startIndex = startIndex + 1;
             }
-            // fuction crashing
             list_recent.SelectedIndex++;
             PlayFile(startIndex);
         }
@@ -188,11 +187,11 @@ namespace Duration
 
                 }
             }
-            
         }
         // method to see what state is the player in 
         private void axWindowsMediaPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
+            // if the player is still playing
             if(player.playState == WMPLib.WMPPlayState.wmppsPlaying)
             {
                 progressBar.Maximum = (int)player.Ctlcontrols.currentItem.duration;
@@ -200,13 +199,33 @@ namespace Duration
                 //lbl_details.Text = "Now Playing";
                 btn_play.FlatAppearance.MouseOverBackColor = Color.Crimson;
             }
+            // if the player is paused
             else if(player.playState == WMPLib.WMPPlayState.wmppsPaused)
             {
                 timer.Stop();
                 //lbl_details.Text = "On Pause";
                 btn_play.FlatAppearance.MouseOverBackColor = Color.MediumSeaGreen;
             }
-            else if(player.playState == WMPLib.WMPPlayState.wmppsStopped)
+            // if the player have finished playing a song
+            else if(player.playState == WMPLib.WMPPlayState.wmppsMediaEnded)
+            {
+                progressBar.Maximum = (int)player.Ctlcontrols.currentItem.duration;
+                timer.Start();
+                //player.Ctlcontrols.currentPlaylist.moveNext();
+                if (startIndex < list_recent.Items.Count)
+                {
+                    startIndex = startIndex + 1;
+                }
+                // fuction crashing
+                list_recent.SelectedIndex++;
+                //PlayFile(startIndex);
+                player.Ctlcontrols.play();
+                btn_play.Image = Image.FromFile(@"res/pause.png");
+                //player.Ctlcontrols.next();
+                btn_play.FlatAppearance.MouseOverBackColor = Color.Crimson;
+            }
+            // if the player is on stop
+            else if (player.playState == WMPLib.WMPPlayState.wmppsStopped)
             {
                 timer.Stop();
                 progressBar.Value = 0;
@@ -318,18 +337,18 @@ namespace Duration
                 btn_about.Text = "About";
             }
         }
-
+        // when a user double clicks a song
         private void List_recent_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             startIndex = list_recent.SelectedIndex;
             PlayFile(startIndex);
         }
-
+        // when user scrubs progress bar
         private void ProgressBar_Scroll(object sender, ScrollEventArgs e)
         {
             player.Ctlcontrols.currentPosition = progressBar.Value;
         }
-
+        // when the search box looses focus
         private void Txt_search_Leave(object sender, EventArgs e)
         {
             txt_search.Text = "🔎 Search library...";
@@ -348,7 +367,6 @@ namespace Duration
                 panel_artwork.Visible = true;
             }
         }
-
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -370,18 +388,6 @@ namespace Duration
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
                 image_mini.Image = Image.FromStream(new MemoryStream(bin));
-
-                // insert into library
-                /*
-                try
-                {
-                    con.ExecuteQuery($"INSERT INTO library (path, title, album, year, artist, genre) VALUES('{FilePath[list_recent.SelectedIndex]}','{list_recent.Text}','{file.Tag.Album}','{file.Tag.Year}','{ file.Tag.AlbumArtists[0]}','{file.Tag.Genres[0]}')");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Current list not saved!", "Assistant");
-                }
-                */
             }
             catch (Exception)
             {

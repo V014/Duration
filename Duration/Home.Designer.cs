@@ -45,15 +45,15 @@
             this.panel_search = new System.Windows.Forms.Panel();
             this.txt_search = new System.Windows.Forms.TextBox();
             this.panel_controls = new System.Windows.Forms.Panel();
+            this.panel_volume = new System.Windows.Forms.Panel();
+            this.btn_volume = new System.Windows.Forms.Button();
+            this.volume = new MetroFramework.Controls.MetroTrackBar();
+            this.lbl_volume = new System.Windows.Forms.Label();
             this.image_mini = new System.Windows.Forms.PictureBox();
             this.panel_activity = new System.Windows.Forms.Panel();
             this.btn_next = new System.Windows.Forms.Button();
             this.btn_play = new System.Windows.Forms.Button();
             this.btn_prev = new System.Windows.Forms.Button();
-            this.panel_volume = new System.Windows.Forms.Panel();
-            this.btn_volume = new System.Windows.Forms.Button();
-            this.volume = new MetroFramework.Controls.MetroTrackBar();
-            this.lbl_volume = new System.Windows.Forms.Label();
             this.panel_progress = new System.Windows.Forms.Panel();
             this.progressBar = new MetroFramework.Controls.MetroTrackBar();
             this.panel_end = new System.Windows.Forms.Panel();
@@ -76,9 +76,9 @@
             this.panel_playlist.SuspendLayout();
             this.panel_search.SuspendLayout();
             this.panel_controls.SuspendLayout();
+            this.panel_volume.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image_mini)).BeginInit();
             this.panel_activity.SuspendLayout();
-            this.panel_volume.SuspendLayout();
             this.panel_progress.SuspendLayout();
             this.panel_end.SuspendLayout();
             this.panel_start.SuspendLayout();
@@ -235,9 +235,9 @@
             this.panel_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.panel_search.Controls.Add(this.txt_search);
             this.panel_search.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_search.Location = new System.Drawing.Point(639, 5);
+            this.panel_search.Location = new System.Drawing.Point(613, 5);
             this.panel_search.Name = "panel_search";
-            this.panel_search.Size = new System.Drawing.Size(168, 40);
+            this.panel_search.Size = new System.Drawing.Size(194, 40);
             this.panel_search.TabIndex = 3;
             // 
             // txt_search
@@ -268,6 +268,56 @@
             this.panel_controls.Name = "panel_controls";
             this.panel_controls.Size = new System.Drawing.Size(984, 74);
             this.panel_controls.TabIndex = 1;
+            // 
+            // panel_volume
+            // 
+            this.panel_volume.BackColor = System.Drawing.Color.Transparent;
+            this.panel_volume.Controls.Add(this.btn_volume);
+            this.panel_volume.Controls.Add(this.volume);
+            this.panel_volume.Controls.Add(this.lbl_volume);
+            this.panel_volume.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_volume.Location = new System.Drawing.Point(716, 26);
+            this.panel_volume.Name = "panel_volume";
+            this.panel_volume.Size = new System.Drawing.Size(220, 48);
+            this.panel_volume.TabIndex = 3;
+            // 
+            // btn_volume
+            // 
+            this.btn_volume.FlatAppearance.BorderSize = 0;
+            this.btn_volume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.btn_volume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_volume.Image = ((System.Drawing.Image)(resources.GetObject("btn_volume.Image")));
+            this.btn_volume.Location = new System.Drawing.Point(7, 12);
+            this.btn_volume.Name = "btn_volume";
+            this.btn_volume.Size = new System.Drawing.Size(40, 23);
+            this.btn_volume.TabIndex = 4;
+            this.btn_volume.UseVisualStyleBackColor = true;
+            this.btn_volume.Click += new System.EventHandler(this.btn_volume_Click);
+            // 
+            // volume
+            // 
+            this.volume.BackColor = System.Drawing.Color.Transparent;
+            this.volume.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.volume.Location = new System.Drawing.Point(51, 13);
+            this.volume.Name = "volume";
+            this.volume.Size = new System.Drawing.Size(110, 23);
+            this.volume.Style = MetroFramework.MetroColorStyle.Black;
+            this.volume.TabIndex = 3;
+            this.volume.Text = "metroTrackBar1";
+            this.volume.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.volume.UseCustomBackColor = true;
+            this.volume.ValueChanged += new System.EventHandler(this.volume_ValueChanged);
+            // 
+            // lbl_volume
+            // 
+            this.lbl_volume.AutoSize = true;
+            this.lbl_volume.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbl_volume.ForeColor = System.Drawing.Color.White;
+            this.lbl_volume.Location = new System.Drawing.Point(167, 16);
+            this.lbl_volume.Name = "lbl_volume";
+            this.lbl_volume.Size = new System.Drawing.Size(36, 17);
+            this.lbl_volume.TabIndex = 2;
+            this.lbl_volume.Text = "50%";
             // 
             // image_mini
             // 
@@ -339,56 +389,6 @@
             this.btn_prev.TabIndex = 0;
             this.btn_prev.UseVisualStyleBackColor = false;
             this.btn_prev.Click += new System.EventHandler(this.btn_prev_Click);
-            // 
-            // panel_volume
-            // 
-            this.panel_volume.BackColor = System.Drawing.Color.Transparent;
-            this.panel_volume.Controls.Add(this.btn_volume);
-            this.panel_volume.Controls.Add(this.volume);
-            this.panel_volume.Controls.Add(this.lbl_volume);
-            this.panel_volume.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_volume.Location = new System.Drawing.Point(716, 26);
-            this.panel_volume.Name = "panel_volume";
-            this.panel_volume.Size = new System.Drawing.Size(220, 48);
-            this.panel_volume.TabIndex = 3;
-            // 
-            // btn_volume
-            // 
-            this.btn_volume.FlatAppearance.BorderSize = 0;
-            this.btn_volume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.btn_volume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_volume.Image = ((System.Drawing.Image)(resources.GetObject("btn_volume.Image")));
-            this.btn_volume.Location = new System.Drawing.Point(7, 12);
-            this.btn_volume.Name = "btn_volume";
-            this.btn_volume.Size = new System.Drawing.Size(40, 23);
-            this.btn_volume.TabIndex = 4;
-            this.btn_volume.UseVisualStyleBackColor = true;
-            this.btn_volume.Click += new System.EventHandler(this.btn_volume_Click);
-            // 
-            // volume
-            // 
-            this.volume.BackColor = System.Drawing.Color.Transparent;
-            this.volume.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.volume.Location = new System.Drawing.Point(51, 13);
-            this.volume.Name = "volume";
-            this.volume.Size = new System.Drawing.Size(110, 23);
-            this.volume.Style = MetroFramework.MetroColorStyle.Black;
-            this.volume.TabIndex = 3;
-            this.volume.Text = "metroTrackBar1";
-            this.volume.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.volume.UseCustomBackColor = true;
-            this.volume.ValueChanged += new System.EventHandler(this.volume_ValueChanged);
-            // 
-            // lbl_volume
-            // 
-            this.lbl_volume.AutoSize = true;
-            this.lbl_volume.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lbl_volume.ForeColor = System.Drawing.Color.White;
-            this.lbl_volume.Location = new System.Drawing.Point(167, 16);
-            this.lbl_volume.Name = "lbl_volume";
-            this.lbl_volume.Size = new System.Drawing.Size(36, 17);
-            this.lbl_volume.TabIndex = 2;
-            this.lbl_volume.Text = "50%";
             // 
             // panel_progress
             // 
@@ -626,10 +626,10 @@
             this.panel_search.ResumeLayout(false);
             this.panel_search.PerformLayout();
             this.panel_controls.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.image_mini)).EndInit();
-            this.panel_activity.ResumeLayout(false);
             this.panel_volume.ResumeLayout(false);
             this.panel_volume.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.image_mini)).EndInit();
+            this.panel_activity.ResumeLayout(false);
             this.panel_progress.ResumeLayout(false);
             this.panel_end.ResumeLayout(false);
             this.panel_end.PerformLayout();
