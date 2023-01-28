@@ -43,8 +43,7 @@ namespace Duration
             }
         }
 
-        // when user wants to add to list
-        private void Btn_add_Click(object sender, EventArgs e)
+        private void Menu_library_add_Click(object sender, EventArgs e)
         {
             try
             {
@@ -73,8 +72,9 @@ namespace Duration
                 MessageBox.Show("Feature not available!", "Assistant");
             }
         }
+
         // when selecting a track from the library
-        
+
         private void menu_library_play_Click(object sender, EventArgs e)
         {
             /*
