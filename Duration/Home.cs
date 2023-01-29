@@ -60,7 +60,7 @@ namespace Duration
             panel_nowPlaying.Show();
             //lbl_title_mini.Visible = false;
             //lbl_artist_mini.Visible = false;
-            image_mini.Visible = false;
+            //image_mini.Visible = false;
         }
         // stop music method
         public void StopPlayer()
@@ -284,14 +284,14 @@ namespace Duration
             if (player.Visible == Visible)
             {
                 player.Visible = false;
-                image_mini.Visible = false;
+                //image_mini.Visible = false;
                 //lbl_title_mini.Visible = false;
                 //lbl_artist_mini.Visible = false;
             }
             else
             {
                 player.Visible = true;
-                image_mini.Visible = true;
+                //image_mini.Visible = true;
                 //lbl_title_mini.Visible = true;
                 //lbl_artist_mini.Visible = true;
             }
@@ -306,7 +306,7 @@ namespace Duration
             library.Show();
             //lbl_title_mini.Visible = true;
             //lbl_artist_mini.Visible = true;
-            image_mini.Visible = true;
+            //image_mini.Visible = true;
             
         }
         // when user clicks the now playing button

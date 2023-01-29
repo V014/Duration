@@ -311,15 +311,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANgrXvH/AZOvUMvZKIArAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btn_volume.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAN5JREFUOE/N
-        kr0OAUEQgI+eWiIiFKL3SlrPoPNz3kVFJQqFhM4jKEREITohcuubzQ4ruY2LQnzJl9vZnZnc/kT/jTGm
-        jBMXZoeiHLbxgMbNJXjG2CaFIKGJS5xhDbVBAwd4w5VNVpgY4gWVDubdmjbYYh+l0RW7Mm9xEwU3tgWK
-        xnzqOMUexniyCQLBs8gfCxrzmWMVd1jBxCYIBFkaLFAK9yi389ZAtlB041ADKQpuYYR3VNIO8Yh6iHIT
-        r0P0YaGEY9xgC/0/0Gtc2+QQJKQ9JOHzQ/Ih+bun/EOi6AG59lXV2qWx+wAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="btn_next.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAitJREFUWEfV
@@ -360,6 +351,15 @@
         OB46SHQevHUjH52Auqy6NNVYxRO2fACBxh3FgmAH/nbpfNF7wWVbNgyJp64kXyZsOR+SjX0hERRcx21V
         Z8wP9N8DqkFhP+6qKyN2MN5L6T9o6MIldR+TRbxi0yaDxjP4BNO8JatnAttsuvQwif4bSX+apfvUUTBp
         Y36c5kehcAhAeyZmH5i8+QAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btn_volume.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAN5JREFUOE/N
+        kr0OAUEQgI+eWiIiFKL3SlrPoPNz3kVFJQqFhM4jKEREITohcuubzQ4ruY2LQnzJl9vZnZnc/kT/jTGm
+        jBMXZoeiHLbxgMbNJXjG2CaFIKGJS5xhDbVBAwd4w5VNVpgY4gWVDubdmjbYYh+l0RW7Mm9xEwU3tgWK
+        xnzqOMUexniyCQLBs8gfCxrzmWMVd1jBxCYIBFkaLFAK9yi389ZAtlB041ADKQpuYYR3VNIO8Yh6iHIT
+        r0P0YaGEY9xgC/0/0Gtc2+QQJKQ9JOHzQ/Ih+bun/EOi6AG59lXV2qWx+wAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

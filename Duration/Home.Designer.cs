@@ -127,7 +127,7 @@
             // panel_artwork
             // 
             this.panel_artwork.BackColor = System.Drawing.Color.Transparent;
-            this.panel_artwork.Controls.Add(this.player);
+            this.panel_artwork.Controls.Add(this.image_mini);
             this.panel_artwork.Controls.Add(this.lbl_genre);
             this.panel_artwork.Controls.Add(this.lbl_year);
             this.panel_artwork.Controls.Add(this.lbl_album);
@@ -142,11 +142,12 @@
             // 
             // player
             // 
+            this.player.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.player.Enabled = true;
-            this.player.Location = new System.Drawing.Point(5, 5);
+            this.player.Location = new System.Drawing.Point(5, 437);
             this.player.Name = "player";
             this.player.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("player.OcxState")));
-            this.player.Size = new System.Drawing.Size(200, 200);
+            this.player.Size = new System.Drawing.Size(162, 45);
             this.player.TabIndex = 6;
             this.player.Visible = false;
             this.player.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer_PlayStateChange);
@@ -323,10 +324,9 @@
             // image_mini
             // 
             this.image_mini.BackColor = System.Drawing.Color.Transparent;
-            this.image_mini.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.image_mini.Location = new System.Drawing.Point(5, 320);
+            this.image_mini.Location = new System.Drawing.Point(28, 331);
             this.image_mini.Name = "image_mini";
-            this.image_mini.Size = new System.Drawing.Size(162, 162);
+            this.image_mini.Size = new System.Drawing.Size(162, 98);
             this.image_mini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.image_mini.TabIndex = 4;
             this.image_mini.TabStop = false;
@@ -348,7 +348,8 @@
             this.btn_next.BackColor = System.Drawing.Color.Transparent;
             this.btn_next.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_next.FlatAppearance.BorderSize = 0;
-            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_next.ForeColor = System.Drawing.Color.White;
             this.btn_next.Image = ((System.Drawing.Image)(resources.GetObject("btn_next.Image")));
@@ -364,6 +365,7 @@
             this.btn_play.BackColor = System.Drawing.Color.Transparent;
             this.btn_play.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_play.FlatAppearance.BorderSize = 0;
+            this.btn_play.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btn_play.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
             this.btn_play.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_play.ForeColor = System.Drawing.Color.White;
@@ -380,7 +382,8 @@
             this.btn_prev.BackColor = System.Drawing.Color.Transparent;
             this.btn_prev.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_prev.FlatAppearance.BorderSize = 0;
-            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.btn_prev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_prev.ForeColor = System.Drawing.Color.White;
             this.btn_prev.Image = ((System.Drawing.Image)(resources.GetObject("btn_prev.Image")));
@@ -463,7 +466,7 @@
             // panel_nav
             // 
             this.panel_nav.BackColor = System.Drawing.Color.Transparent;
-            this.panel_nav.Controls.Add(this.image_mini);
+            this.panel_nav.Controls.Add(this.player);
             this.panel_nav.Controls.Add(this.btn_about);
             this.panel_nav.Controls.Add(this.btn_visualize);
             this.panel_nav.Controls.Add(this.btn_library);
@@ -622,6 +625,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(511, 113);
             this.Name = "Home";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Duration";
             this.Load += new System.EventHandler(this.Home_Load);
             this.SizeChanged += new System.EventHandler(this.Home_SizeChanged);

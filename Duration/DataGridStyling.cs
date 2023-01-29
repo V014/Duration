@@ -19,7 +19,7 @@ namespace Duration
             // dataGrid.RowHeadersWidth = 30;
             dataGrid.ColumnHeadersHeight = 50;
 
-            dataGrid.BackgroundColor = Color.FromArgb(17,17,17);
+            dataGrid.BackgroundColor = Color.FromArgb(34, 39, 46);
             dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
             dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
 
