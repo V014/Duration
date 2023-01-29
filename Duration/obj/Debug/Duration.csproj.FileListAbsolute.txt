@@ -56,3 +56,8 @@ C:\Users\Wanga\source\repos\Duration\Duration\bin\Debug\Interop.WMPLib.dll
 C:\Users\Wanga\source\repos\Duration\Duration\bin\Debug\AxInterop.WMPLib.dll
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.csproj.CopyComplete
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.csprojAssemblyReference.cache
+C:\Users\Wanga\source\repos\Duration\Duration\bin\Debug\NAudio.Core.dll
+C:\Users\Wanga\source\repos\Duration\Duration\bin\Debug\NAudio.WaveFormRenderer.dll
+C:\Users\Wanga\source\repos\Duration\Duration\bin\Debug\System.Drawing.Common.dll
+C:\Users\Wanga\source\repos\Duration\Duration\bin\Debug\NAudio.WaveFormRenderer.xml
+C:\Users\Wanga\source\repos\Duration\Duration\bin\Debug\System.Drawing.Common.xml

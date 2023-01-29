@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using NAudio.Wave;
 
 namespace Duration
 {
@@ -11,6 +12,9 @@ namespace Duration
         {
             InitializeComponent();
         }
+
+        //private IWavePlayer wavePlayer = new WaveOutEvent();
+        
 
         private readonly Connection con = new Connection();
         private readonly DataGridStyling styling = new DataGridStyling();

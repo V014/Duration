@@ -68,6 +68,7 @@
             this.btn_browse = new System.Windows.Forms.Button();
             this.btn_nowPlaying = new System.Windows.Forms.Button();
             this.btn_menu = new System.Windows.Forms.Button();
+            this.panel_waveForm = new System.Windows.Forms.Panel();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
             this.panel_artwork.SuspendLayout();
@@ -259,8 +260,8 @@
             // panel_controls
             // 
             this.panel_controls.BackColor = System.Drawing.Color.Transparent;
+            this.panel_controls.Controls.Add(this.panel_waveForm);
             this.panel_controls.Controls.Add(this.panel_volume);
-            this.panel_controls.Controls.Add(this.image_mini);
             this.panel_controls.Controls.Add(this.panel_activity);
             this.panel_controls.Controls.Add(this.panel_progress);
             this.panel_controls.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -276,7 +277,7 @@
             this.panel_volume.Controls.Add(this.volume);
             this.panel_volume.Controls.Add(this.lbl_volume);
             this.panel_volume.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_volume.Location = new System.Drawing.Point(716, 26);
+            this.panel_volume.Location = new System.Drawing.Point(764, 26);
             this.panel_volume.Name = "panel_volume";
             this.panel_volume.Size = new System.Drawing.Size(220, 48);
             this.panel_volume.TabIndex = 3;
@@ -322,10 +323,10 @@
             // image_mini
             // 
             this.image_mini.BackColor = System.Drawing.Color.Transparent;
-            this.image_mini.Dock = System.Windows.Forms.DockStyle.Right;
-            this.image_mini.Location = new System.Drawing.Point(936, 26);
+            this.image_mini.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.image_mini.Location = new System.Drawing.Point(5, 320);
             this.image_mini.Name = "image_mini";
-            this.image_mini.Size = new System.Drawing.Size(48, 48);
+            this.image_mini.Size = new System.Drawing.Size(162, 162);
             this.image_mini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.image_mini.TabIndex = 4;
             this.image_mini.TabStop = false;
@@ -462,6 +463,7 @@
             // panel_nav
             // 
             this.panel_nav.BackColor = System.Drawing.Color.Transparent;
+            this.panel_nav.Controls.Add(this.image_mini);
             this.panel_nav.Controls.Add(this.btn_about);
             this.panel_nav.Controls.Add(this.btn_visualize);
             this.panel_nav.Controls.Add(this.btn_library);
@@ -600,6 +602,14 @@
             this.btn_menu.UseVisualStyleBackColor = false;
             this.btn_menu.Click += new System.EventHandler(this.btn_menu_Click);
             // 
+            // panel_waveForm
+            // 
+            this.panel_waveForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_waveForm.Location = new System.Drawing.Point(224, 26);
+            this.panel_waveForm.Name = "panel_waveForm";
+            this.panel_waveForm.Size = new System.Drawing.Size(540, 48);
+            this.panel_waveForm.TabIndex = 5;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -679,6 +689,7 @@
         private System.Windows.Forms.Label lbl_artist;
         private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.PictureBox image_mini;
+        private System.Windows.Forms.Panel panel_waveForm;
     }
 }
 
