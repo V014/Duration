@@ -40,16 +40,11 @@
             this.lbl_album = new System.Windows.Forms.Label();
             this.lbl_artist = new System.Windows.Forms.Label();
             this.image_artwork = new System.Windows.Forms.PictureBox();
-            this.panel_playlist = new System.Windows.Forms.Panel();
-            this.lbl_title = new System.Windows.Forms.Label();
-            this.panel_search = new System.Windows.Forms.Panel();
-            this.txt_search = new System.Windows.Forms.TextBox();
             this.panel_controls = new System.Windows.Forms.Panel();
             this.panel_volume = new System.Windows.Forms.Panel();
             this.btn_volume = new System.Windows.Forms.Button();
             this.volume = new MetroFramework.Controls.MetroTrackBar();
             this.lbl_volume = new System.Windows.Forms.Label();
-            this.image_mini = new System.Windows.Forms.PictureBox();
             this.panel_activity = new System.Windows.Forms.Panel();
             this.btn_next = new System.Windows.Forms.Button();
             this.btn_play = new System.Windows.Forms.Button();
@@ -62,40 +57,43 @@
             this.lbl_start = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_nav = new System.Windows.Forms.Panel();
-            this.btn_about = new System.Windows.Forms.Button();
-            this.btn_visualize = new System.Windows.Forms.Button();
-            this.btn_browse = new System.Windows.Forms.Button();
-            this.btn_nowPlaying = new System.Windows.Forms.Button();
-            this.btn_menu = new System.Windows.Forms.Button();
+            this.btn_newList = new System.Windows.Forms.Button();
             this.panel_waveForm = new System.Windows.Forms.Panel();
-            this.data_library = new System.Windows.Forms.DataGridView();
             this.menu_library = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.add = new System.Windows.Forms.ToolStripMenuItem();
             this.play = new System.Windows.Forms.ToolStripMenuItem();
             this.delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.data_library = new System.Windows.Forms.DataGridView();
+            this.panel_playlist = new System.Windows.Forms.Panel();
+            this.lbl_title = new System.Windows.Forms.Label();
+            this.panel_search = new System.Windows.Forms.Panel();
+            this.txt_search = new System.Windows.Forms.TextBox();
+            this.panel_recent = new System.Windows.Forms.Panel();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
             this.panel_artwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_artwork)).BeginInit();
-            this.panel_playlist.SuspendLayout();
-            this.panel_search.SuspendLayout();
             this.panel_controls.SuspendLayout();
             this.panel_volume.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.image_mini)).BeginInit();
             this.panel_activity.SuspendLayout();
             this.panel_progress.SuspendLayout();
             this.panel_end.SuspendLayout();
             this.panel_start.SuspendLayout();
             this.panel_nav.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
             this.menu_library.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
+            this.panel_playlist.SuspendLayout();
+            this.panel_search.SuspendLayout();
+            this.panel_recent.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_main
             // 
             this.panel_main.BackColor = System.Drawing.Color.Transparent;
             this.panel_main.Controls.Add(this.panel_nowPlaying);
+            this.panel_main.Controls.Add(this.panel_recent);
+            this.panel_main.Controls.Add(this.panel_playlist);
             this.panel_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_main.Location = new System.Drawing.Point(172, 0);
             this.panel_main.Name = "panel_main";
@@ -106,27 +104,24 @@
             // 
             this.panel_nowPlaying.BackColor = System.Drawing.Color.Transparent;
             this.panel_nowPlaying.Controls.Add(this.data_library);
-            this.panel_nowPlaying.Controls.Add(this.list_recent);
-            this.panel_nowPlaying.Controls.Add(this.panel_artwork);
-            this.panel_nowPlaying.Controls.Add(this.panel_playlist);
             this.panel_nowPlaying.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_nowPlaying.Location = new System.Drawing.Point(0, 0);
+            this.panel_nowPlaying.Location = new System.Drawing.Point(0, 50);
             this.panel_nowPlaying.Name = "panel_nowPlaying";
-            this.panel_nowPlaying.Size = new System.Drawing.Size(812, 487);
+            this.panel_nowPlaying.Size = new System.Drawing.Size(579, 437);
             this.panel_nowPlaying.TabIndex = 6;
             // 
             // list_recent
             // 
-            this.list_recent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.list_recent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
             this.list_recent.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.list_recent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.list_recent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.list_recent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.list_recent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.list_recent.FormattingEnabled = true;
             this.list_recent.ItemHeight = 20;
-            this.list_recent.Location = new System.Drawing.Point(210, 50);
+            this.list_recent.Location = new System.Drawing.Point(5, 5);
             this.list_recent.Name = "list_recent";
-            this.list_recent.Size = new System.Drawing.Size(602, 200);
+            this.list_recent.Size = new System.Drawing.Size(223, 427);
             this.list_recent.TabIndex = 0;
             this.list_recent.SelectedIndexChanged += new System.EventHandler(this.list_recent_SelectedIndexChanged);
             this.list_recent.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_recent_MouseDoubleClick);
@@ -134,27 +129,26 @@
             // panel_artwork
             // 
             this.panel_artwork.BackColor = System.Drawing.Color.Transparent;
-            this.panel_artwork.Controls.Add(this.image_mini);
             this.panel_artwork.Controls.Add(this.lbl_genre);
             this.panel_artwork.Controls.Add(this.lbl_year);
             this.panel_artwork.Controls.Add(this.lbl_album);
             this.panel_artwork.Controls.Add(this.lbl_artist);
             this.panel_artwork.Controls.Add(this.image_artwork);
-            this.panel_artwork.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel_artwork.Location = new System.Drawing.Point(0, 50);
+            this.panel_artwork.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel_artwork.Location = new System.Drawing.Point(5, 5);
             this.panel_artwork.Name = "panel_artwork";
             this.panel_artwork.Padding = new System.Windows.Forms.Padding(5);
-            this.panel_artwork.Size = new System.Drawing.Size(210, 437);
+            this.panel_artwork.Size = new System.Drawing.Size(162, 271);
             this.panel_artwork.TabIndex = 5;
             // 
             // player
             // 
-            this.player.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.player.Dock = System.Windows.Forms.DockStyle.Right;
             this.player.Enabled = true;
-            this.player.Location = new System.Drawing.Point(5, 437);
+            this.player.Location = new System.Drawing.Point(573, 5);
             this.player.Name = "player";
             this.player.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("player.OcxState")));
-            this.player.Size = new System.Drawing.Size(162, 45);
+            this.player.Size = new System.Drawing.Size(40, 40);
             this.player.TabIndex = 6;
             this.player.Visible = false;
             this.player.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer_PlayStateChange);
@@ -164,7 +158,7 @@
             this.lbl_genre.AutoSize = true;
             this.lbl_genre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbl_genre.ForeColor = System.Drawing.Color.Gray;
-            this.lbl_genre.Location = new System.Drawing.Point(11, 301);
+            this.lbl_genre.Location = new System.Drawing.Point(10, 245);
             this.lbl_genre.Name = "lbl_genre";
             this.lbl_genre.Size = new System.Drawing.Size(50, 15);
             this.lbl_genre.TabIndex = 7;
@@ -175,7 +169,7 @@
             this.lbl_year.AutoSize = true;
             this.lbl_year.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbl_year.ForeColor = System.Drawing.Color.Gray;
-            this.lbl_year.Location = new System.Drawing.Point(10, 277);
+            this.lbl_year.Location = new System.Drawing.Point(9, 221);
             this.lbl_year.Name = "lbl_year";
             this.lbl_year.Size = new System.Drawing.Size(41, 15);
             this.lbl_year.TabIndex = 7;
@@ -186,7 +180,7 @@
             this.lbl_album.AutoSize = true;
             this.lbl_album.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lbl_album.ForeColor = System.Drawing.Color.Gray;
-            this.lbl_album.Location = new System.Drawing.Point(10, 255);
+            this.lbl_album.Location = new System.Drawing.Point(9, 199);
             this.lbl_album.Name = "lbl_album";
             this.lbl_album.Size = new System.Drawing.Size(51, 15);
             this.lbl_album.TabIndex = 7;
@@ -197,7 +191,7 @@
             this.lbl_artist.AutoSize = true;
             this.lbl_artist.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_artist.ForeColor = System.Drawing.Color.White;
-            this.lbl_artist.Location = new System.Drawing.Point(9, 225);
+            this.lbl_artist.Location = new System.Drawing.Point(8, 170);
             this.lbl_artist.Name = "lbl_artist";
             this.lbl_artist.Size = new System.Drawing.Size(67, 20);
             this.lbl_artist.TabIndex = 7;
@@ -210,60 +204,10 @@
             this.image_artwork.Image = ((System.Drawing.Image)(resources.GetObject("image_artwork.Image")));
             this.image_artwork.Location = new System.Drawing.Point(5, 5);
             this.image_artwork.Name = "image_artwork";
-            this.image_artwork.Size = new System.Drawing.Size(200, 200);
-            this.image_artwork.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.image_artwork.Size = new System.Drawing.Size(152, 152);
+            this.image_artwork.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.image_artwork.TabIndex = 1;
             this.image_artwork.TabStop = false;
-            // 
-            // panel_playlist
-            // 
-            this.panel_playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.panel_playlist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel_playlist.Controls.Add(this.lbl_title);
-            this.panel_playlist.Controls.Add(this.panel_search);
-            this.panel_playlist.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_playlist.Location = new System.Drawing.Point(0, 0);
-            this.panel_playlist.Name = "panel_playlist";
-            this.panel_playlist.Padding = new System.Windows.Forms.Padding(5);
-            this.panel_playlist.Size = new System.Drawing.Size(812, 50);
-            this.panel_playlist.TabIndex = 2;
-            // 
-            // lbl_title
-            // 
-            this.lbl_title.AutoSize = true;
-            this.lbl_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbl_title.ForeColor = System.Drawing.Color.Gray;
-            this.lbl_title.Location = new System.Drawing.Point(9, 16);
-            this.lbl_title.Name = "lbl_title";
-            this.lbl_title.Size = new System.Drawing.Size(42, 20);
-            this.lbl_title.TabIndex = 7;
-            this.lbl_title.Text = "Title ";
-            // 
-            // panel_search
-            // 
-            this.panel_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.panel_search.Controls.Add(this.txt_search);
-            this.panel_search.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_search.Location = new System.Drawing.Point(613, 5);
-            this.panel_search.Name = "panel_search";
-            this.panel_search.Size = new System.Drawing.Size(194, 40);
-            this.panel_search.TabIndex = 3;
-            // 
-            // txt_search
-            // 
-            this.txt_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txt_search.ForeColor = System.Drawing.Color.Gray;
-            this.txt_search.Location = new System.Drawing.Point(8, 11);
-            this.txt_search.Name = "txt_search";
-            this.txt_search.Size = new System.Drawing.Size(161, 19);
-            this.txt_search.TabIndex = 4;
-            this.txt_search.Text = "🔎 Search library...";
-            this.txt_search.WordWrap = false;
-            this.txt_search.Click += new System.EventHandler(this.txt_search_Click);
-            this.txt_search.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_search_KeyPress);
-            this.txt_search.Leave += new System.EventHandler(this.Txt_search_Leave);
             // 
             // panel_controls
             // 
@@ -327,17 +271,6 @@
             this.lbl_volume.Size = new System.Drawing.Size(36, 17);
             this.lbl_volume.TabIndex = 2;
             this.lbl_volume.Text = "50%";
-            // 
-            // image_mini
-            // 
-            this.image_mini.BackColor = System.Drawing.Color.Transparent;
-            this.image_mini.Location = new System.Drawing.Point(28, 331);
-            this.image_mini.Name = "image_mini";
-            this.image_mini.Size = new System.Drawing.Size(162, 98);
-            this.image_mini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.image_mini.TabIndex = 4;
-            this.image_mini.TabStop = false;
-            this.image_mini.Visible = false;
             // 
             // panel_activity
             // 
@@ -473,12 +406,8 @@
             // panel_nav
             // 
             this.panel_nav.BackColor = System.Drawing.Color.Transparent;
-            this.panel_nav.Controls.Add(this.player);
-            this.panel_nav.Controls.Add(this.btn_about);
-            this.panel_nav.Controls.Add(this.btn_visualize);
-            this.panel_nav.Controls.Add(this.btn_browse);
-            this.panel_nav.Controls.Add(this.btn_nowPlaying);
-            this.panel_nav.Controls.Add(this.btn_menu);
+            this.panel_nav.Controls.Add(this.panel_artwork);
+            this.panel_nav.Controls.Add(this.btn_newList);
             this.panel_nav.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_nav.Location = new System.Drawing.Point(0, 0);
             this.panel_nav.Name = "panel_nav";
@@ -486,109 +415,26 @@
             this.panel_nav.Size = new System.Drawing.Size(172, 487);
             this.panel_nav.TabIndex = 5;
             // 
-            // btn_about
+            // btn_newList
             // 
-            this.btn_about.BackColor = System.Drawing.Color.Transparent;
-            this.btn_about.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_about.FlatAppearance.BorderSize = 0;
-            this.btn_about.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.btn_about.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_about.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btn_about.ForeColor = System.Drawing.Color.White;
-            this.btn_about.Image = ((System.Drawing.Image)(resources.GetObject("btn_about.Image")));
-            this.btn_about.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_about.Location = new System.Drawing.Point(5, 185);
-            this.btn_about.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_about.Name = "btn_about";
-            this.btn_about.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_about.Size = new System.Drawing.Size(162, 45);
-            this.btn_about.TabIndex = 9;
-            this.btn_about.Text = "About";
-            this.btn_about.UseVisualStyleBackColor = false;
-            // 
-            // btn_visualize
-            // 
-            this.btn_visualize.BackColor = System.Drawing.Color.Transparent;
-            this.btn_visualize.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_visualize.FlatAppearance.BorderSize = 0;
-            this.btn_visualize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.btn_visualize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_visualize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btn_visualize.ForeColor = System.Drawing.Color.White;
-            this.btn_visualize.Image = ((System.Drawing.Image)(resources.GetObject("btn_visualize.Image")));
-            this.btn_visualize.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_visualize.Location = new System.Drawing.Point(5, 140);
-            this.btn_visualize.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_visualize.Name = "btn_visualize";
-            this.btn_visualize.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_visualize.Size = new System.Drawing.Size(162, 45);
-            this.btn_visualize.TabIndex = 6;
-            this.btn_visualize.Text = "Visualize";
-            this.btn_visualize.UseVisualStyleBackColor = false;
-            this.btn_visualize.Click += new System.EventHandler(this.btn_visualize_Click);
-            // 
-            // btn_browse
-            // 
-            this.btn_browse.BackColor = System.Drawing.Color.Transparent;
-            this.btn_browse.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_browse.FlatAppearance.BorderSize = 0;
-            this.btn_browse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.btn_browse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_browse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btn_browse.ForeColor = System.Drawing.Color.White;
-            this.btn_browse.Image = ((System.Drawing.Image)(resources.GetObject("btn_browse.Image")));
-            this.btn_browse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_browse.Location = new System.Drawing.Point(5, 95);
-            this.btn_browse.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_browse.Name = "btn_browse";
-            this.btn_browse.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_browse.Size = new System.Drawing.Size(162, 45);
-            this.btn_browse.TabIndex = 5;
-            this.btn_browse.Text = "Browse";
-            this.btn_browse.UseVisualStyleBackColor = false;
-            this.btn_browse.Click += new System.EventHandler(this.btn_browse_Click);
-            // 
-            // btn_nowPlaying
-            // 
-            this.btn_nowPlaying.BackColor = System.Drawing.Color.Transparent;
-            this.btn_nowPlaying.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_nowPlaying.FlatAppearance.BorderSize = 0;
-            this.btn_nowPlaying.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.btn_nowPlaying.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_nowPlaying.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btn_nowPlaying.ForeColor = System.Drawing.Color.White;
-            this.btn_nowPlaying.Image = ((System.Drawing.Image)(resources.GetObject("btn_nowPlaying.Image")));
-            this.btn_nowPlaying.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_nowPlaying.Location = new System.Drawing.Point(5, 50);
-            this.btn_nowPlaying.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_nowPlaying.Name = "btn_nowPlaying";
-            this.btn_nowPlaying.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_nowPlaying.Size = new System.Drawing.Size(162, 45);
-            this.btn_nowPlaying.TabIndex = 10;
-            this.btn_nowPlaying.Text = "Playing";
-            this.btn_nowPlaying.UseVisualStyleBackColor = false;
-            this.btn_nowPlaying.Click += new System.EventHandler(this.btn_nowPlaying_Click);
-            // 
-            // btn_menu
-            // 
-            this.btn_menu.BackColor = System.Drawing.Color.Transparent;
-            this.btn_menu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_menu.FlatAppearance.BorderSize = 0;
-            this.btn_menu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.btn_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_menu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btn_menu.ForeColor = System.Drawing.Color.White;
-            this.btn_menu.Image = ((System.Drawing.Image)(resources.GetObject("btn_menu.Image")));
-            this.btn_menu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_menu.Location = new System.Drawing.Point(5, 5);
-            this.btn_menu.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_menu.Name = "btn_menu";
-            this.btn_menu.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_menu.Size = new System.Drawing.Size(162, 45);
-            this.btn_menu.TabIndex = 11;
-            this.btn_menu.Text = "Menu";
-            this.btn_menu.UseVisualStyleBackColor = false;
-            this.btn_menu.Click += new System.EventHandler(this.btn_menu_Click);
+            this.btn_newList.BackColor = System.Drawing.Color.Transparent;
+            this.btn_newList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_newList.FlatAppearance.BorderSize = 0;
+            this.btn_newList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.btn_newList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_newList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btn_newList.ForeColor = System.Drawing.Color.White;
+            this.btn_newList.Image = ((System.Drawing.Image)(resources.GetObject("btn_newList.Image")));
+            this.btn_newList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_newList.Location = new System.Drawing.Point(5, 437);
+            this.btn_newList.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_newList.Name = "btn_newList";
+            this.btn_newList.Padding = new System.Windows.Forms.Padding(10);
+            this.btn_newList.Size = new System.Drawing.Size(162, 45);
+            this.btn_newList.TabIndex = 5;
+            this.btn_newList.Text = "New Playlist";
+            this.btn_newList.UseVisualStyleBackColor = false;
+            this.btn_newList.Click += new System.EventHandler(this.btn_browse_Click);
             // 
             // panel_waveForm
             // 
@@ -597,26 +443,6 @@
             this.panel_waveForm.Name = "panel_waveForm";
             this.panel_waveForm.Size = new System.Drawing.Size(540, 48);
             this.panel_waveForm.TabIndex = 5;
-            // 
-            // data_library
-            // 
-            this.data_library.AllowUserToAddRows = false;
-            this.data_library.AllowUserToDeleteRows = false;
-            this.data_library.AllowUserToResizeRows = false;
-            this.data_library.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.data_library.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.data_library.ColumnHeadersHeight = 30;
-            this.data_library.ContextMenuStrip = this.menu_library;
-            this.data_library.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.data_library.Location = new System.Drawing.Point(210, 250);
-            this.data_library.Name = "data_library";
-            this.data_library.ReadOnly = true;
-            this.data_library.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.data_library.Size = new System.Drawing.Size(602, 237);
-            this.data_library.StandardTab = true;
-            this.data_library.TabIndex = 6;
-            this.data_library.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_library_CellClick);
-            this.data_library.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Data_library_CellContentDoubleClick);
             // 
             // menu_library
             // 
@@ -630,22 +456,109 @@
             // add
             // 
             this.add.Name = "add";
-            this.add.Size = new System.Drawing.Size(180, 22);
+            this.add.Size = new System.Drawing.Size(107, 22);
             this.add.Text = "Add";
             this.add.Click += new System.EventHandler(this.Menu_library_add_Click);
             // 
             // play
             // 
             this.play.Name = "play";
-            this.play.Size = new System.Drawing.Size(180, 22);
+            this.play.Size = new System.Drawing.Size(107, 22);
             this.play.Text = "Play";
             this.play.Click += new System.EventHandler(this.menu_library_play_Click);
             // 
             // delete
             // 
             this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(180, 22);
+            this.delete.Size = new System.Drawing.Size(107, 22);
             this.delete.Text = "Delete";
+            // 
+            // data_library
+            // 
+            this.data_library.AllowUserToAddRows = false;
+            this.data_library.AllowUserToDeleteRows = false;
+            this.data_library.AllowUserToOrderColumns = true;
+            this.data_library.AllowUserToResizeRows = false;
+            this.data_library.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.data_library.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.data_library.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.data_library.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.data_library.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.data_library.ColumnHeadersHeight = 30;
+            this.data_library.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.data_library.ContextMenuStrip = this.menu_library;
+            this.data_library.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.data_library.EnableHeadersVisualStyles = false;
+            this.data_library.Location = new System.Drawing.Point(0, 0);
+            this.data_library.Name = "data_library";
+            this.data_library.ReadOnly = true;
+            this.data_library.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.data_library.RowHeadersVisible = false;
+            this.data_library.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.data_library.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.data_library.Size = new System.Drawing.Size(579, 437);
+            this.data_library.StandardTab = true;
+            this.data_library.TabIndex = 7;
+            this.data_library.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_library_CellClick);
+            this.data_library.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Data_library_CellContentDoubleClick);
+            // 
+            // panel_playlist
+            // 
+            this.panel_playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.panel_playlist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel_playlist.Controls.Add(this.player);
+            this.panel_playlist.Controls.Add(this.lbl_title);
+            this.panel_playlist.Controls.Add(this.panel_search);
+            this.panel_playlist.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel_playlist.Location = new System.Drawing.Point(0, 0);
+            this.panel_playlist.Name = "panel_playlist";
+            this.panel_playlist.Padding = new System.Windows.Forms.Padding(5);
+            this.panel_playlist.Size = new System.Drawing.Size(812, 50);
+            this.panel_playlist.TabIndex = 7;
+            // 
+            // lbl_title
+            // 
+            this.lbl_title.AutoSize = true;
+            this.lbl_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbl_title.ForeColor = System.Drawing.Color.Gray;
+            this.lbl_title.Location = new System.Drawing.Point(9, 16);
+            this.lbl_title.Name = "lbl_title";
+            this.lbl_title.Size = new System.Drawing.Size(42, 20);
+            this.lbl_title.TabIndex = 7;
+            this.lbl_title.Text = "Title ";
+            // 
+            // panel_search
+            // 
+            this.panel_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.panel_search.Controls.Add(this.txt_search);
+            this.panel_search.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_search.Location = new System.Drawing.Point(613, 5);
+            this.panel_search.Name = "panel_search";
+            this.panel_search.Size = new System.Drawing.Size(194, 40);
+            this.panel_search.TabIndex = 3;
+            // 
+            // txt_search
+            // 
+            this.txt_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txt_search.ForeColor = System.Drawing.Color.Gray;
+            this.txt_search.Location = new System.Drawing.Point(8, 11);
+            this.txt_search.Name = "txt_search";
+            this.txt_search.Size = new System.Drawing.Size(161, 19);
+            this.txt_search.TabIndex = 4;
+            this.txt_search.Text = "🔎 Search library...";
+            this.txt_search.WordWrap = false;
+            // 
+            // panel_recent
+            // 
+            this.panel_recent.Controls.Add(this.list_recent);
+            this.panel_recent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_recent.Location = new System.Drawing.Point(579, 50);
+            this.panel_recent.Name = "panel_recent";
+            this.panel_recent.Padding = new System.Windows.Forms.Padding(5);
+            this.panel_recent.Size = new System.Drawing.Size(233, 437);
+            this.panel_recent.TabIndex = 8;
             // 
             // Home
             // 
@@ -669,14 +582,9 @@
             this.panel_artwork.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_artwork)).EndInit();
-            this.panel_playlist.ResumeLayout(false);
-            this.panel_playlist.PerformLayout();
-            this.panel_search.ResumeLayout(false);
-            this.panel_search.PerformLayout();
             this.panel_controls.ResumeLayout(false);
             this.panel_volume.ResumeLayout(false);
             this.panel_volume.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.image_mini)).EndInit();
             this.panel_activity.ResumeLayout(false);
             this.panel_progress.ResumeLayout(false);
             this.panel_end.ResumeLayout(false);
@@ -684,8 +592,13 @@
             this.panel_start.ResumeLayout(false);
             this.panel_start.PerformLayout();
             this.panel_nav.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.data_library)).EndInit();
             this.menu_library.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.data_library)).EndInit();
+            this.panel_playlist.ResumeLayout(false);
+            this.panel_playlist.PerformLayout();
+            this.panel_search.ResumeLayout(false);
+            this.panel_search.PerformLayout();
+            this.panel_recent.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -702,38 +615,34 @@
         private System.Windows.Forms.Label lbl_volume;
         private System.Windows.Forms.Button btn_volume;
         private System.Windows.Forms.Panel panel_nav;
-        private System.Windows.Forms.Button btn_browse;
-        private System.Windows.Forms.Panel panel_playlist;
+        private System.Windows.Forms.Button btn_newList;
         private System.Windows.Forms.Panel panel_start;
         private System.Windows.Forms.Label lbl_start;
         private System.Windows.Forms.Panel panel_end;
         private System.Windows.Forms.Label lbl_end;
-        private System.Windows.Forms.Button btn_visualize;
-        private System.Windows.Forms.Button btn_about;
-        private System.Windows.Forms.Button btn_nowPlaying;
         public System.Windows.Forms.ListBox list_recent;
         public MetroFramework.Controls.MetroTrackBar progressBar;
         public System.Windows.Forms.Button btn_play;
         public System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Panel panel_search;
-        private System.Windows.Forms.TextBox txt_search;
         private System.Windows.Forms.Panel panel_artwork;
         private System.Windows.Forms.PictureBox image_artwork;
         public System.Windows.Forms.Panel panel_nowPlaying;
         public AxWMPLib.AxWindowsMediaPlayer player;
-        private System.Windows.Forms.Button btn_menu;
         private System.Windows.Forms.Label lbl_genre;
         private System.Windows.Forms.Label lbl_year;
         private System.Windows.Forms.Label lbl_album;
         private System.Windows.Forms.Label lbl_artist;
-        private System.Windows.Forms.Label lbl_title;
-        private System.Windows.Forms.PictureBox image_mini;
         private System.Windows.Forms.Panel panel_waveForm;
-        public System.Windows.Forms.DataGridView data_library;
         private MetroFramework.Controls.MetroContextMenu menu_library;
         private System.Windows.Forms.ToolStripMenuItem add;
         private System.Windows.Forms.ToolStripMenuItem play;
         private System.Windows.Forms.ToolStripMenuItem delete;
+        private System.Windows.Forms.DataGridView data_library;
+        private System.Windows.Forms.Panel panel_recent;
+        private System.Windows.Forms.Panel panel_playlist;
+        private System.Windows.Forms.Label lbl_title;
+        private System.Windows.Forms.Panel panel_search;
+        private System.Windows.Forms.TextBox txt_search;
     }
 }
 

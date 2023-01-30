@@ -8,24 +8,13 @@ namespace Duration
         // styling of the datagrid
         public void styleDataGrid(DataGridView dataGrid)
         {
-            dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGrid.BorderStyle = BorderStyle.None;
-            dataGrid.EnableHeadersVisualStyles = false;
-            dataGrid.RowHeadersVisible = false;
-            dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGrid.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            dataGrid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            // dataGrid.RowHeadersWidth = 30;
-            dataGrid.ColumnHeadersHeight = 50;
-
             dataGrid.BackgroundColor = Color.FromArgb(34, 39, 46);
             dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
             dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
 
             dataGrid.RowsDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
             dataGrid.RowsDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
-            // dataGrid.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(34, 34, 34);
+            dataGrid.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(34, 39, 46);
 
             dataGrid.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
             dataGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);

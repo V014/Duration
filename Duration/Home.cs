@@ -53,34 +53,24 @@ namespace Duration
             playnext = false;
             StopPlayer();
         }
-        void loadNowPlaying()
-        {
-            panel_main.Controls.Clear();
-            this.panel_main.Controls.Add(panel_nowPlaying);
-            panel_nowPlaying.Dock = DockStyle.Fill;
-            panel_nowPlaying.Show();
-            //lbl_title_mini.Visible = false;
-            //lbl_artist_mini.Visible = false;
-            //image_mini.Visible = false;
-        }
         // stop music method
         public void StopPlayer()
         {
             player.Ctlcontrols.stop();
         }
         // play file method
-        public void PlayFile(int PLayListIndex)
+        public void PlayFile(int PlayListIndex)
         {
             if(list_recent.Items.Count <= 0)
             {
                 return;
             }
-            if(PLayListIndex < 0)
+            if(PlayListIndex < 0)
             {
                 return;
             }
             player.settings.autoStart = true;
-            player.URL = FilePath[PLayListIndex];
+            player.URL = FilePath[PlayListIndex];
             player.Ctlcontrols.next();
             player.Ctlcontrols.play();
         }
@@ -123,9 +113,10 @@ namespace Duration
         // pull data from database
         public void load_Library(DataGridView datagrid)
         {
-            con.LoadData("SELECT id, path, title, artist, album, year, genre, date FROM library", datagrid);
+            con.LoadData("SELECT id, path, title, artist, album, genre, year FROM library", datagrid);
             datagrid.Columns[0].Visible = false;
             datagrid.Columns[1].Visible = false;
+            datagrid.Columns[2].Width = 250;
         }
         // hold current selected song
         private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -140,7 +131,7 @@ namespace Duration
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to select!");
+               // do nothing 
             }
         }
         // when user wants to add to library
@@ -182,17 +173,10 @@ namespace Duration
             playnext = false;
             // retrieve file path
             var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
+            player.URL = FilePath;
+            player.Ctlcontrols.play();
 
-            TagLib.File file = TagLib.File.Create(FilePath);
-            list_recent.Items.Add(file.Tag.Title);
-            this.Refresh();
-            
-            // auto play music
-            startIndex = 0;
-            PlayFile(0);
-            list_recent.SelectedIndex = 0;
             btn_play.Image = Image.FromFile(@"res/pause.png");
-
             /*
             // search for the new song
             TagLib.File file = TagLib.File.Create(FilePath);
@@ -296,24 +280,6 @@ namespace Duration
                 //lbl_details.Text = "On Pause";
                 btn_play.FlatAppearance.MouseOverBackColor = Color.MediumSeaGreen;
             }
-            // if the player have finished playing a song
-            else if(player.playState == WMPLib.WMPPlayState.wmppsMediaEnded)
-            {
-                progressBar.Maximum = (int)player.Ctlcontrols.currentItem.duration;
-                timer.Start();
-                //player.Ctlcontrols.currentPlaylist.moveNext();
-                if (startIndex < list_recent.Items.Count)
-                {
-                    startIndex = startIndex + 1;
-                }
-                // fuction crashing
-                list_recent.SelectedIndex++;
-                //PlayFile(startIndex);
-                player.Ctlcontrols.play();
-                btn_play.Image = Image.FromFile(@"res/pause.png");
-                //player.Ctlcontrols.next();
-                btn_play.FlatAppearance.MouseOverBackColor = Color.Crimson;
-            }
             // if the player is on stop
             else if (player.playState == WMPLib.WMPPlayState.wmppsStopped)
             {
@@ -352,73 +318,10 @@ namespace Duration
                 list_recent.SelectedIndex = index;
             }
         }
-        // when user hides the recent list
-        private void btn_mini_recent_Click(object sender, EventArgs e)
-        {
-            if(list_recent.Visible == true)
-            {
-                list_recent.Visible = false;
-            }
-            else
-            {
-                list_recent.Visible = true;
-            }
-        }
-        // when user clicks the visulize button
-        private void btn_visualize_Click(object sender, EventArgs e)
-        {
-            if (player.Visible == Visible)
-            {
-                player.Visible = false;
-                //image_mini.Visible = false;
-                //lbl_title_mini.Visible = false;
-                //lbl_artist_mini.Visible = false;
-            }
-            else
-            {
-                player.Visible = true;
-                //image_mini.Visible = true;
-                //lbl_title_mini.Visible = true;
-                //lbl_artist_mini.Visible = true;
-            }
-        }
-        // when user clicks the library button
-
-        // when user clicks the now playing button
-        private void btn_nowPlaying_Click(object sender, EventArgs e)
-        {
-            loadNowPlaying();
-        }
-        // when user clicks the menu button
-        private void btn_menu_Click(object sender, EventArgs e)
-        {
-            if(panel_nav.Width == 172)
-            {
-                panel_nav.Width = 75;
-                btn_menu.Text = "";
-                btn_nowPlaying.Text = "";
-                btn_browse.Text = "";
-                btn_browse.Text = "";
-                btn_visualize.Text = "";
-                //btn_extra.Text = "";
-                btn_about.Text = "";
-            }
-            else
-            {
-                panel_nav.Width = 172;
-                btn_menu.Text = "Menu";
-                btn_nowPlaying.Text = "Playing";
-                btn_browse.Text = "Browse";
-                btn_visualize.Text = "Visualize";
-                //btn_extra.Text = "Extra";
-                btn_about.Text = "About";
-            }
-        }
         // when a user double clicks a song
         private void List_recent_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            startIndex = list_recent.SelectedIndex;
-            PlayFile(startIndex);
+            PlayFile(list_recent.SelectedIndex);
         }
         // when user scrubs progress bar
         private void ProgressBar_Scroll(object sender, ScrollEventArgs e)
@@ -436,12 +339,17 @@ namespace Duration
             if(this.Width < 800)
             {
                 panel_search.Visible = false;
-                panel_artwork.Visible = false;
+            }
+            if(this.Width < 600)
+            {
+                panel_nav.Visible = false;
+                player.Visible = true;
             }
             else if(this.Width > 1000)
             {
                 panel_search.Visible = true;
-                panel_artwork.Visible = true;
+                panel_recent.Visible = true;
+                panel_nav.Visible = true;
             }
         }
 
@@ -469,8 +377,10 @@ namespace Duration
 
                 var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
+
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
-                image_mini.Image = Image.FromStream(new MemoryStream(bin));
+                //image_mini.Image = Image.FromStream(new MemoryStream(bin));
+
             }
             catch (Exception)
             {
