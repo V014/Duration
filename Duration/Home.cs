@@ -128,6 +128,24 @@ namespace Duration
                 var path = con.ReadString($"SELECT path FROM library WHERE id = {int.Parse(row.Cells[0].Value.ToString())}");
                 // pass id to database
                 con.ExecuteQuery($"UPDATE session SET selectedFilePath = '{path}' WHERE id = 1");
+
+                // obtain audio tag details
+                TagLib.File file = TagLib.File.Create(path);
+
+                lbl_title.Text = list_recent.Text;
+                lbl_genre.Text = file.Tag.Genres[0];
+                lbl_album.Text = file.Tag.Album;
+                lbl_year.Text = file.Tag.Year.ToString();
+                lbl_artist.Text = file.Tag.AlbumArtists[0];
+
+                //lbl_title_mini.Text = list_recent.Text;
+                //lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
+
+                var i = TagLib.File.Create(path);
+                var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
+
+                image_artwork.Image = Image.FromStream(new MemoryStream(bin));
+
             }
             catch (Exception)
             {
