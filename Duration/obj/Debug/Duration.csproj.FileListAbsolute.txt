@@ -40,7 +40,6 @@ C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Interop.WMPLib.dll
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\AxInterop.WMPLib.dll
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.csproj.ResolveComReference.cache
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.Home.resources
-C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.Library.resources
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.Properties.Resources.resources
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.csproj.GenerateResource.cache
 C:\Users\Wanga\source\repos\Duration\Duration\obj\Debug\Duration.csproj.CoreCompileInputs.cache

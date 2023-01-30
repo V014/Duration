@@ -64,11 +64,15 @@
             this.panel_nav = new System.Windows.Forms.Panel();
             this.btn_about = new System.Windows.Forms.Button();
             this.btn_visualize = new System.Windows.Forms.Button();
-            this.btn_library = new System.Windows.Forms.Button();
             this.btn_browse = new System.Windows.Forms.Button();
             this.btn_nowPlaying = new System.Windows.Forms.Button();
             this.btn_menu = new System.Windows.Forms.Button();
             this.panel_waveForm = new System.Windows.Forms.Panel();
+            this.data_library = new System.Windows.Forms.DataGridView();
+            this.menu_library = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.add = new System.Windows.Forms.ToolStripMenuItem();
+            this.play = new System.Windows.Forms.ToolStripMenuItem();
+            this.delete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
             this.panel_artwork.SuspendLayout();
@@ -84,6 +88,8 @@
             this.panel_end.SuspendLayout();
             this.panel_start.SuspendLayout();
             this.panel_nav.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
+            this.menu_library.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_main
@@ -99,6 +105,7 @@
             // panel_nowPlaying
             // 
             this.panel_nowPlaying.BackColor = System.Drawing.Color.Transparent;
+            this.panel_nowPlaying.Controls.Add(this.data_library);
             this.panel_nowPlaying.Controls.Add(this.list_recent);
             this.panel_nowPlaying.Controls.Add(this.panel_artwork);
             this.panel_nowPlaying.Controls.Add(this.panel_playlist);
@@ -112,14 +119,14 @@
             // 
             this.list_recent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
             this.list_recent.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.list_recent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.list_recent.Dock = System.Windows.Forms.DockStyle.Top;
             this.list_recent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.list_recent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.list_recent.FormattingEnabled = true;
             this.list_recent.ItemHeight = 20;
             this.list_recent.Location = new System.Drawing.Point(210, 50);
             this.list_recent.Name = "list_recent";
-            this.list_recent.Size = new System.Drawing.Size(602, 437);
+            this.list_recent.Size = new System.Drawing.Size(602, 200);
             this.list_recent.TabIndex = 0;
             this.list_recent.SelectedIndexChanged += new System.EventHandler(this.list_recent_SelectedIndexChanged);
             this.list_recent.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_recent_MouseDoubleClick);
@@ -469,7 +476,6 @@
             this.panel_nav.Controls.Add(this.player);
             this.panel_nav.Controls.Add(this.btn_about);
             this.panel_nav.Controls.Add(this.btn_visualize);
-            this.panel_nav.Controls.Add(this.btn_library);
             this.panel_nav.Controls.Add(this.btn_browse);
             this.panel_nav.Controls.Add(this.btn_nowPlaying);
             this.panel_nav.Controls.Add(this.btn_menu);
@@ -491,7 +497,7 @@
             this.btn_about.ForeColor = System.Drawing.Color.White;
             this.btn_about.Image = ((System.Drawing.Image)(resources.GetObject("btn_about.Image")));
             this.btn_about.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_about.Location = new System.Drawing.Point(5, 230);
+            this.btn_about.Location = new System.Drawing.Point(5, 185);
             this.btn_about.Margin = new System.Windows.Forms.Padding(0);
             this.btn_about.Name = "btn_about";
             this.btn_about.Padding = new System.Windows.Forms.Padding(10);
@@ -511,7 +517,7 @@
             this.btn_visualize.ForeColor = System.Drawing.Color.White;
             this.btn_visualize.Image = ((System.Drawing.Image)(resources.GetObject("btn_visualize.Image")));
             this.btn_visualize.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_visualize.Location = new System.Drawing.Point(5, 185);
+            this.btn_visualize.Location = new System.Drawing.Point(5, 140);
             this.btn_visualize.Margin = new System.Windows.Forms.Padding(0);
             this.btn_visualize.Name = "btn_visualize";
             this.btn_visualize.Padding = new System.Windows.Forms.Padding(10);
@@ -520,27 +526,6 @@
             this.btn_visualize.Text = "Visualize";
             this.btn_visualize.UseVisualStyleBackColor = false;
             this.btn_visualize.Click += new System.EventHandler(this.btn_visualize_Click);
-            // 
-            // btn_library
-            // 
-            this.btn_library.BackColor = System.Drawing.Color.Transparent;
-            this.btn_library.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btn_library.FlatAppearance.BorderSize = 0;
-            this.btn_library.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.btn_library.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_library.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btn_library.ForeColor = System.Drawing.Color.White;
-            this.btn_library.Image = ((System.Drawing.Image)(resources.GetObject("btn_library.Image")));
-            this.btn_library.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_library.Location = new System.Drawing.Point(5, 140);
-            this.btn_library.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_library.Name = "btn_library";
-            this.btn_library.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_library.Size = new System.Drawing.Size(162, 45);
-            this.btn_library.TabIndex = 7;
-            this.btn_library.Text = "Library";
-            this.btn_library.UseVisualStyleBackColor = false;
-            this.btn_library.Click += new System.EventHandler(this.btn_library_Click);
             // 
             // btn_browse
             // 
@@ -613,6 +598,55 @@
             this.panel_waveForm.Size = new System.Drawing.Size(540, 48);
             this.panel_waveForm.TabIndex = 5;
             // 
+            // data_library
+            // 
+            this.data_library.AllowUserToAddRows = false;
+            this.data_library.AllowUserToDeleteRows = false;
+            this.data_library.AllowUserToResizeRows = false;
+            this.data_library.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.data_library.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.data_library.ColumnHeadersHeight = 30;
+            this.data_library.ContextMenuStrip = this.menu_library;
+            this.data_library.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.data_library.Location = new System.Drawing.Point(210, 250);
+            this.data_library.Name = "data_library";
+            this.data_library.ReadOnly = true;
+            this.data_library.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.data_library.Size = new System.Drawing.Size(602, 237);
+            this.data_library.StandardTab = true;
+            this.data_library.TabIndex = 6;
+            this.data_library.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_library_CellClick);
+            this.data_library.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Data_library_CellContentDoubleClick);
+            // 
+            // menu_library
+            // 
+            this.menu_library.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.add,
+            this.play,
+            this.delete});
+            this.menu_library.Name = "menu_library";
+            this.menu_library.Size = new System.Drawing.Size(108, 70);
+            // 
+            // add
+            // 
+            this.add.Name = "add";
+            this.add.Size = new System.Drawing.Size(180, 22);
+            this.add.Text = "Add";
+            this.add.Click += new System.EventHandler(this.Menu_library_add_Click);
+            // 
+            // play
+            // 
+            this.play.Name = "play";
+            this.play.Size = new System.Drawing.Size(180, 22);
+            this.play.Text = "Play";
+            this.play.Click += new System.EventHandler(this.menu_library_play_Click);
+            // 
+            // delete
+            // 
+            this.delete.Name = "delete";
+            this.delete.Size = new System.Drawing.Size(180, 22);
+            this.delete.Text = "Delete";
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -650,6 +684,8 @@
             this.panel_start.ResumeLayout(false);
             this.panel_start.PerformLayout();
             this.panel_nav.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.data_library)).EndInit();
+            this.menu_library.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -673,7 +709,6 @@
         private System.Windows.Forms.Panel panel_end;
         private System.Windows.Forms.Label lbl_end;
         private System.Windows.Forms.Button btn_visualize;
-        private System.Windows.Forms.Button btn_library;
         private System.Windows.Forms.Button btn_about;
         private System.Windows.Forms.Button btn_nowPlaying;
         public System.Windows.Forms.ListBox list_recent;
@@ -694,6 +729,11 @@
         private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.PictureBox image_mini;
         private System.Windows.Forms.Panel panel_waveForm;
+        public System.Windows.Forms.DataGridView data_library;
+        private MetroFramework.Controls.MetroContextMenu menu_library;
+        private System.Windows.Forms.ToolStripMenuItem add;
+        private System.Windows.Forms.ToolStripMenuItem play;
+        private System.Windows.Forms.ToolStripMenuItem delete;
     }
 }
 

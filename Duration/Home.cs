@@ -11,11 +11,12 @@ namespace Duration
         public Home()
         {
             InitializeComponent();
+            styling.styleDataGrid(data_library);
+            load_Library(data_library);
         }
 
         //private IWavePlayer wavePlayer = new WaveOutEvent();
-        
-
+ 
         private readonly Connection con = new Connection();
         private readonly DataGridStyling styling = new DataGridStyling();
         //Library library = new Library();
@@ -119,6 +120,91 @@ namespace Duration
             }
 
         }
+        // pull data from database
+        public void load_Library(DataGridView datagrid)
+        {
+            con.LoadData("SELECT id, path, title, artist, album, year, genre, date FROM library", datagrid);
+            datagrid.Columns[0].Visible = false;
+            datagrid.Columns[1].Visible = false;
+        }
+        // hold current selected song
+        private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                // get id
+                DataGridViewRow row = data_library.Rows[e.RowIndex];
+                var path = con.ReadString($"SELECT path FROM library WHERE id = {int.Parse(row.Cells[0].Value.ToString())}");
+                // pass id to database
+                con.ExecuteQuery($"UPDATE session SET selectedFilePath = '{path}' WHERE id = 1");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to select!");
+            }
+        }
+        // when user wants to add to library
+        private void Menu_library_add_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                startIndex = 0;
+                playnext = false;
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Multiselect = true;
+                ofd.Filter = "mp3 ,wav ,wma ,3gp, m4a, flac|*.mp3*;*.wav*;*.3gp*;*.wma*;*.m4a*;*.flac*";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    FileName = ofd.SafeFileNames;
+                    FilePath = ofd.FileNames;
+
+                    foreach (var items in FilePath)
+                    {
+                        TagLib.File file = TagLib.File.Create(items);
+                        // list_recent.Items.Add(file.Tag.Title);
+                        con.ExecuteQuery($"INSERT INTO library (path, title, album, year, artist, genre) VALUES('{items}','{file.Tag.Title}','{file.Tag.Album}','{file.Tag.Year}','{ file.Tag.AlbumArtists[0]}','{file.Tag.Genres[0]}')");
+                        load_Library(data_library);
+                        // this.Refresh();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Feature not available!", "Assistant");
+            }
+        }
+        // when user clicks play
+        private void menu_library_play_Click(object sender, EventArgs e)
+        {
+            // stop the current song
+            player.Ctlcontrols.stop();
+            startIndex = 0;
+            playnext = false;
+            // retrieve file path
+            var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
+
+            TagLib.File file = TagLib.File.Create(FilePath);
+            list_recent.Items.Add(file.Tag.Title);
+            this.Refresh();
+            
+            // auto play music
+            startIndex = 0;
+            PlayFile(0);
+            list_recent.SelectedIndex = 0;
+            btn_play.Image = Image.FromFile(@"res/pause.png");
+
+            /*
+            // search for the new song
+            TagLib.File file = TagLib.File.Create(FilePath);
+            //home.list_recent.Items.Add(file.Tag.Title);
+            //home.Refresh();
+            // play the new song
+            player.URL = FilePath;
+            // refresh list?
+            //home.list_recent.Refresh();
+            btn_play.Image = Image.FromFile(@"res/pause.png");
+            */
+        }
         // change the volume
         private void volume_ValueChanged(object sender, EventArgs e)
         {
@@ -193,7 +279,7 @@ namespace Duration
             }
         }
         // method to see what state is the player in 
-        private void axWindowsMediaPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        public void axWindowsMediaPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
             // if the player is still playing
             if(player.playState == WMPLib.WMPPlayState.wmppsPlaying)
@@ -297,18 +383,7 @@ namespace Duration
             }
         }
         // when user clicks the library button
-        private void btn_library_Click(object sender, EventArgs e)
-        {
-            this.panel_main.Controls.Clear();
-            Library library = new Library();
-            this.panel_main.Controls.Add(library);
-            library.Dock = DockStyle.Fill;
-            library.Show();
-            //lbl_title_mini.Visible = true;
-            //lbl_artist_mini.Visible = true;
-            //image_mini.Visible = true;
-            
-        }
+
         // when user clicks the now playing button
         private void btn_nowPlaying_Click(object sender, EventArgs e)
         {
@@ -324,7 +399,6 @@ namespace Duration
                 btn_nowPlaying.Text = "";
                 btn_browse.Text = "";
                 btn_browse.Text = "";
-                btn_library.Text = "";
                 btn_visualize.Text = "";
                 //btn_extra.Text = "";
                 btn_about.Text = "";
@@ -335,7 +409,6 @@ namespace Duration
                 btn_menu.Text = "Menu";
                 btn_nowPlaying.Text = "Playing";
                 btn_browse.Text = "Browse";
-                btn_library.Text = "Library";
                 btn_visualize.Text = "Visualize";
                 //btn_extra.Text = "Extra";
                 btn_about.Text = "About";
@@ -371,6 +444,12 @@ namespace Duration
                 panel_artwork.Visible = true;
             }
         }
+
+        private void Data_library_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            menu_library_play_Click(sender, e);
+        }
+
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
