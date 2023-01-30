@@ -14,8 +14,6 @@ namespace Duration
             styling.styleDataGrid(data_library);
             load_Library(data_library);
         }
-
-        //private IWavePlayer wavePlayer = new WaveOutEvent();
  
         private readonly Connection con = new Connection();
         private readonly DataGridStyling styling = new DataGridStyling();
@@ -26,7 +24,7 @@ namespace Duration
         public Boolean playnext = false;
         //private int OldFocusedIndex = 0;
         bool _playing = false;
-
+        // check to see if the player is working
         public bool isplaying
         {
             get
@@ -116,7 +114,6 @@ namespace Duration
             con.LoadData("SELECT id, path, title, artist, album, genre, year FROM library", datagrid);
             datagrid.Columns[0].Visible = false;
             datagrid.Columns[1].Visible = false;
-            datagrid.Columns[2].Width = 250;
         }
         // hold current selected song
         private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -125,21 +122,19 @@ namespace Duration
             {
                 // get id
                 DataGridViewRow row = data_library.Rows[e.RowIndex];
-                var path = con.ReadString($"SELECT path FROM library WHERE id = {int.Parse(row.Cells[0].Value.ToString())}");
+                var id = int.Parse(row.Cells[0].Value.ToString());
+                var path = con.ReadString($"SELECT path FROM library WHERE id = {id}");
                 // pass id to database
-                con.ExecuteQuery($"UPDATE session SET selectedFilePath = '{path}' WHERE id = 1");
+                con.ExecuteQuery($"UPDATE session SET `index` = {id}, selectedFilePath = '{path}' WHERE id = 1");
 
                 // obtain audio tag details
                 TagLib.File file = TagLib.File.Create(path);
 
-                lbl_title.Text = list_recent.Text;
+                lbl_title.Text = file.Tag.Title;
                 lbl_genre.Text = file.Tag.Genres[0];
                 lbl_album.Text = file.Tag.Album;
                 lbl_year.Text = file.Tag.Year.ToString();
                 lbl_artist.Text = file.Tag.AlbumArtists[0];
-
-                //lbl_title_mini.Text = list_recent.Text;
-                //lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
 
                 var i = TagLib.File.Create(path);
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
@@ -147,9 +142,9 @@ namespace Duration
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
 
             }
-            catch (Exception)
+            catch (Exception x)
             {
-               // do nothing 
+                // MessageBox.Show(x.ToString());
             }
         }
         // when user wants to add to library
@@ -187,25 +182,19 @@ namespace Duration
         {
             // stop the current song
             player.Ctlcontrols.stop();
-            startIndex = 0;
             playnext = false;
-            // retrieve file path
+            // retrieve file path from database
             var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
+            // clear previous list
+            list_recent.Items.Clear();
+            TagLib.File file = TagLib.File.Create(FilePath);
+            list_recent.Items.Add(file.Tag.Title);
+
             player.URL = FilePath;
             player.Ctlcontrols.play();
-
+            // change play button styling
             btn_play.Image = Image.FromFile(@"res/pause.png");
-            /*
-            // search for the new song
-            TagLib.File file = TagLib.File.Create(FilePath);
-            //home.list_recent.Items.Add(file.Tag.Title);
-            //home.Refresh();
-            // play the new song
-            player.URL = FilePath;
-            // refresh list?
-            //home.list_recent.Refresh();
-            btn_play.Image = Image.FromFile(@"res/pause.png");
-            */
+            
         }
         // change the volume
         private void volume_ValueChanged(object sender, EventArgs e)
@@ -251,16 +240,24 @@ namespace Duration
         // play next track
         private void btn_next_Click(object sender, EventArgs e)
         {
-            if (startIndex == list_recent.Items.Count - 1)
+            try
             {
-                startIndex = list_recent.Items.Count - 1;
+                if (startIndex == list_recent.Items.Count - 1)
+                {
+                    startIndex = list_recent.Items.Count - 1;
+                }
+                else if (startIndex < list_recent.Items.Count)
+                {
+                    startIndex = startIndex + 1;
+                }
+                list_recent.SelectedIndex++;
+                PlayFile(startIndex);
             }
-            else if (startIndex < list_recent.Items.Count)
+            catch (Exception)
             {
-                startIndex = startIndex + 1;
+
             }
-            list_recent.SelectedIndex++;
-            PlayFile(startIndex);
+            
         }
         // progress bar timer
         private void timer_Tick(object sender, EventArgs e)
@@ -289,14 +286,12 @@ namespace Duration
                 progressBar.Maximum = (int)player.Ctlcontrols.currentItem.duration;
                 timer.Start();
                 //lbl_details.Text = "Now Playing";
-                btn_play.FlatAppearance.MouseOverBackColor = Color.Crimson;
             }
             // if the player is paused
             else if(player.playState == WMPLib.WMPPlayState.wmppsPaused)
             {
                 timer.Stop();
                 //lbl_details.Text = "On Pause";
-                btn_play.FlatAppearance.MouseOverBackColor = Color.MediumSeaGreen;
             }
             // if the player is on stop
             else if (player.playState == WMPLib.WMPPlayState.wmppsStopped)
@@ -305,7 +300,6 @@ namespace Duration
                 progressBar.Value = 0;
                 //lbl_details.Text = "On Stop";
                 btn_play.Image = Image.FromFile(@"res/stop.png");
-                btn_play.FlatAppearance.MouseOverBackColor = Color.Orange;
             }
         }
         // method to clear the search box
@@ -357,25 +351,52 @@ namespace Duration
             if(this.Width < 800)
             {
                 panel_search.Visible = false;
+                panel_recent.Visible = false;
             }
             if(this.Width < 600)
             {
                 panel_nav.Visible = false;
-                player.Visible = true;
             }
-            else if(this.Width > 1000)
+            else if(this.Width > 800)
             {
                 panel_search.Visible = true;
                 panel_recent.Visible = true;
                 panel_nav.Visible = true;
             }
         }
-
-        private void Data_library_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        // when a user deletes a song from the list
+        private void Delete_Click(object sender, EventArgs e)
         {
-            menu_library_play_Click(sender, e);
+            // retrieve file path from database
+            var index = con.ReadString("SELECT `index` FROM session WHERE id = 1");
+            // conduct querry
+            con.ExecuteQuery($"DELETE FROM library WHERE id = {index}");
+            load_Library(data_library);
         }
+        // when a user double clicks a song
+        private void Data_library_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // the song
+            menu_library_play_Click(sender, e);
+            // display its tags
+            data_library_CellClick(sender, e);
+        }
+        // when the recents list is clicked
+        private void List_recent_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (ListViewItem item in list_recent.Items)
+                {
+                    item.BackColor = Color.FromArgb(254, 178, 0);
 
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -398,7 +419,6 @@ namespace Duration
 
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
                 //image_mini.Image = Image.FromStream(new MemoryStream(bin));
-
             }
             catch (Exception)
             {

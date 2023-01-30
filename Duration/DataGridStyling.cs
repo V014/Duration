@@ -8,21 +8,27 @@ namespace Duration
         // styling of the datagrid
         public void styleDataGrid(DataGridView dataGrid)
         {
-            dataGrid.BackgroundColor = Color.FromArgb(34, 39, 46);
-            dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
-            dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
-
-            dataGrid.RowsDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
-            dataGrid.RowsDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
-            dataGrid.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(34, 39, 46);
-
-            dataGrid.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
-            dataGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(34, 39, 46);
-            dataGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(173, 186, 199);
+            dataGrid.BackgroundColor = Color.FromArgb(17, 17, 17);
+            // alternating body background
+            dataGrid.AlternatingRowsDefaultCellStyle.Font = new Font("Roboto", 9);
+            dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(17, 17, 17);
+            dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.White;
+            // default body background
+            dataGrid.RowsDefaultCellStyle.BackColor = Color.FromArgb(24, 24, 24);
+            dataGrid.RowsDefaultCellStyle.ForeColor = Color.White;
+            dataGrid.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(254, 178, 0);
+            dataGrid.RowsDefaultCellStyle.SelectionForeColor = Color.FromArgb(17, 17, 17);
+            // header
+            dataGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(24, 24, 24);
+            dataGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGrid.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(24, 24, 24);
+            dataGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Roboto", 12);
 
             dataGrid.DefaultCellStyle.Font = new Font("Roboto", 9);
-            dataGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Roboto", 12);
-            dataGrid.AlternatingRowsDefaultCellStyle.Font = new Font("Roboto", 9);
+            dataGrid.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+
+            
+            
         }
     }
 }

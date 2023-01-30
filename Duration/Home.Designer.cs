@@ -32,15 +32,26 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.panel_main = new System.Windows.Forms.Panel();
             this.panel_nowPlaying = new System.Windows.Forms.Panel();
+            this.data_library = new System.Windows.Forms.DataGridView();
+            this.menu_library = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.add = new System.Windows.Forms.ToolStripMenuItem();
+            this.play = new System.Windows.Forms.ToolStripMenuItem();
+            this.delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel_recent = new System.Windows.Forms.Panel();
             this.list_recent = new System.Windows.Forms.ListBox();
-            this.panel_artwork = new System.Windows.Forms.Panel();
+            this.panel_playlist = new System.Windows.Forms.Panel();
             this.player = new AxWMPLib.AxWindowsMediaPlayer();
+            this.lbl_title = new System.Windows.Forms.Label();
+            this.panel_search = new System.Windows.Forms.Panel();
+            this.txt_search = new System.Windows.Forms.TextBox();
+            this.panel_artwork = new System.Windows.Forms.Panel();
             this.lbl_genre = new System.Windows.Forms.Label();
             this.lbl_year = new System.Windows.Forms.Label();
             this.lbl_album = new System.Windows.Forms.Label();
             this.lbl_artist = new System.Windows.Forms.Label();
             this.image_artwork = new System.Windows.Forms.PictureBox();
             this.panel_controls = new System.Windows.Forms.Panel();
+            this.panel_waveForm = new System.Windows.Forms.Panel();
             this.panel_volume = new System.Windows.Forms.Panel();
             this.btn_volume = new System.Windows.Forms.Button();
             this.volume = new MetroFramework.Controls.MetroTrackBar();
@@ -58,21 +69,15 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_nav = new System.Windows.Forms.Panel();
             this.btn_newList = new System.Windows.Forms.Button();
-            this.panel_waveForm = new System.Windows.Forms.Panel();
-            this.menu_library = new MetroFramework.Controls.MetroContextMenu(this.components);
-            this.add = new System.Windows.Forms.ToolStripMenuItem();
-            this.play = new System.Windows.Forms.ToolStripMenuItem();
-            this.delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.data_library = new System.Windows.Forms.DataGridView();
-            this.panel_playlist = new System.Windows.Forms.Panel();
-            this.lbl_title = new System.Windows.Forms.Label();
-            this.panel_search = new System.Windows.Forms.Panel();
-            this.txt_search = new System.Windows.Forms.TextBox();
-            this.panel_recent = new System.Windows.Forms.Panel();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
-            this.panel_artwork.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
+            this.menu_library.SuspendLayout();
+            this.panel_recent.SuspendLayout();
+            this.panel_playlist.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
+            this.panel_search.SuspendLayout();
+            this.panel_artwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image_artwork)).BeginInit();
             this.panel_controls.SuspendLayout();
             this.panel_volume.SuspendLayout();
@@ -81,11 +86,6 @@
             this.panel_end.SuspendLayout();
             this.panel_start.SuspendLayout();
             this.panel_nav.SuspendLayout();
-            this.menu_library.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
-            this.panel_playlist.SuspendLayout();
-            this.panel_search.SuspendLayout();
-            this.panel_recent.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_main
@@ -110,9 +110,78 @@
             this.panel_nowPlaying.Size = new System.Drawing.Size(579, 437);
             this.panel_nowPlaying.TabIndex = 6;
             // 
+            // data_library
+            // 
+            this.data_library.AllowUserToAddRows = false;
+            this.data_library.AllowUserToDeleteRows = false;
+            this.data_library.AllowUserToOrderColumns = true;
+            this.data_library.AllowUserToResizeRows = false;
+            this.data_library.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.data_library.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.data_library.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.data_library.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.data_library.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.data_library.ColumnHeadersHeight = 30;
+            this.data_library.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.data_library.ContextMenuStrip = this.menu_library;
+            this.data_library.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.data_library.EnableHeadersVisualStyles = false;
+            this.data_library.Location = new System.Drawing.Point(0, 0);
+            this.data_library.Name = "data_library";
+            this.data_library.ReadOnly = true;
+            this.data_library.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.data_library.RowHeadersVisible = false;
+            this.data_library.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.data_library.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.data_library.Size = new System.Drawing.Size(579, 437);
+            this.data_library.StandardTab = true;
+            this.data_library.TabIndex = 7;
+            this.data_library.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_library_CellClick);
+            this.data_library.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Data_library_CellDoubleClick);
+            // 
+            // menu_library
+            // 
+            this.menu_library.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.add,
+            this.play,
+            this.delete});
+            this.menu_library.Name = "menu_library";
+            this.menu_library.Size = new System.Drawing.Size(108, 70);
+            // 
+            // add
+            // 
+            this.add.Name = "add";
+            this.add.Size = new System.Drawing.Size(107, 22);
+            this.add.Text = "Add";
+            this.add.Click += new System.EventHandler(this.Menu_library_add_Click);
+            // 
+            // play
+            // 
+            this.play.Name = "play";
+            this.play.Size = new System.Drawing.Size(107, 22);
+            this.play.Text = "Play";
+            this.play.Click += new System.EventHandler(this.menu_library_play_Click);
+            // 
+            // delete
+            // 
+            this.delete.Name = "delete";
+            this.delete.Size = new System.Drawing.Size(107, 22);
+            this.delete.Text = "Delete";
+            this.delete.Click += new System.EventHandler(this.Delete_Click);
+            // 
+            // panel_recent
+            // 
+            this.panel_recent.Controls.Add(this.list_recent);
+            this.panel_recent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_recent.Location = new System.Drawing.Point(579, 50);
+            this.panel_recent.Name = "panel_recent";
+            this.panel_recent.Padding = new System.Windows.Forms.Padding(5);
+            this.panel_recent.Size = new System.Drawing.Size(233, 437);
+            this.panel_recent.TabIndex = 8;
+            // 
             // list_recent
             // 
-            this.list_recent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.list_recent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.list_recent.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.list_recent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.list_recent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -123,8 +192,71 @@
             this.list_recent.Name = "list_recent";
             this.list_recent.Size = new System.Drawing.Size(223, 427);
             this.list_recent.TabIndex = 0;
+            this.list_recent.Click += new System.EventHandler(this.List_recent_Click);
             this.list_recent.SelectedIndexChanged += new System.EventHandler(this.list_recent_SelectedIndexChanged);
             this.list_recent.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_recent_MouseDoubleClick);
+            // 
+            // panel_playlist
+            // 
+            this.panel_playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.panel_playlist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel_playlist.Controls.Add(this.player);
+            this.panel_playlist.Controls.Add(this.lbl_title);
+            this.panel_playlist.Controls.Add(this.panel_search);
+            this.panel_playlist.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel_playlist.Location = new System.Drawing.Point(0, 0);
+            this.panel_playlist.Name = "panel_playlist";
+            this.panel_playlist.Padding = new System.Windows.Forms.Padding(5);
+            this.panel_playlist.Size = new System.Drawing.Size(812, 50);
+            this.panel_playlist.TabIndex = 7;
+            // 
+            // player
+            // 
+            this.player.Dock = System.Windows.Forms.DockStyle.Right;
+            this.player.Enabled = true;
+            this.player.Location = new System.Drawing.Point(539, 5);
+            this.player.Name = "player";
+            this.player.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("player.OcxState")));
+            this.player.Size = new System.Drawing.Size(40, 40);
+            this.player.TabIndex = 6;
+            this.player.Visible = false;
+            this.player.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer_PlayStateChange);
+            // 
+            // lbl_title
+            // 
+            this.lbl_title.AutoSize = true;
+            this.lbl_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbl_title.ForeColor = System.Drawing.Color.White;
+            this.lbl_title.Location = new System.Drawing.Point(9, 16);
+            this.lbl_title.Name = "lbl_title";
+            this.lbl_title.Size = new System.Drawing.Size(42, 20);
+            this.lbl_title.TabIndex = 7;
+            this.lbl_title.Text = "Title ";
+            // 
+            // panel_search
+            // 
+            this.panel_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.panel_search.Controls.Add(this.txt_search);
+            this.panel_search.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_search.Location = new System.Drawing.Point(579, 5);
+            this.panel_search.Name = "panel_search";
+            this.panel_search.Size = new System.Drawing.Size(228, 40);
+            this.panel_search.TabIndex = 3;
+            // 
+            // txt_search
+            // 
+            this.txt_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txt_search.ForeColor = System.Drawing.Color.White;
+            this.txt_search.Location = new System.Drawing.Point(8, 11);
+            this.txt_search.Name = "txt_search";
+            this.txt_search.Size = new System.Drawing.Size(161, 19);
+            this.txt_search.TabIndex = 4;
+            this.txt_search.Text = "🔎 Search library...";
+            this.txt_search.WordWrap = false;
+            this.txt_search.Click += new System.EventHandler(this.txt_search_Click);
+            this.txt_search.Leave += new System.EventHandler(this.Txt_search_Leave);
             // 
             // panel_artwork
             // 
@@ -140,18 +272,6 @@
             this.panel_artwork.Padding = new System.Windows.Forms.Padding(5);
             this.panel_artwork.Size = new System.Drawing.Size(162, 271);
             this.panel_artwork.TabIndex = 5;
-            // 
-            // player
-            // 
-            this.player.Dock = System.Windows.Forms.DockStyle.Right;
-            this.player.Enabled = true;
-            this.player.Location = new System.Drawing.Point(573, 5);
-            this.player.Name = "player";
-            this.player.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("player.OcxState")));
-            this.player.Size = new System.Drawing.Size(40, 40);
-            this.player.TabIndex = 6;
-            this.player.Visible = false;
-            this.player.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer_PlayStateChange);
             // 
             // lbl_genre
             // 
@@ -199,7 +319,7 @@
             // 
             // image_artwork
             // 
-            this.image_artwork.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
+            this.image_artwork.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.image_artwork.Dock = System.Windows.Forms.DockStyle.Top;
             this.image_artwork.Image = ((System.Drawing.Image)(resources.GetObject("image_artwork.Image")));
             this.image_artwork.Location = new System.Drawing.Point(5, 5);
@@ -221,6 +341,14 @@
             this.panel_controls.Name = "panel_controls";
             this.panel_controls.Size = new System.Drawing.Size(984, 74);
             this.panel_controls.TabIndex = 1;
+            // 
+            // panel_waveForm
+            // 
+            this.panel_waveForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_waveForm.Location = new System.Drawing.Point(224, 26);
+            this.panel_waveForm.Name = "panel_waveForm";
+            this.panel_waveForm.Size = new System.Drawing.Size(540, 48);
+            this.panel_waveForm.TabIndex = 5;
             // 
             // panel_volume
             // 
@@ -254,7 +382,7 @@
             this.volume.Location = new System.Drawing.Point(51, 13);
             this.volume.Name = "volume";
             this.volume.Size = new System.Drawing.Size(110, 23);
-            this.volume.Style = MetroFramework.MetroColorStyle.Black;
+            this.volume.Style = MetroFramework.MetroColorStyle.Green;
             this.volume.TabIndex = 3;
             this.volume.Text = "metroTrackBar1";
             this.volume.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -289,13 +417,13 @@
             this.btn_next.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_next.FlatAppearance.BorderSize = 0;
             this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_next.ForeColor = System.Drawing.Color.White;
             this.btn_next.Image = ((System.Drawing.Image)(resources.GetObject("btn_next.Image")));
-            this.btn_next.Location = new System.Drawing.Point(132, 0);
+            this.btn_next.Location = new System.Drawing.Point(78, 0);
             this.btn_next.Name = "btn_next";
-            this.btn_next.Size = new System.Drawing.Size(66, 48);
+            this.btn_next.Size = new System.Drawing.Size(30, 48);
             this.btn_next.TabIndex = 0;
             this.btn_next.UseVisualStyleBackColor = false;
             this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
@@ -306,13 +434,13 @@
             this.btn_play.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_play.FlatAppearance.BorderSize = 0;
             this.btn_play.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_play.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Orange;
+            this.btn_play.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.btn_play.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_play.ForeColor = System.Drawing.Color.White;
             this.btn_play.Image = ((System.Drawing.Image)(resources.GetObject("btn_play.Image")));
-            this.btn_play.Location = new System.Drawing.Point(66, 0);
+            this.btn_play.Location = new System.Drawing.Point(30, 0);
             this.btn_play.Name = "btn_play";
-            this.btn_play.Size = new System.Drawing.Size(66, 48);
+            this.btn_play.Size = new System.Drawing.Size(48, 48);
             this.btn_play.TabIndex = 0;
             this.btn_play.UseVisualStyleBackColor = false;
             this.btn_play.Click += new System.EventHandler(this.btn_play_Click);
@@ -323,13 +451,13 @@
             this.btn_prev.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_prev.FlatAppearance.BorderSize = 0;
             this.btn_prev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.btn_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_prev.ForeColor = System.Drawing.Color.White;
             this.btn_prev.Image = ((System.Drawing.Image)(resources.GetObject("btn_prev.Image")));
             this.btn_prev.Location = new System.Drawing.Point(0, 0);
             this.btn_prev.Name = "btn_prev";
-            this.btn_prev.Size = new System.Drawing.Size(66, 48);
+            this.btn_prev.Size = new System.Drawing.Size(30, 48);
             this.btn_prev.TabIndex = 0;
             this.btn_prev.UseVisualStyleBackColor = false;
             this.btn_prev.Click += new System.EventHandler(this.btn_prev_Click);
@@ -352,6 +480,7 @@
             this.progressBar.Location = new System.Drawing.Point(49, 0);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(881, 26);
+            this.progressBar.Style = MetroFramework.MetroColorStyle.Green;
             this.progressBar.TabIndex = 0;
             this.progressBar.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.progressBar.UseCustomBackColor = true;
@@ -405,7 +534,7 @@
             // 
             // panel_nav
             // 
-            this.panel_nav.BackColor = System.Drawing.Color.Transparent;
+            this.panel_nav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.panel_nav.Controls.Add(this.panel_artwork);
             this.panel_nav.Controls.Add(this.btn_newList);
             this.panel_nav.Dock = System.Windows.Forms.DockStyle.Left;
@@ -436,135 +565,11 @@
             this.btn_newList.UseVisualStyleBackColor = false;
             this.btn_newList.Click += new System.EventHandler(this.btn_browse_Click);
             // 
-            // panel_waveForm
-            // 
-            this.panel_waveForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_waveForm.Location = new System.Drawing.Point(224, 26);
-            this.panel_waveForm.Name = "panel_waveForm";
-            this.panel_waveForm.Size = new System.Drawing.Size(540, 48);
-            this.panel_waveForm.TabIndex = 5;
-            // 
-            // menu_library
-            // 
-            this.menu_library.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.add,
-            this.play,
-            this.delete});
-            this.menu_library.Name = "menu_library";
-            this.menu_library.Size = new System.Drawing.Size(108, 70);
-            // 
-            // add
-            // 
-            this.add.Name = "add";
-            this.add.Size = new System.Drawing.Size(107, 22);
-            this.add.Text = "Add";
-            this.add.Click += new System.EventHandler(this.Menu_library_add_Click);
-            // 
-            // play
-            // 
-            this.play.Name = "play";
-            this.play.Size = new System.Drawing.Size(107, 22);
-            this.play.Text = "Play";
-            this.play.Click += new System.EventHandler(this.menu_library_play_Click);
-            // 
-            // delete
-            // 
-            this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(107, 22);
-            this.delete.Text = "Delete";
-            // 
-            // data_library
-            // 
-            this.data_library.AllowUserToAddRows = false;
-            this.data_library.AllowUserToDeleteRows = false;
-            this.data_library.AllowUserToOrderColumns = true;
-            this.data_library.AllowUserToResizeRows = false;
-            this.data_library.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.data_library.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.data_library.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.data_library.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.data_library.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.data_library.ColumnHeadersHeight = 30;
-            this.data_library.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.data_library.ContextMenuStrip = this.menu_library;
-            this.data_library.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.data_library.EnableHeadersVisualStyles = false;
-            this.data_library.Location = new System.Drawing.Point(0, 0);
-            this.data_library.Name = "data_library";
-            this.data_library.ReadOnly = true;
-            this.data_library.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.data_library.RowHeadersVisible = false;
-            this.data_library.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.data_library.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.data_library.Size = new System.Drawing.Size(579, 437);
-            this.data_library.StandardTab = true;
-            this.data_library.TabIndex = 7;
-            this.data_library.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_library_CellClick);
-            this.data_library.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Data_library_CellContentDoubleClick);
-            // 
-            // panel_playlist
-            // 
-            this.panel_playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(51)))), ((int)(((byte)(59)))));
-            this.panel_playlist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel_playlist.Controls.Add(this.player);
-            this.panel_playlist.Controls.Add(this.lbl_title);
-            this.panel_playlist.Controls.Add(this.panel_search);
-            this.panel_playlist.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_playlist.Location = new System.Drawing.Point(0, 0);
-            this.panel_playlist.Name = "panel_playlist";
-            this.panel_playlist.Padding = new System.Windows.Forms.Padding(5);
-            this.panel_playlist.Size = new System.Drawing.Size(812, 50);
-            this.panel_playlist.TabIndex = 7;
-            // 
-            // lbl_title
-            // 
-            this.lbl_title.AutoSize = true;
-            this.lbl_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbl_title.ForeColor = System.Drawing.Color.Gray;
-            this.lbl_title.Location = new System.Drawing.Point(9, 16);
-            this.lbl_title.Name = "lbl_title";
-            this.lbl_title.Size = new System.Drawing.Size(42, 20);
-            this.lbl_title.TabIndex = 7;
-            this.lbl_title.Text = "Title ";
-            // 
-            // panel_search
-            // 
-            this.panel_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.panel_search.Controls.Add(this.txt_search);
-            this.panel_search.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_search.Location = new System.Drawing.Point(613, 5);
-            this.panel_search.Name = "panel_search";
-            this.panel_search.Size = new System.Drawing.Size(194, 40);
-            this.panel_search.TabIndex = 3;
-            // 
-            // txt_search
-            // 
-            this.txt_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
-            this.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txt_search.ForeColor = System.Drawing.Color.Gray;
-            this.txt_search.Location = new System.Drawing.Point(8, 11);
-            this.txt_search.Name = "txt_search";
-            this.txt_search.Size = new System.Drawing.Size(161, 19);
-            this.txt_search.TabIndex = 4;
-            this.txt_search.Text = "🔎 Search library...";
-            this.txt_search.WordWrap = false;
-            // 
-            // panel_recent
-            // 
-            this.panel_recent.Controls.Add(this.list_recent);
-            this.panel_recent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_recent.Location = new System.Drawing.Point(579, 50);
-            this.panel_recent.Name = "panel_recent";
-            this.panel_recent.Padding = new System.Windows.Forms.Padding(5);
-            this.panel_recent.Size = new System.Drawing.Size(233, 437);
-            this.panel_recent.TabIndex = 8;
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_nav);
@@ -578,9 +583,16 @@
             this.SizeChanged += new System.EventHandler(this.Home_SizeChanged);
             this.panel_main.ResumeLayout(false);
             this.panel_nowPlaying.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.data_library)).EndInit();
+            this.menu_library.ResumeLayout(false);
+            this.panel_recent.ResumeLayout(false);
+            this.panel_playlist.ResumeLayout(false);
+            this.panel_playlist.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
+            this.panel_search.ResumeLayout(false);
+            this.panel_search.PerformLayout();
             this.panel_artwork.ResumeLayout(false);
             this.panel_artwork.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_artwork)).EndInit();
             this.panel_controls.ResumeLayout(false);
             this.panel_volume.ResumeLayout(false);
@@ -592,13 +604,6 @@
             this.panel_start.ResumeLayout(false);
             this.panel_start.PerformLayout();
             this.panel_nav.ResumeLayout(false);
-            this.menu_library.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.data_library)).EndInit();
-            this.panel_playlist.ResumeLayout(false);
-            this.panel_playlist.PerformLayout();
-            this.panel_search.ResumeLayout(false);
-            this.panel_search.PerformLayout();
-            this.panel_recent.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
