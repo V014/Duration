@@ -10,7 +10,7 @@ namespace Duration
         {
             dataGrid.BackgroundColor = Color.FromArgb(17, 17, 17);
             // alternating body background
-            dataGrid.AlternatingRowsDefaultCellStyle.Font = new Font("Roboto", 9);
+            dataGrid.AlternatingRowsDefaultCellStyle.Font = new Font("Segoe UI", 9);
             dataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(17, 17, 17);
             dataGrid.AlternatingRowsDefaultCellStyle.ForeColor = Color.White;
             // default body background
@@ -22,9 +22,9 @@ namespace Duration
             dataGrid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(24, 24, 24);
             dataGrid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGrid.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(24, 24, 24);
-            dataGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Roboto", 12);
+            dataGrid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12);
 
-            dataGrid.DefaultCellStyle.Font = new Font("Roboto", 9);
+            dataGrid.DefaultCellStyle.Font = new Font("Segoe UI", 9);
             dataGrid.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
 
             

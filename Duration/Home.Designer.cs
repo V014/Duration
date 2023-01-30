@@ -172,6 +172,7 @@
             // panel_recent
             // 
             this.panel_recent.Controls.Add(this.list_recent);
+            this.panel_recent.Controls.Add(this.btn_newList);
             this.panel_recent.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel_recent.Location = new System.Drawing.Point(579, 50);
             this.panel_recent.Name = "panel_recent";
@@ -184,13 +185,12 @@
             this.list_recent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.list_recent.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.list_recent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.list_recent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.list_recent.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.list_recent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
             this.list_recent.FormattingEnabled = true;
-            this.list_recent.ItemHeight = 20;
             this.list_recent.Location = new System.Drawing.Point(5, 5);
             this.list_recent.Name = "list_recent";
-            this.list_recent.Size = new System.Drawing.Size(223, 427);
+            this.list_recent.Size = new System.Drawing.Size(223, 379);
             this.list_recent.TabIndex = 0;
             this.list_recent.Click += new System.EventHandler(this.List_recent_Click);
             this.list_recent.SelectedIndexChanged += new System.EventHandler(this.list_recent_SelectedIndexChanged);
@@ -225,11 +225,11 @@
             // lbl_title
             // 
             this.lbl_title.AutoSize = true;
-            this.lbl_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbl_title.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_title.ForeColor = System.Drawing.Color.White;
-            this.lbl_title.Location = new System.Drawing.Point(9, 16);
+            this.lbl_title.Location = new System.Drawing.Point(9, 20);
             this.lbl_title.Name = "lbl_title";
-            this.lbl_title.Size = new System.Drawing.Size(42, 20);
+            this.lbl_title.Size = new System.Drawing.Size(32, 13);
             this.lbl_title.TabIndex = 7;
             this.lbl_title.Text = "Title ";
             // 
@@ -247,11 +247,11 @@
             // 
             this.txt_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.txt_search.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txt_search.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_search.ForeColor = System.Drawing.Color.White;
             this.txt_search.Location = new System.Drawing.Point(8, 11);
             this.txt_search.Name = "txt_search";
-            this.txt_search.Size = new System.Drawing.Size(161, 19);
+            this.txt_search.Size = new System.Drawing.Size(161, 18);
             this.txt_search.TabIndex = 4;
             this.txt_search.Text = "🔎 Search library...";
             this.txt_search.WordWrap = false;
@@ -276,44 +276,44 @@
             // lbl_genre
             // 
             this.lbl_genre.AutoSize = true;
-            this.lbl_genre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lbl_genre.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_genre.ForeColor = System.Drawing.Color.Gray;
             this.lbl_genre.Location = new System.Drawing.Point(10, 245);
             this.lbl_genre.Name = "lbl_genre";
-            this.lbl_genre.Size = new System.Drawing.Size(50, 15);
+            this.lbl_genre.Size = new System.Drawing.Size(47, 13);
             this.lbl_genre.TabIndex = 7;
             this.lbl_genre.Text = "Genre : ";
             // 
             // lbl_year
             // 
             this.lbl_year.AutoSize = true;
-            this.lbl_year.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lbl_year.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_year.ForeColor = System.Drawing.Color.Gray;
             this.lbl_year.Location = new System.Drawing.Point(9, 221);
             this.lbl_year.Name = "lbl_year";
-            this.lbl_year.Size = new System.Drawing.Size(41, 15);
+            this.lbl_year.Size = new System.Drawing.Size(36, 13);
             this.lbl_year.TabIndex = 7;
             this.lbl_year.Text = "Year : ";
             // 
             // lbl_album
             // 
             this.lbl_album.AutoSize = true;
-            this.lbl_album.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lbl_album.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_album.ForeColor = System.Drawing.Color.Gray;
             this.lbl_album.Location = new System.Drawing.Point(9, 199);
             this.lbl_album.Name = "lbl_album";
-            this.lbl_album.Size = new System.Drawing.Size(51, 15);
+            this.lbl_album.Size = new System.Drawing.Size(49, 13);
             this.lbl_album.TabIndex = 7;
             this.lbl_album.Text = "Album : ";
             // 
             // lbl_artist
             // 
             this.lbl_artist.AutoSize = true;
-            this.lbl_artist.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_artist.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_artist.ForeColor = System.Drawing.Color.White;
             this.lbl_artist.Location = new System.Drawing.Point(8, 170);
             this.lbl_artist.Name = "lbl_artist";
-            this.lbl_artist.Size = new System.Drawing.Size(67, 20);
+            this.lbl_artist.Size = new System.Drawing.Size(63, 21);
             this.lbl_artist.TabIndex = 7;
             this.lbl_artist.Text = "Artist : ";
             // 
@@ -392,11 +392,11 @@
             // lbl_volume
             // 
             this.lbl_volume.AutoSize = true;
-            this.lbl_volume.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbl_volume.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_volume.ForeColor = System.Drawing.Color.White;
-            this.lbl_volume.Location = new System.Drawing.Point(167, 16);
+            this.lbl_volume.Location = new System.Drawing.Point(167, 17);
             this.lbl_volume.Name = "lbl_volume";
-            this.lbl_volume.Size = new System.Drawing.Size(36, 17);
+            this.lbl_volume.Size = new System.Drawing.Size(28, 13);
             this.lbl_volume.TabIndex = 2;
             this.lbl_volume.Text = "50%";
             // 
@@ -417,7 +417,7 @@
             this.btn_next.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_next.FlatAppearance.BorderSize = 0;
             this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_next.ForeColor = System.Drawing.Color.White;
             this.btn_next.Image = ((System.Drawing.Image)(resources.GetObject("btn_next.Image")));
@@ -451,7 +451,7 @@
             this.btn_prev.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_prev.FlatAppearance.BorderSize = 0;
             this.btn_prev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.btn_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_prev.ForeColor = System.Drawing.Color.White;
             this.btn_prev.Image = ((System.Drawing.Image)(resources.GetObject("btn_prev.Image")));
@@ -479,7 +479,7 @@
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressBar.Location = new System.Drawing.Point(49, 0);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(881, 26);
+            this.progressBar.Size = new System.Drawing.Size(869, 26);
             this.progressBar.Style = MetroFramework.MetroColorStyle.Green;
             this.progressBar.TabIndex = 0;
             this.progressBar.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -491,19 +491,19 @@
             // 
             this.panel_end.Controls.Add(this.lbl_end);
             this.panel_end.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_end.Location = new System.Drawing.Point(930, 0);
+            this.panel_end.Location = new System.Drawing.Point(918, 0);
             this.panel_end.Name = "panel_end";
-            this.panel_end.Size = new System.Drawing.Size(54, 26);
+            this.panel_end.Size = new System.Drawing.Size(66, 26);
             this.panel_end.TabIndex = 3;
             // 
             // lbl_end
             // 
             this.lbl_end.AutoSize = true;
-            this.lbl_end.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbl_end.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_end.ForeColor = System.Drawing.Color.White;
-            this.lbl_end.Location = new System.Drawing.Point(4, 6);
+            this.lbl_end.Location = new System.Drawing.Point(11, 6);
             this.lbl_end.Name = "lbl_end";
-            this.lbl_end.Size = new System.Drawing.Size(36, 17);
+            this.lbl_end.Size = new System.Drawing.Size(28, 13);
             this.lbl_end.TabIndex = 2;
             this.lbl_end.Text = "0:00";
             // 
@@ -519,11 +519,11 @@
             // lbl_start
             // 
             this.lbl_start.AutoSize = true;
-            this.lbl_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lbl_start.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_start.ForeColor = System.Drawing.Color.White;
-            this.lbl_start.Location = new System.Drawing.Point(4, 6);
+            this.lbl_start.Location = new System.Drawing.Point(12, 6);
             this.lbl_start.Name = "lbl_start";
-            this.lbl_start.Size = new System.Drawing.Size(36, 17);
+            this.lbl_start.Size = new System.Drawing.Size(28, 13);
             this.lbl_start.TabIndex = 2;
             this.lbl_start.Text = "0:00";
             // 
@@ -536,7 +536,6 @@
             // 
             this.panel_nav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.panel_nav.Controls.Add(this.panel_artwork);
-            this.panel_nav.Controls.Add(this.btn_newList);
             this.panel_nav.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_nav.Location = new System.Drawing.Point(0, 0);
             this.panel_nav.Name = "panel_nav";
@@ -546,20 +545,21 @@
             // 
             // btn_newList
             // 
-            this.btn_newList.BackColor = System.Drawing.Color.Transparent;
+            this.btn_newList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
             this.btn_newList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btn_newList.FlatAppearance.BorderSize = 0;
-            this.btn_newList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.btn_newList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.btn_newList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(60)))));
             this.btn_newList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_newList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.btn_newList.ForeColor = System.Drawing.Color.White;
+            this.btn_newList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_newList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.btn_newList.Image = ((System.Drawing.Image)(resources.GetObject("btn_newList.Image")));
             this.btn_newList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_newList.Location = new System.Drawing.Point(5, 437);
+            this.btn_newList.Location = new System.Drawing.Point(5, 384);
             this.btn_newList.Margin = new System.Windows.Forms.Padding(0);
             this.btn_newList.Name = "btn_newList";
             this.btn_newList.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_newList.Size = new System.Drawing.Size(162, 45);
+            this.btn_newList.Size = new System.Drawing.Size(223, 48);
             this.btn_newList.TabIndex = 5;
             this.btn_newList.Text = "New Playlist";
             this.btn_newList.UseVisualStyleBackColor = false;
@@ -574,6 +574,7 @@
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_nav);
             this.Controls.Add(this.panel_controls);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(511, 113);
             this.Name = "Home";

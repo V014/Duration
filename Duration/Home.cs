@@ -190,6 +190,8 @@ namespace Duration
             TagLib.File file = TagLib.File.Create(FilePath);
             list_recent.Items.Add(file.Tag.Title);
 
+            this.Text = "Duration | " + file.Tag.Title;
+
             player.URL = FilePath;
             player.Ctlcontrols.play();
             // change play button styling
