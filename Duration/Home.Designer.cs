@@ -39,6 +39,7 @@
             this.delete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_recent = new System.Windows.Forms.Panel();
             this.list_recent = new System.Windows.Forms.ListBox();
+            this.btn_newList = new System.Windows.Forms.Button();
             this.panel_playlist = new System.Windows.Forms.Panel();
             this.player = new AxWMPLib.AxWindowsMediaPlayer();
             this.lbl_title = new System.Windows.Forms.Label();
@@ -58,6 +59,7 @@
             this.lbl_volume = new System.Windows.Forms.Label();
             this.panel_activity = new System.Windows.Forms.Panel();
             this.btn_next = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_play = new System.Windows.Forms.Button();
             this.btn_prev = new System.Windows.Forms.Button();
             this.panel_progress = new System.Windows.Forms.Panel();
@@ -68,7 +70,6 @@
             this.lbl_start = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_nav = new System.Windows.Forms.Panel();
-            this.btn_newList = new System.Windows.Forms.Button();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
@@ -196,11 +197,32 @@
             this.list_recent.SelectedIndexChanged += new System.EventHandler(this.list_recent_SelectedIndexChanged);
             this.list_recent.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_recent_MouseDoubleClick);
             // 
+            // btn_newList
+            // 
+            this.btn_newList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
+            this.btn_newList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_newList.FlatAppearance.BorderSize = 0;
+            this.btn_newList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.btn_newList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(60)))));
+            this.btn_newList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_newList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_newList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.btn_newList.Image = ((System.Drawing.Image)(resources.GetObject("btn_newList.Image")));
+            this.btn_newList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_newList.Location = new System.Drawing.Point(5, 384);
+            this.btn_newList.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_newList.Name = "btn_newList";
+            this.btn_newList.Padding = new System.Windows.Forms.Padding(10);
+            this.btn_newList.Size = new System.Drawing.Size(223, 48);
+            this.btn_newList.TabIndex = 5;
+            this.btn_newList.Text = "New Playlist";
+            this.btn_newList.UseVisualStyleBackColor = false;
+            this.btn_newList.Click += new System.EventHandler(this.btn_browse_Click);
+            // 
             // panel_playlist
             // 
             this.panel_playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.panel_playlist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel_playlist.Controls.Add(this.player);
             this.panel_playlist.Controls.Add(this.lbl_title);
             this.panel_playlist.Controls.Add(this.panel_search);
             this.panel_playlist.Dock = System.Windows.Forms.DockStyle.Top;
@@ -212,21 +234,21 @@
             // 
             // player
             // 
-            this.player.Dock = System.Windows.Forms.DockStyle.Right;
             this.player.Enabled = true;
-            this.player.Location = new System.Drawing.Point(539, 5);
+            this.player.Location = new System.Drawing.Point(5, 5);
             this.player.Name = "player";
             this.player.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("player.OcxState")));
-            this.player.Size = new System.Drawing.Size(40, 40);
+            this.player.Size = new System.Drawing.Size(152, 152);
             this.player.TabIndex = 6;
             this.player.Visible = false;
             this.player.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer_PlayStateChange);
+            this.player.MouseDownEvent += new AxWMPLib._WMPOCXEvents_MouseDownEventHandler(this.Player_MouseDownEvent);
             // 
             // lbl_title
             // 
             this.lbl_title.AutoSize = true;
             this.lbl_title.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_title.ForeColor = System.Drawing.Color.White;
+            this.lbl_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
             this.lbl_title.Location = new System.Drawing.Point(9, 20);
             this.lbl_title.Name = "lbl_title";
             this.lbl_title.Size = new System.Drawing.Size(32, 13);
@@ -261,6 +283,7 @@
             // panel_artwork
             // 
             this.panel_artwork.BackColor = System.Drawing.Color.Transparent;
+            this.panel_artwork.Controls.Add(this.player);
             this.panel_artwork.Controls.Add(this.lbl_genre);
             this.panel_artwork.Controls.Add(this.lbl_year);
             this.panel_artwork.Controls.Add(this.lbl_album);
@@ -310,7 +333,7 @@
             // 
             this.lbl_artist.AutoSize = true;
             this.lbl_artist.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_artist.ForeColor = System.Drawing.Color.White;
+            this.lbl_artist.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
             this.lbl_artist.Location = new System.Drawing.Point(8, 170);
             this.lbl_artist.Name = "lbl_artist";
             this.lbl_artist.Size = new System.Drawing.Size(63, 21);
@@ -328,6 +351,7 @@
             this.image_artwork.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.image_artwork.TabIndex = 1;
             this.image_artwork.TabStop = false;
+            this.image_artwork.Click += new System.EventHandler(this.Image_artwork_Click);
             // 
             // panel_controls
             // 
@@ -403,6 +427,7 @@
             // panel_activity
             // 
             this.panel_activity.Controls.Add(this.btn_next);
+            this.panel_activity.Controls.Add(this.button1);
             this.panel_activity.Controls.Add(this.btn_play);
             this.panel_activity.Controls.Add(this.btn_prev);
             this.panel_activity.Dock = System.Windows.Forms.DockStyle.Left;
@@ -417,16 +442,33 @@
             this.btn_next.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_next.FlatAppearance.BorderSize = 0;
             this.btn_next.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.btn_next.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.btn_next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_next.ForeColor = System.Drawing.Color.White;
             this.btn_next.Image = ((System.Drawing.Image)(resources.GetObject("btn_next.Image")));
-            this.btn_next.Location = new System.Drawing.Point(78, 0);
+            this.btn_next.Location = new System.Drawing.Point(108, 0);
             this.btn_next.Name = "btn_next";
             this.btn_next.Size = new System.Drawing.Size(30, 48);
             this.btn_next.TabIndex = 0;
             this.btn_next.UseVisualStyleBackColor = false;
             this.btn_next.Click += new System.EventHandler(this.btn_next_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(78, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 48);
+            this.button1.TabIndex = 1;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // btn_play
             // 
@@ -451,7 +493,7 @@
             this.btn_prev.Dock = System.Windows.Forms.DockStyle.Left;
             this.btn_prev.FlatAppearance.BorderSize = 0;
             this.btn_prev.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.btn_prev.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.btn_prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_prev.ForeColor = System.Drawing.Color.White;
             this.btn_prev.Image = ((System.Drawing.Image)(resources.GetObject("btn_prev.Image")));
@@ -543,28 +585,6 @@
             this.panel_nav.Size = new System.Drawing.Size(172, 487);
             this.panel_nav.TabIndex = 5;
             // 
-            // btn_newList
-            // 
-            this.btn_newList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
-            this.btn_newList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_newList.FlatAppearance.BorderSize = 0;
-            this.btn_newList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.btn_newList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(60)))));
-            this.btn_newList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_newList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_newList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            this.btn_newList.Image = ((System.Drawing.Image)(resources.GetObject("btn_newList.Image")));
-            this.btn_newList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_newList.Location = new System.Drawing.Point(5, 384);
-            this.btn_newList.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_newList.Name = "btn_newList";
-            this.btn_newList.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_newList.Size = new System.Drawing.Size(223, 48);
-            this.btn_newList.TabIndex = 5;
-            this.btn_newList.Text = "New Playlist";
-            this.btn_newList.UseVisualStyleBackColor = false;
-            this.btn_newList.Click += new System.EventHandler(this.btn_browse_Click);
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -649,6 +669,7 @@
         private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.Panel panel_search;
         private System.Windows.Forms.TextBox txt_search;
+        private System.Windows.Forms.Button button1;
     }
 }
 

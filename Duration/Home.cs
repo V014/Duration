@@ -287,21 +287,18 @@ namespace Duration
             {
                 progressBar.Maximum = (int)player.Ctlcontrols.currentItem.duration;
                 timer.Start();
-                //lbl_details.Text = "Now Playing";
             }
             // if the player is paused
             else if(player.playState == WMPLib.WMPPlayState.wmppsPaused)
             {
                 timer.Stop();
-                //lbl_details.Text = "On Pause";
             }
             // if the player is on stop
             else if (player.playState == WMPLib.WMPPlayState.wmppsStopped)
             {
                 timer.Stop();
                 progressBar.Value = 0;
-                //lbl_details.Text = "On Stop";
-                btn_play.Image = Image.FromFile(@"res/stop.png");
+                btn_play.Image = Image.FromFile(@"res/play.png");
             }
         }
         // method to clear the search box
@@ -399,6 +396,36 @@ namespace Duration
 
             }
         }
+
+        private void Image_artwork_Click(object sender, EventArgs e)
+        {
+            if (player.Visible == false)
+            {
+                player.Visible = true;
+            }
+            else
+            {
+                player.Visible = false;
+            }
+        }
+
+        private void Player_MouseDownEvent(object sender, AxWMPLib._WMPOCXEvents_MouseDownEvent e)
+        {
+            if (player.Visible == false)
+            {
+                player.Visible = true;
+            }
+            else
+            {
+                player.Visible = false;
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            player.Ctlcontrols.stop();
+        }
+
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
