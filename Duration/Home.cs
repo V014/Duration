@@ -24,6 +24,7 @@ namespace Duration
         public Boolean playnext = false;
         //private int OldFocusedIndex = 0;
         bool _playing = false;
+        int rowIndex;
         // check to see if the player is working
         public bool isplaying
         {
@@ -244,16 +245,55 @@ namespace Duration
         {
             try
             {
-                if (startIndex == list_recent.Items.Count - 1)
+                // this controls the playlist
+                if(list_recent.Items.Count > 1)
                 {
-                    startIndex = list_recent.Items.Count - 1;
+                    if (startIndex == list_recent.Items.Count - 1)
+                    {
+                        startIndex = list_recent.Items.Count - 1;
+                    }
+                    else if (startIndex < list_recent.Items.Count)
+                    {
+                        startIndex = startIndex + 1;
+                    }
+                    list_recent.SelectedIndex++;
+                    PlayFile(startIndex);
                 }
-                else if (startIndex < list_recent.Items.Count)
+                // this controls the library
+                if(data_library.Rows.Count != 0)
                 {
-                    startIndex = startIndex + 1;
+                    
+                    /*
+                    if (data_library.CurrentRowIndex < dataGrid.VisibleRowCount - 1)
+                    {
+                        data_library.CurrentRowIndex++;
+                    }
+                    else
+                    {
+                        data_library.CurrentRowIndex = 0;
+                    }
+                    */
+                    
+                    DataGridViewRow currentRow = data_library.CurrentRow;
+                    //MessageBox.Show(currentRow.Index.ToString());
+                    int nextRowIndex = 0;
+                    
+                    if (currentRow != null)
+                    { 
+                        if (nextRowIndex < data_library.Rows.Count)
+                        {
+                            nextRowIndex = currentRow.Index + 1;
+                            data_library.ClearSelection();
+                            data_library.Rows[nextRowIndex].Selected = true;
+                            // get id
+                            var path = con.ReadString($"SELECT path FROM library WHERE id = {nextRowIndex}");
+                            // pass id to database
+                            con.ExecuteQuery($"UPDATE session SET `index` = {nextRowIndex}, selectedFilePath = '{path}' WHERE id = 1");
+                            // play song
+                            menu_library_play_Click(sender, e);
+                        }
+                    }
                 }
-                list_recent.SelectedIndex++;
-                PlayFile(startIndex);
             }
             catch (Exception)
             {
