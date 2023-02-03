@@ -1,5 +1,5 @@
 # Duration 1.2
-![Image of duration media player](https://github.com/V014/Duration/blob/master/Screenshots/statement.png)
+![Image of duration media player](https://github.com/V014/Duration/blob/master/Screenshots/statement.jpg)
 
 This is a media player with simple functionality to get you listening to your favourite song.
 No fuss, no distractions, just select a folder of your music and let it play through it all
