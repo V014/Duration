@@ -17,14 +17,17 @@ namespace Duration
  
         private readonly Connection con = new Connection();
         private readonly DataGridStyling styling = new DataGridStyling();
+        
         //Library library = new Library();
         // Songs songs = new Songs();
-        public int startIndex = 0;
-        string[] FileName, FilePath;
+        private int startIndex = 0;
+        private int nextRowIndex = 0;
+        private int row = 0;
+        private string[] FileName, FilePath;
         public Boolean playnext = false;
         //private int OldFocusedIndex = 0;
         bool _playing = false;
-        int rowIndex;
+        
         // check to see if the player is working
         public bool isplaying
         {
@@ -100,7 +103,7 @@ namespace Duration
                     startIndex = 0;
                     PlayFile(0);
                     list_recent.SelectedIndex = 0;
-                    btn_play.Image = Image.FromFile(@"res/pause.png");
+                    btn_playItem.Image = Image.FromFile(@"res/pause.png");
                 }
             }
             catch (Exception)
@@ -143,9 +146,9 @@ namespace Duration
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
 
             }
-            catch (Exception x)
+            catch (Exception)
             {
-                // MessageBox.Show(x.ToString());
+                MessageBox.Show("Oops, feature error", "Assistant");
             }
         }
         // when user wants to add to library
@@ -187,16 +190,16 @@ namespace Duration
             // retrieve file path from database
             var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
             // clear previous list
-            list_recent.Items.Clear();
+            //list_recent.Items.Clear();
             TagLib.File file = TagLib.File.Create(FilePath);
-            list_recent.Items.Add(file.Tag.Title);
+            //list_recent.Items.Add(file.Tag.Title);
 
             this.Text = "Duration | " + file.Tag.Title;
 
             player.URL = FilePath;
             player.Ctlcontrols.play();
             // change play button styling
-            btn_play.Image = Image.FromFile(@"res/pause.png");
+            btn_playItem.Image = Image.FromFile(@"res/pause.png");
             
         }
         // change the volume
@@ -215,38 +218,50 @@ namespace Duration
         }
         // hold event action
         public EventHandler onAction = null;
-        private void btn_play_Click(object sender, EventArgs e)
+        // play song on the list
+        private void Btn_playItem_Click(object sender, EventArgs e)
         {
             // axWindowsMediaPlayer.Ctlcontrols.play();
             if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
             {
                 player.Ctlcontrols.pause();
-                btn_play.Image = Image.FromFile(@"res/play.png");
+                btn_playItem.Image = Image.FromFile(@"res/play.png");
             }
             else
             {
                 player.Ctlcontrols.play();
-                btn_play.Image = Image.FromFile(@"res/pause.png");
+                btn_playItem.Image = Image.FromFile(@"res/pause.png");
             }
             txt_search.Text = "🔎 Search library...";
         }
         // play previous track
-        private void btn_prev_Click(object sender, EventArgs e)
+        private void Btn_prevItem_Click(object sender, EventArgs e)
         {
-            if(startIndex > 0)
+            try
             {
-                startIndex = startIndex - 1;
-                list_recent.SelectedIndex --;
+                // changes the current selected item
+                if (list_recent.Items.Count >= 0)
+                {
+                    if (startIndex > 0)
+                    {
+                        startIndex = startIndex - 1;
+                        list_recent.SelectedIndex--;
+                    }
+                    PlayFile(startIndex);
+                }
             }
-            PlayFile(startIndex);
+            catch (Exception)
+            {
+                MessageBox.Show("Oops, feature error", "Assistant");
+            }
         }
         // play next track
-        private void btn_next_Click(object sender, EventArgs e)
+        private void Btn_nextItem_Click(object sender, EventArgs e)
         {
             try
             {
                 // this controls the playlist
-                if(list_recent.Items.Count > 1)
+                if (list_recent.Items.Count > 1)
                 {
                     if (startIndex == list_recent.Items.Count - 1)
                     {
@@ -259,47 +274,11 @@ namespace Duration
                     list_recent.SelectedIndex++;
                     PlayFile(startIndex);
                 }
-                // this controls the library
-                if(data_library.Rows.Count != 0)
-                {
-                    
-                    /*
-                    if (data_library.CurrentRowIndex < dataGrid.VisibleRowCount - 1)
-                    {
-                        data_library.CurrentRowIndex++;
-                    }
-                    else
-                    {
-                        data_library.CurrentRowIndex = 0;
-                    }
-                    */
-                    
-                    DataGridViewRow currentRow = data_library.CurrentRow;
-                    //MessageBox.Show(currentRow.Index.ToString());
-                    int nextRowIndex = 0;
-                    
-                    if (currentRow != null)
-                    { 
-                        if (nextRowIndex < data_library.Rows.Count)
-                        {
-                            nextRowIndex = currentRow.Index + 1;
-                            data_library.ClearSelection();
-                            data_library.Rows[nextRowIndex].Selected = true;
-                            // get id
-                            var path = con.ReadString($"SELECT path FROM library WHERE id = {nextRowIndex}");
-                            // pass id to database
-                            con.ExecuteQuery($"UPDATE session SET `index` = {nextRowIndex}, selectedFilePath = '{path}' WHERE id = 1");
-                            // play song
-                            menu_library_play_Click(sender, e);
-                        }
-                    }
-                }
             }
             catch (Exception)
             {
-
+                MessageBox.Show("Oops, feature error", "Assistant");
             }
-            
         }
         // progress bar timer
         private void timer_Tick(object sender, EventArgs e)
@@ -338,7 +317,7 @@ namespace Duration
             {
                 timer.Stop();
                 progressBar.Value = 0;
-                btn_play.Image = Image.FromFile(@"res/play.png");
+                btn_playItem.Image = Image.FromFile(@"res/play.png");
             }
         }
         // method to clear the search box
@@ -466,6 +445,7 @@ namespace Duration
             player.Ctlcontrols.stop();
         }
 
+        
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {

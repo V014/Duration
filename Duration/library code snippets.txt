@@ -1,0 +1,55 @@
+// changes the the current selected row 
+else if(data_library.RowCount >= 0)
+{
+	MessageBox.Show("Library if working");
+	if(row != 0)
+	{
+		data_library.ClearSelection();
+		data_library.Rows[--row].Selected = true;
+		int newRow = Math.Max(0, Math.Min(row - 1, data_library.Rows.Count - 1));
+		data_library.Rows[newRow].Selected = true;
+		data_library.CurrentCell = data_library.Rows[newRow].Cells[0];
+		string path = data_library.Rows[newRow].Cells["path"].Value.ToString();
+		con.ExecuteQuery($"UPDATE session SET `index` = {newRow}, selectedFilePath = '{path}' WHERE ID = 1");
+		player.URL = path;
+		player.Ctlcontrols.play();
+		// changing selection
+		//data_library.Rows[row].Selected = false;
+		//data_library.Rows[--row].Selected = true;
+		//// hold the id
+		//int id = data_library.CurrentRow.Index;
+		//--id;
+		//// select the path
+		//string path = con.ReadString($"SELECT path FROM library WHERE id = {id}");
+		//// update session data
+		//con.ExecuteQuery($"UPDATE session SET `index` = {id}, selectedFilePath = '{path}' WHERE ID = 1");
+		//// playing music
+		//player.URL = path;
+		//player.Ctlcontrols.play();
+	}
+}
+
+// this controls the library
+if (data_library.Rows.Count != 0)
+{
+	if (data_library.Rows.Count != 0)
+	{
+		if (row < data_library.RowCount)
+		{
+			if (row != data_library.RowCount - 1)
+			{
+				data_library.Rows[row].Selected = false;
+				data_library.Rows[++row].Selected = true;
+				// hold the id
+				int id = data_library.CurrentRow.Index;
+				id++;
+				// select the path
+				string path = con.ReadString($"SELECT path FROM library WHERE id = {id}");
+				// update session data
+				con.ExecuteQuery($"UPDATE session SET index = {id}, selectedFilePath = '{path}' WHERE ID = 1");
+				// playing music
+				menu_library_play_Click(sender, e);
+			}
+		}
+	}
+}
