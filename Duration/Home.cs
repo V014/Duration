@@ -17,15 +17,12 @@ namespace Duration
  
         private readonly Connection con = new Connection();
         private readonly DataGridStyling styling = new DataGridStyling();
-        
-        //Library library = new Library();
-        // Songs songs = new Songs();
+
         private int startIndex = 0;
         private int nextRowIndex = 0;
         private int row = 0;
         private string[] FileName, FilePath;
         public Boolean playnext = false;
-        //private int OldFocusedIndex = 0;
         bool _playing = false;
         
         // check to see if the player is working
@@ -103,7 +100,7 @@ namespace Duration
                     startIndex = 0;
                     PlayFile(0);
                     list_recent.SelectedIndex = 0;
-                    btn_playItem.Image = Image.FromFile(@"res/pause.png");
+                    btn_play.Image = Image.FromFile(@"res/pause.png");
                 }
             }
             catch (Exception)
@@ -119,7 +116,7 @@ namespace Duration
             datagrid.Columns[0].Visible = false;
             datagrid.Columns[1].Visible = false;
         }
-        // hold current selected song
+        // hold current selected song from datagrid
         private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -187,19 +184,26 @@ namespace Duration
             // stop the current song
             player.Ctlcontrols.stop();
             playnext = false;
+
             // retrieve file path from database
             var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
-            // clear previous list
-            //list_recent.Items.Clear();
+
+            //clear previous list
+            list_recent.Items.Clear();
+
             TagLib.File file = TagLib.File.Create(FilePath);
             //list_recent.Items.Add(file.Tag.Title);
 
             this.Text = "Duration | " + file.Tag.Title;
 
+            //int selectedIndex = data_library.SelectedRows[0].Index;
+            //PlayNextSong(selectedIndex);
+
             player.URL = FilePath;
             player.Ctlcontrols.play();
+
             // change play button styling
-            btn_playItem.Image = Image.FromFile(@"res/pause.png");
+            btn_play.Image = Image.FromFile(@"res/pause.png");
             
         }
         // change the volume
@@ -214,70 +218,6 @@ namespace Duration
             else
             {
                 btn_volume.Image = Image.FromFile(@"res/mute.png");
-            }
-        }
-        // hold event action
-        public EventHandler onAction = null;
-        // play song on the list
-        private void Btn_playItem_Click(object sender, EventArgs e)
-        {
-            // axWindowsMediaPlayer.Ctlcontrols.play();
-            if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
-            {
-                player.Ctlcontrols.pause();
-                btn_playItem.Image = Image.FromFile(@"res/play.png");
-            }
-            else
-            {
-                player.Ctlcontrols.play();
-                btn_playItem.Image = Image.FromFile(@"res/pause.png");
-            }
-            txt_search.Text = "🔎 Search library...";
-        }
-        // play previous track
-        private void Btn_prevItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // changes the current selected item
-                if (list_recent.Items.Count >= 0)
-                {
-                    if (startIndex > 0)
-                    {
-                        startIndex = startIndex - 1;
-                        list_recent.SelectedIndex--;
-                    }
-                    PlayFile(startIndex);
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Oops, feature error", "Assistant");
-            }
-        }
-        // play next track
-        private void Btn_nextItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // this controls the playlist
-                if (list_recent.Items.Count > 1)
-                {
-                    if (startIndex == list_recent.Items.Count - 1)
-                    {
-                        startIndex = list_recent.Items.Count - 1;
-                    }
-                    else if (startIndex < list_recent.Items.Count)
-                    {
-                        startIndex = startIndex + 1;
-                    }
-                    list_recent.SelectedIndex++;
-                    PlayFile(startIndex);
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Oops, feature error", "Assistant");
             }
         }
         // progress bar timer
@@ -298,6 +238,8 @@ namespace Duration
                 }
             }
         }
+        // hold event action
+        public EventHandler onAction = null;
         // method to see what state is the player in 
         public void axWindowsMediaPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
@@ -317,8 +259,35 @@ namespace Duration
             {
                 timer.Stop();
                 progressBar.Value = 0;
-                btn_playItem.Image = Image.FromFile(@"res/play.png");
+                btn_play.Image = Image.FromFile(@"res/play.png");
             }
+            // if the song is done playing
+            else if (player.playState == WMPLib.WMPPlayState.wmppsMediaEnded)
+            {
+                onAction?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        // universal method that controls both the datagrid and list
+        private void PlayNextSong(int index)
+        {
+            try
+            {
+                if (list_recent.Items.Count > 1 && index < list_recent.Items.Count - 1)
+                {
+                    startIndex = index;
+                    list_recent.SelectedIndex = index;
+                    PlayFile(startIndex);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Oops, feature error", "Assistant");
+            }
+        }
+        // user clicks next button
+        private void btn_next_Click(object sender, EventArgs e)
+        {
+            PlayNextSong(startIndex + 1);
         }
         // method to clear the search box
         private void txt_search_Click(object sender, EventArgs e)
@@ -394,28 +363,23 @@ namespace Duration
         // when a user double clicks a song
         private void Data_library_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            // stop the current song
+            player.Ctlcontrols.stop();
+            playnext = false;
+
+            // retrieve file path from database
+            var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
+            TagLib.File file = TagLib.File.Create(FilePath);
             // the song
-            menu_library_play_Click(sender, e);
+            //menu_library_play_Click(sender, e);
+            list_recent.Items.Add(file.Tag.Title);
+            player.URL = FilePath;
+            player.Ctlcontrols.play();
+
             // display its tags
             data_library_CellClick(sender, e);
         }
-        // when the recents list is clicked
-        private void List_recent_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                foreach (ListViewItem item in list_recent.Items)
-                {
-                    item.BackColor = Color.FromArgb(254, 178, 0);
-
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
+        // user clicks image artwork interface
         private void Image_artwork_Click(object sender, EventArgs e)
         {
             if (player.Visible == false)
@@ -427,7 +391,7 @@ namespace Duration
                 player.Visible = false;
             }
         }
-
+        // user clicks player interface
         private void Player_MouseDownEvent(object sender, AxWMPLib._WMPOCXEvents_MouseDownEvent e)
         {
             if (player.Visible == false)
@@ -439,13 +403,49 @@ namespace Duration
                 player.Visible = false;
             }
         }
+        // user clicks play button
+        private void btn_play_Click(object sender, EventArgs e)
+        {
+            // axWindowsMediaPlayer.Ctlcontrols.play();
+            if (player.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                player.Ctlcontrols.pause();
+                btn_play.Image = Image.FromFile(@"res/play.png");
+            }
+            else
+            {
+                player.Ctlcontrols.play();
+                btn_play.Image = Image.FromFile(@"res/pause.png");
+            }
+            txt_search.Text = "🔎 Search library...";
+        }
 
-        private void Button1_Click(object sender, EventArgs e)
+        // user clicks previous button
+        private void btn_prev_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // changes the current selected item
+                if (list_recent.Items.Count >= 0)
+                {
+                    if (startIndex > 0)
+                    {
+                        startIndex = startIndex - 1;
+                        list_recent.SelectedIndex--;
+                    }
+                    PlayFile(startIndex);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Oops, feature error", "Assistant");
+            }
+        }
+        // user clicks stop button
+        private void btn_stop_Click(object sender, EventArgs e)
         {
             player.Ctlcontrols.stop();
         }
-
-        
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
