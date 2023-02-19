@@ -51,6 +51,8 @@ namespace Duration
             startIndex = 0;
             playnext = false;
             StopPlayer();
+            startIndex = data_library.CurrentCell.RowIndex;
+
         }
         // stop music method
         public void StopPlayer()
@@ -119,34 +121,7 @@ namespace Duration
         // hold current selected song from datagrid
         private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
-                // get id
-                DataGridViewRow row = data_library.Rows[e.RowIndex];
-                var id = int.Parse(row.Cells[0].Value.ToString());
-                var path = con.ReadString($"SELECT path FROM library WHERE id = {id}");
-                // pass id to database
-                con.ExecuteQuery($"UPDATE session SET `index` = {id}, selectedFilePath = '{path}' WHERE id = 1");
 
-                // obtain audio tag details
-                TagLib.File file = TagLib.File.Create(path);
-
-                lbl_title.Text = file.Tag.Title;
-                lbl_genre.Text = file.Tag.Genres[0];
-                lbl_album.Text = file.Tag.Album;
-                lbl_year.Text = file.Tag.Year.ToString();
-                lbl_artist.Text = file.Tag.AlbumArtists[0];
-
-                var i = TagLib.File.Create(path);
-                var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
-
-                image_artwork.Image = Image.FromStream(new MemoryStream(bin));
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Oops, feature error", "Assistant");
-            }
         }
         // when user wants to add to library
         private void Menu_library_add_Click(object sender, EventArgs e)
@@ -272,12 +247,37 @@ namespace Duration
         {
             try
             {
+                // if the count of rows in the datagrid are more than one and less than the total amount of files
+                if(data_library.RowCount > 1 && index < data_library.RowCount - 1)
+                {
+                    // stop the current song
+                    player.Ctlcontrols.stop();
+                    playnext = false;
+                    startIndex = index;
+                    
+                    startIndex = data_library.CurrentCell.RowIndex;
+
+                    this.Text = "Duration";
+
+                    //int selectedIndex = data_library.SelectedRows[0].Index;
+                    //PlayNextSong(selectedIndex);
+
+                    // retrieve file path from database
+                    var FilePath = con.ReadString($"SELECT Path FROM library WHERE id = {startIndex}");
+                    player.URL = FilePath;
+                    player.Ctlcontrols.play();
+
+                    // change play button styling
+                    btn_play.Image = Image.FromFile(@"res/pause.png");
+                } 
+                /*
                 if (list_recent.Items.Count > 1 && index < list_recent.Items.Count - 1)
                 {
                     startIndex = index;
                     list_recent.SelectedIndex = index;
                     PlayFile(startIndex);
                 }
+                */
             }
             catch (Exception)
             {
@@ -369,13 +369,11 @@ namespace Duration
 
             // retrieve file path from database
             var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
-            TagLib.File file = TagLib.File.Create(FilePath);
+            //TagLib.File file = TagLib.File.Create(FilePath);
             // the song
-            //menu_library_play_Click(sender, e);
-            list_recent.Items.Add(file.Tag.Title);
+            //list_recent.Items.Add(file.Tag.Title);
             player.URL = FilePath;
             player.Ctlcontrols.play();
-
             // display its tags
             data_library_CellClick(sender, e);
         }
@@ -419,7 +417,6 @@ namespace Duration
             }
             txt_search.Text = "🔎 Search library...";
         }
-
         // user clicks previous button
         private void btn_prev_Click(object sender, EventArgs e)
         {
