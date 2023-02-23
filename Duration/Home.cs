@@ -20,6 +20,7 @@ namespace Duration
 
         private int startIndex = 0;
         private int nextRowIndex = 0;
+        private int lastPlayedIndex = -1;
         private int row = 0;
         private string[] FileName, FilePath;
         public Boolean playnext = false;
@@ -277,17 +278,58 @@ namespace Duration
                     playnext = false;
                     startIndex = index;
                     
-                    startIndex = data_library.CurrentCell.RowIndex +1;
+                    //startIndex = data_library.CurrentCell.RowIndex +1;
 
                     this.Text = "Duration";
 
-                    //int selectedIndex = data_library.SelectedRows[0].Index;
-                    //PlayNextSong(selectedIndex);
+                    // Check if there is a currently selected row
+                    if (data_library.SelectedRows.Count > 0)
+                    {
+                        // Deselect the currently selected row
+                        data_library.ClearSelection();
+                    }
 
+                    // Get the next row index
+                    int nextRowIndex = lastPlayedIndex + 1;
+
+                    // Check if the next row index is within the range of rows in the DataGridView
+                    if (nextRowIndex >= 0 && nextRowIndex < data_library.Rows.Count)
+                    {
+                        // Select the next row
+                        DataGridViewRow nextRow = data_library.Rows[nextRowIndex];
+                        nextRow.Selected = true;
+                        // get selected row
+                        DataGridViewRow selectedRow = data_library.SelectedRows[0];
+                        string path = selectedRow.Cells[1].Value.ToString();
+
+                        // Get the file path of the selected song from the database
+                        // string FilePath = nextRow.Cells["SongFilePath"].Value.ToString();
+                        string FilePath = path;
+
+                        // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
+                        player.URL = FilePath;
+                        // Start playing the song
+                        player.Ctlcontrols.play();
+                        // increment index
+                        // Update the index of the last played song
+                        lastPlayedIndex = nextRowIndex;
+                    }
+                    else
+                    {
+                        // Loop back to the first song in the list
+                        // Loop back to the first song in the list
+                        data_library.Rows[0].Selected = true;
+                        string filePath = data_library.Rows[0].Cells["Path"].Value.ToString();
+                        player.URL = filePath;
+                        player.Ctlcontrols.play();
+
+                        // Update the index of the last played song
+                        lastPlayedIndex = 0;
+                    }
+                
                     // retrieve file path from database
-                    var FilePath = con.ReadString($"SELECT Path FROM library WHERE id = {startIndex}");
-                    player.URL = FilePath;
-                    player.Ctlcontrols.play();
+                    //var FilePath = con.ReadString($"SELECT Path FROM library WHERE id = {startIndex}");
+                        
 
                     // change play button styling
                     btn_play.Image = Image.FromFile(@"res/pause.png");
