@@ -128,24 +128,19 @@ namespace Duration
                 string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
                 // obtain audio tag details
                 TagLib.File file = TagLib.File.Create(path);
-
-                lbl_title.Text = file.Name;
+                // tag labels
+                lbl_title.Text = file.Tag.Title;
                 lbl_genre.Text = file.Tag.Genres[0];
                 lbl_album.Text = file.Tag.Album;
                 lbl_year.Text = file.Tag.Year.ToString();
                 lbl_artist.Text = file.Tag.AlbumArtists[0];
-
-                //lbl_title_mini.Text = list_recent.Text;
-                //lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
-
-                //var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
+                // tag image
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
-
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
             }
             catch (Exception)
             {
-
+                // do nothing
             }
         }
         // when user wants to add to library
@@ -186,12 +181,14 @@ namespace Duration
             playnext = false;
 
             // retrieve file path from database
-            var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
+            DataGridViewRow selectedRow = data_library.SelectedRows[0];
+            string id = selectedRow.Cells[0].Value.ToString();
+            string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
 
             //clear previous list
             list_recent.Items.Clear();
 
-            TagLib.File file = TagLib.File.Create(FilePath);
+            TagLib.File file = TagLib.File.Create(path);
             //list_recent.Items.Add(file.Tag.Title);
 
             this.Text = "Duration | " + file.Tag.Title;
@@ -199,7 +196,7 @@ namespace Duration
             //int selectedIndex = data_library.SelectedRows[0].Index;
             //PlayNextSong(selectedIndex);
 
-            player.URL = FilePath;
+            player.URL = path;
             player.Ctlcontrols.play();
 
             // change play button styling
@@ -388,17 +385,7 @@ namespace Duration
         // when a user double clicks a song
         private void Data_library_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            // stop the current song
-            player.Ctlcontrols.stop();
-            playnext = false;
-
-            // retrieve file path from database
-            var FilePath = con.ReadString("SELECT selectedFilePath FROM session WHERE id = 1");
-            //TagLib.File file = TagLib.File.Create(FilePath);
-            // the song
-            //list_recent.Items.Add(file.Tag.Title);
-            player.URL = FilePath;
-            player.Ctlcontrols.play();
+            menu_library_play_Click(sender, e);
             // display its tags
             data_library_CellClick(sender, e);
         }
