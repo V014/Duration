@@ -121,7 +121,32 @@ namespace Duration
         // hold current selected song from datagrid
         private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            try
+            {
+                DataGridViewRow selectedRow = data_library.SelectedRows[0];
+                string id = selectedRow.Cells[0].Value.ToString();
+                string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
+                // obtain audio tag details
+                TagLib.File file = TagLib.File.Create(path);
 
+                lbl_title.Text = file.Name;
+                lbl_genre.Text = file.Tag.Genres[0];
+                lbl_album.Text = file.Tag.Album;
+                lbl_year.Text = file.Tag.Year.ToString();
+                lbl_artist.Text = file.Tag.AlbumArtists[0];
+
+                //lbl_title_mini.Text = list_recent.Text;
+                //lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
+
+                //var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
+                var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
+
+                image_artwork.Image = Image.FromStream(new MemoryStream(bin));
+            }
+            catch (Exception)
+            {
+
+            }
         }
         // when user wants to add to library
         private void Menu_library_add_Click(object sender, EventArgs e)
@@ -255,7 +280,7 @@ namespace Duration
                     playnext = false;
                     startIndex = index;
                     
-                    startIndex = data_library.CurrentCell.RowIndex;
+                    startIndex = data_library.CurrentCell.RowIndex +1;
 
                     this.Text = "Duration";
 
@@ -287,7 +312,7 @@ namespace Duration
         // user clicks next button
         private void btn_next_Click(object sender, EventArgs e)
         {
-            PlayNextSong(startIndex + 1);
+            PlayNextSong(startIndex);
         }
         // method to clear the search box
         private void txt_search_Click(object sender, EventArgs e)
