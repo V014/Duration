@@ -361,9 +361,9 @@ namespace Duration
             else
             {
                 PlayNextSong();
-                Tag_music();
             }
-
+            // tag music regardless of origin of play
+            Tag_music();
         }
         // method to clear the search box
         private void txt_search_Click(object sender, EventArgs e)
@@ -483,52 +483,81 @@ namespace Duration
             }
             txt_search.Text = "🔎 Search library...";
         }
+        private void PlayPreviousSong()
+        {
+            // Check if there is a currently selected row
+            if (data_library.SelectedRows.Count > 0)
+            {
+                // Deselect the currently selected row
+                data_library.ClearSelection();
+            }
+
+            // Get the previous row index
+            int previousRowIndex = lastPlayedIndex - 1;
+
+            // Check if the previous row index is within the range of rows in the DataGridView
+            if (previousRowIndex >= 0 && previousRowIndex < data_library.Rows.Count)
+            {
+                // Select the previous row
+                DataGridViewRow previousRow = data_library.Rows[previousRowIndex];
+                previousRow.Selected = true;
+
+                // Get the file path of the selected song from the database
+                string filePath = previousRow.Cells["Path"].Value.ToString();
+
+                // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
+                player.URL = filePath;
+
+                // Start playing the song
+                player.Ctlcontrols.play();
+
+                // Update the index of the last played song
+                lastPlayedIndex = previousRowIndex;
+            }
+            else
+            {
+                // Loop back to the last song in the list
+                int lastRowIndex = data_library.Rows.Count - 1;
+                data_library.Rows[lastRowIndex].Selected = true;
+                string filePath = data_library.Rows[lastRowIndex].Cells["Path"].Value.ToString();
+                player.URL = filePath;
+                player.Ctlcontrols.play();
+
+                // Update the index of the last played song
+                lastPlayedIndex = lastRowIndex;
+            }
+        }
         // user clicks previous button
         private void btn_prev_Click(object sender, EventArgs e)
         {
             try
             {
-                // Check if there is a currently selected row
-                if (data_library.SelectedRows.Count > 0)
+                
+                if (list_playlist.Items.Count > 0)
                 {
-                    // Deselect the currently selected row
-                    data_library.ClearSelection();
-                }
+                    // Decrement the current song index variable
+                    startIndex--;
 
-                // Get the previous row index
-                int previousRowIndex = lastPlayedIndex - 1;
-
-                // Check if the previous row index is within the range of rows in the DataGridView
-                if (previousRowIndex >= 0 && previousRowIndex < data_library.Rows.Count)
-                {
-                    // Select the previous row
-                    DataGridViewRow previousRow = data_library.Rows[previousRowIndex];
-                    previousRow.Selected = true;
-
-                    // Get the file path of the selected song from the database
-                    string filePath = previousRow.Cells["Path"].Value.ToString();
+                    // Check if we've reached the beginning of the playlist
+                    if (startIndex < 0)
+                    {
+                        // Set the current song index variable to the last index of the playlist
+                        startIndex = list_playlist.Items.Count - 1;
+                    }
 
                     // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
-                    player.URL = filePath;
+                    PlayFile(startIndex);
 
-                    // Start playing the song
-                    player.Ctlcontrols.play();
-
-                    // Update the index of the last played song
-                    lastPlayedIndex = previousRowIndex;
+                    // Select the new song in the list
+                    list_playlist.SelectedIndex = startIndex;
                 }
                 else
                 {
-                    // Loop back to the last song in the list
-                    int lastRowIndex = data_library.Rows.Count - 1;
-                    data_library.Rows[lastRowIndex].Selected = true;
-                    string filePath = data_library.Rows[lastRowIndex].Cells["Path"].Value.ToString();
-                    player.URL = filePath;
-                    player.Ctlcontrols.play();
-
-                    // Update the index of the last played song
-                    lastPlayedIndex = lastRowIndex;
+                    PlayPreviousSong();
+                    
                 }
+                // tag music regardless of origin of play
+                Tag_music();
                 /*
                 // changes the current selected item
                 if (list_recent.Items.Count >= 0)
