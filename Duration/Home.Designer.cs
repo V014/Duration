@@ -37,9 +37,6 @@
             this.add = new System.Windows.Forms.ToolStripMenuItem();
             this.play = new System.Windows.Forms.ToolStripMenuItem();
             this.delete = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel_recent = new System.Windows.Forms.Panel();
-            this.btn_newPlaylist = new System.Windows.Forms.Button();
-            this.list_recent = new System.Windows.Forms.ListBox();
             this.panel_playlist = new System.Windows.Forms.Panel();
             this.lbl_title = new System.Windows.Forms.Label();
             this.panel_search = new System.Windows.Forms.Panel();
@@ -70,11 +67,13 @@
             this.lbl_start = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_nav = new System.Windows.Forms.Panel();
+            this.list_playlist = new System.Windows.Forms.ListBox();
+            this.btn_newPlaylist = new System.Windows.Forms.Button();
+            this.panel_recent = new System.Windows.Forms.Panel();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
             this.menu_library.SuspendLayout();
-            this.panel_recent.SuspendLayout();
             this.panel_playlist.SuspendLayout();
             this.panel_search.SuspendLayout();
             this.panel_activity.SuspendLayout();
@@ -88,6 +87,7 @@
             this.panel_end.SuspendLayout();
             this.panel_start.SuspendLayout();
             this.panel_nav.SuspendLayout();
+            this.panel_recent.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_main
@@ -138,8 +138,8 @@
             this.data_library.Size = new System.Drawing.Size(579, 437);
             this.data_library.StandardTab = true;
             this.data_library.TabIndex = 7;
-            this.data_library.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_library_CellClick);
-            this.data_library.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Data_library_CellDoubleClick);
+            this.data_library.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.data_library_CellMouseClick);
+            this.data_library.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.data_library_CellMouseDoubleClick);
             // 
             // menu_library
             // 
@@ -170,53 +170,6 @@
             this.delete.Size = new System.Drawing.Size(107, 22);
             this.delete.Text = "Delete";
             this.delete.Click += new System.EventHandler(this.Delete_Click);
-            // 
-            // panel_recent
-            // 
-            this.panel_recent.Controls.Add(this.btn_newPlaylist);
-            this.panel_recent.Controls.Add(this.list_recent);
-            this.panel_recent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_recent.Location = new System.Drawing.Point(579, 50);
-            this.panel_recent.Name = "panel_recent";
-            this.panel_recent.Padding = new System.Windows.Forms.Padding(5);
-            this.panel_recent.Size = new System.Drawing.Size(233, 437);
-            this.panel_recent.TabIndex = 8;
-            // 
-            // btn_newPlaylist
-            // 
-            this.btn_newPlaylist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
-            this.btn_newPlaylist.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_newPlaylist.FlatAppearance.BorderSize = 0;
-            this.btn_newPlaylist.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.btn_newPlaylist.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(60)))));
-            this.btn_newPlaylist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_newPlaylist.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_newPlaylist.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            this.btn_newPlaylist.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_newPlaylist.Location = new System.Drawing.Point(5, 384);
-            this.btn_newPlaylist.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_newPlaylist.Name = "btn_newPlaylist";
-            this.btn_newPlaylist.Padding = new System.Windows.Forms.Padding(10);
-            this.btn_newPlaylist.Size = new System.Drawing.Size(223, 48);
-            this.btn_newPlaylist.TabIndex = 5;
-            this.btn_newPlaylist.Text = "New Playlist";
-            this.btn_newPlaylist.UseVisualStyleBackColor = false;
-            this.btn_newPlaylist.Click += new System.EventHandler(this.btn_browse_Click);
-            // 
-            // list_recent
-            // 
-            this.list_recent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.list_recent.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.list_recent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.list_recent.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.list_recent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
-            this.list_recent.FormattingEnabled = true;
-            this.list_recent.Location = new System.Drawing.Point(5, 5);
-            this.list_recent.Name = "list_recent";
-            this.list_recent.Size = new System.Drawing.Size(223, 427);
-            this.list_recent.TabIndex = 0;
-            this.list_recent.SelectedIndexChanged += new System.EventHandler(this.list_recent_SelectedIndexChanged);
-            this.list_recent.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_recent_MouseDoubleClick);
             // 
             // panel_playlist
             // 
@@ -584,6 +537,53 @@
             this.panel_nav.Size = new System.Drawing.Size(172, 487);
             this.panel_nav.TabIndex = 5;
             // 
+            // list_playlist
+            // 
+            this.list_playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.list_playlist.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.list_playlist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.list_playlist.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.list_playlist.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(186)))), ((int)(((byte)(199)))));
+            this.list_playlist.FormattingEnabled = true;
+            this.list_playlist.Location = new System.Drawing.Point(5, 5);
+            this.list_playlist.Name = "list_playlist";
+            this.list_playlist.Size = new System.Drawing.Size(223, 427);
+            this.list_playlist.TabIndex = 0;
+            this.list_playlist.SelectedIndexChanged += new System.EventHandler(this.list_recent_SelectedIndexChanged);
+            this.list_playlist.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.List_recent_MouseDoubleClick);
+            // 
+            // btn_newPlaylist
+            // 
+            this.btn_newPlaylist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
+            this.btn_newPlaylist.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_newPlaylist.FlatAppearance.BorderSize = 0;
+            this.btn_newPlaylist.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.btn_newPlaylist.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(60)))));
+            this.btn_newPlaylist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_newPlaylist.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_newPlaylist.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.btn_newPlaylist.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_newPlaylist.Location = new System.Drawing.Point(5, 384);
+            this.btn_newPlaylist.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_newPlaylist.Name = "btn_newPlaylist";
+            this.btn_newPlaylist.Padding = new System.Windows.Forms.Padding(10);
+            this.btn_newPlaylist.Size = new System.Drawing.Size(223, 48);
+            this.btn_newPlaylist.TabIndex = 5;
+            this.btn_newPlaylist.Text = "New Playlist";
+            this.btn_newPlaylist.UseVisualStyleBackColor = false;
+            this.btn_newPlaylist.Click += new System.EventHandler(this.btn_browse_Click);
+            // 
+            // panel_recent
+            // 
+            this.panel_recent.Controls.Add(this.btn_newPlaylist);
+            this.panel_recent.Controls.Add(this.list_playlist);
+            this.panel_recent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_recent.Location = new System.Drawing.Point(579, 50);
+            this.panel_recent.Name = "panel_recent";
+            this.panel_recent.Padding = new System.Windows.Forms.Padding(5);
+            this.panel_recent.Size = new System.Drawing.Size(233, 437);
+            this.panel_recent.TabIndex = 8;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -605,7 +605,6 @@
             this.panel_nowPlaying.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.data_library)).EndInit();
             this.menu_library.ResumeLayout(false);
-            this.panel_recent.ResumeLayout(false);
             this.panel_playlist.ResumeLayout(false);
             this.panel_playlist.PerformLayout();
             this.panel_search.ResumeLayout(false);
@@ -625,6 +624,7 @@
             this.panel_start.ResumeLayout(false);
             this.panel_start.PerformLayout();
             this.panel_nav.ResumeLayout(false);
+            this.panel_recent.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -641,12 +641,10 @@
         private System.Windows.Forms.Label lbl_volume;
         private System.Windows.Forms.Button btn_volume;
         private System.Windows.Forms.Panel panel_nav;
-        private System.Windows.Forms.Button btn_newPlaylist;
         private System.Windows.Forms.Panel panel_start;
         private System.Windows.Forms.Label lbl_start;
         private System.Windows.Forms.Panel panel_end;
         private System.Windows.Forms.Label lbl_end;
-        public System.Windows.Forms.ListBox list_recent;
         public MetroFramework.Controls.MetroTrackBar progressBar;
         public System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Panel panel_artwork;
@@ -663,13 +661,15 @@
         private System.Windows.Forms.ToolStripMenuItem play;
         private System.Windows.Forms.ToolStripMenuItem delete;
         private System.Windows.Forms.DataGridView data_library;
-        private System.Windows.Forms.Panel panel_recent;
         private System.Windows.Forms.Panel panel_playlist;
         private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.Panel panel_search;
         private System.Windows.Forms.TextBox txt_search;
         public System.Windows.Forms.Button btn_play;
         private System.Windows.Forms.Button btn_stop;
+        private System.Windows.Forms.Panel panel_recent;
+        private System.Windows.Forms.Button btn_newPlaylist;
+        public System.Windows.Forms.ListBox list_playlist;
     }
 }
 

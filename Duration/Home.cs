@@ -63,7 +63,7 @@ namespace Duration
         // play file method
         public void PlayFile(int PlayListIndex)
         {
-            if(list_recent.Items.Count <= 0)
+            if(list_playlist.Items.Count <= 0)
             {
                 return;
             }
@@ -89,20 +89,20 @@ namespace Duration
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     // clear previous list
-                    list_recent.Items.Clear();
+                    list_playlist.Items.Clear();
                     FileName = ofd.SafeFileNames;
                     FilePath = ofd.FileNames;
 
                     foreach (var items in FilePath)
                     {
                         TagLib.File file = TagLib.File.Create(items);
-                        list_recent.Items.Add(file.Tag.Title);
+                        list_playlist.Items.Add(file.Tag.Title);
                         this.Refresh();
                     }
                     // auto play music
                     startIndex = 0;
                     PlayFile(0);
-                    list_recent.SelectedIndex = 0;
+                    list_playlist.SelectedIndex = 0;
                     btn_play.Image = Image.FromFile(@"res/pause.png");
                 }
             }
@@ -119,8 +119,8 @@ namespace Duration
             datagrid.Columns[0].Visible = false;
             datagrid.Columns[1].Visible = false;
         }
-        // hold current selected song from datagrid
-        private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
+        // tags the music and is enabled for multipurpose
+        private void Tag_music()
         {
             try
             {
@@ -143,6 +143,11 @@ namespace Duration
             {
                 // do nothing
             }
+        }
+        // hold current selected song from datagrid
+        private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Tag_music();
         }
         // when user wants to add to library
         private void Menu_library_add_Click(object sender, EventArgs e)
@@ -187,7 +192,7 @@ namespace Duration
             string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
 
             //clear previous list
-            list_recent.Items.Clear();
+            list_playlist.Items.Clear();
 
             TagLib.File file = TagLib.File.Create(path);
             //list_recent.Items.Add(file.Tag.Title);
@@ -290,6 +295,7 @@ namespace Duration
                     // Select the next row
                     DataGridViewRow nextRow = data_library.Rows[nextRowIndex];
                     nextRow.Selected = true;
+
                     // get selected row
                     DataGridViewRow selectedRow = data_library.SelectedRows[0];
                     string path = selectedRow.Cells[1].Value.ToString();
@@ -315,8 +321,8 @@ namespace Duration
                     lastPlayedIndex = 0;
                 }
                         
-                    // change play button styling
-                    btn_play.Image = Image.FromFile(@"res/pause.png"); 
+                // change play button styling
+                btn_play.Image = Image.FromFile(@"res/pause.png"); 
                 /*
                 if (list_recent.Items.Count > 1 && index < list_recent.Items.Count - 1)
                 {
@@ -334,7 +340,30 @@ namespace Duration
         // user clicks next button
         private void btn_next_Click(object sender, EventArgs e)
         {
-            PlayNextSong();
+            // Check if the song list from the playlist is not empty
+            if (list_playlist.Items.Count > 0)
+            {
+                // Check if we've reached the end of the playlist
+                if (startIndex >= list_playlist.Items.Count)
+                {
+                    // Reset the current song index variable to 0 to loop back to the beginning of the playlist
+                    startIndex = 0;
+                }
+
+                // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
+                PlayFile(startIndex);
+                // Start playing the song
+                list_playlist.SelectedIndex = startIndex;
+
+                // Increment the current song index variable
+                startIndex++;
+            }
+            else
+            {
+                PlayNextSong();
+                Tag_music();
+            }
+
         }
         // method to clear the search box
         private void txt_search_Click(object sender, EventArgs e)
@@ -358,16 +387,16 @@ namespace Duration
         // when a user is searching for music
         private void txt_search_KeyPress(object sender, KeyPressEventArgs e)
         {
-            int index = list_recent.FindString(txt_search.Text);
+            int index = list_playlist.FindString(txt_search.Text);
             if (0 <= index)
             {
-                list_recent.SelectedIndex = index;
+                list_playlist.SelectedIndex = index;
             }
         }
         // when a user double clicks a song
         private void List_recent_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            PlayFile(list_recent.SelectedIndex);
+            PlayFile(list_playlist.SelectedIndex);
         }
         // when user scrubs progress bar
         private void ProgressBar_Scroll(object sender, ScrollEventArgs e)
@@ -523,15 +552,28 @@ namespace Duration
         {
             player.Ctlcontrols.stop();
         }
+
+        private void data_library_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            menu_library_play_Click(sender, e);
+            // display its tags
+            data_library_CellMouseClick(sender, e);
+        }
+
+        private void data_library_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Tag_music();
+        }
+
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
                 // obtain audio tag details
-                TagLib.File file = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
+                TagLib.File file = TagLib.File.Create(FilePath[list_playlist.SelectedIndex]);
 
-                lbl_title.Text = list_recent.Text;
+                lbl_title.Text = list_playlist.Text;
                 lbl_genre.Text = file.Tag.Genres[0];
                 lbl_album.Text = file.Tag.Album;
                 lbl_year.Text = file.Tag.Year.ToString();
@@ -540,7 +582,7 @@ namespace Duration
                 //lbl_title_mini.Text = list_recent.Text;
                 //lbl_artist_mini.Text = file.Tag.AlbumArtists[0];
 
-                var i = TagLib.File.Create(FilePath[list_recent.SelectedIndex]);
+                var i = TagLib.File.Create(FilePath[list_playlist.SelectedIndex]);
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
 
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
