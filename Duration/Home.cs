@@ -361,9 +361,9 @@ namespace Duration
             else
             {
                 PlayNextSong();
+                // tag music from the datagrid
+                Tag_music();
             }
-            // tag music regardless of origin of play
-            Tag_music();
         }
         // method to clear the search box
         private void txt_search_Click(object sender, EventArgs e)
@@ -554,22 +554,10 @@ namespace Duration
                 else
                 {
                     PlayPreviousSong();
-                    
+                    // tag music from the datagrid
+                    Tag_music();
                 }
-                // tag music regardless of origin of play
-                Tag_music();
-                /*
-                // changes the current selected item
-                if (list_recent.Items.Count >= 0)
-                {
-                    if (startIndex > 0)
-                    {
-                        startIndex = startIndex - 1;
-                        list_recent.SelectedIndex--;
-                    }
-                    PlayFile(startIndex);
-                }
-                */
+                
             }
             catch (Exception)
             {
