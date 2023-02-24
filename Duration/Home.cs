@@ -266,74 +266,57 @@ namespace Duration
             }
         }
         // universal method that controls both the datagrid and list
-        private void PlayNextSong(int index)
+        private void PlayNextSong()
         {
             try
             {
-                // if the count of rows in the datagrid are more than one and less than the total amount of files
-                if(data_library.RowCount > 1 && index < data_library.RowCount - 1)
+                // stop the current song
+                player.Ctlcontrols.stop();
+                playnext = false;
+
+                // Check if there is a currently selected row
+                if (data_library.SelectedRows.Count > 0)
                 {
-                    // stop the current song
-                    player.Ctlcontrols.stop();
-                    playnext = false;
-                    startIndex = index;
-                    
-                    //startIndex = data_library.CurrentCell.RowIndex +1;
+                    // Deselect the currently selected row
+                    data_library.ClearSelection();
+                }
 
-                    this.Text = "Duration";
+                // Get the next row index
+                int nextRowIndex = lastPlayedIndex + 1;
 
-                    // Check if there is a currently selected row
-                    if (data_library.SelectedRows.Count > 0)
-                    {
-                        // Deselect the currently selected row
-                        data_library.ClearSelection();
-                    }
+                // Check if the next row index is within the range of rows in the DataGridView
+                if (nextRowIndex >= 0 && nextRowIndex < data_library.Rows.Count)
+                {
+                    // Select the next row
+                    DataGridViewRow nextRow = data_library.Rows[nextRowIndex];
+                    nextRow.Selected = true;
+                    // get selected row
+                    DataGridViewRow selectedRow = data_library.SelectedRows[0];
+                    string path = selectedRow.Cells[1].Value.ToString();
 
-                    // Get the next row index
-                    int nextRowIndex = lastPlayedIndex + 1;
+                    // Get the file path of the selected song from the database
+                    string FilePath = path;
 
-                    // Check if the next row index is within the range of rows in the DataGridView
-                    if (nextRowIndex >= 0 && nextRowIndex < data_library.Rows.Count)
-                    {
-                        // Select the next row
-                        DataGridViewRow nextRow = data_library.Rows[nextRowIndex];
-                        nextRow.Selected = true;
-                        // get selected row
-                        DataGridViewRow selectedRow = data_library.SelectedRows[0];
-                        string path = selectedRow.Cells[1].Value.ToString();
-
-                        // Get the file path of the selected song from the database
-                        // string FilePath = nextRow.Cells["SongFilePath"].Value.ToString();
-                        string FilePath = path;
-
-                        // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
-                        player.URL = FilePath;
-                        // Start playing the song
-                        player.Ctlcontrols.play();
-                        // increment index
-                        // Update the index of the last played song
-                        lastPlayedIndex = nextRowIndex;
-                    }
-                    else
-                    {
-                        // Loop back to the first song in the list
-                        // Loop back to the first song in the list
-                        data_library.Rows[0].Selected = true;
-                        string filePath = data_library.Rows[0].Cells["Path"].Value.ToString();
-                        player.URL = filePath;
-                        player.Ctlcontrols.play();
-
-                        // Update the index of the last played song
-                        lastPlayedIndex = 0;
-                    }
-                
-                    // retrieve file path from database
-                    //var FilePath = con.ReadString($"SELECT Path FROM library WHERE id = {startIndex}");
+                    // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
+                    player.URL = FilePath;
+                    // Start playing the song
+                    player.Ctlcontrols.play();
+                    // Update the index of the last played song
+                    lastPlayedIndex = nextRowIndex;
+                }
+                else
+                {
+                    // Loop back to the first song in the list
+                    data_library.Rows[0].Selected = true;
+                    string filePath = data_library.Rows[0].Cells["Path"].Value.ToString();
+                    player.URL = filePath;
+                    player.Ctlcontrols.play();
+                    // Update the index of the last played song
+                    lastPlayedIndex = 0;
+                }
                         
-
                     // change play button styling
-                    btn_play.Image = Image.FromFile(@"res/pause.png");
-                } 
+                    btn_play.Image = Image.FromFile(@"res/pause.png"); 
                 /*
                 if (list_recent.Items.Count > 1 && index < list_recent.Items.Count - 1)
                 {
@@ -351,7 +334,7 @@ namespace Duration
         // user clicks next button
         private void btn_next_Click(object sender, EventArgs e)
         {
-            PlayNextSong(startIndex);
+            PlayNextSong();
         }
         // method to clear the search box
         private void txt_search_Click(object sender, EventArgs e)
@@ -476,6 +459,48 @@ namespace Duration
         {
             try
             {
+                // Check if there is a currently selected row
+                if (data_library.SelectedRows.Count > 0)
+                {
+                    // Deselect the currently selected row
+                    data_library.ClearSelection();
+                }
+
+                // Get the previous row index
+                int previousRowIndex = lastPlayedIndex - 1;
+
+                // Check if the previous row index is within the range of rows in the DataGridView
+                if (previousRowIndex >= 0 && previousRowIndex < data_library.Rows.Count)
+                {
+                    // Select the previous row
+                    DataGridViewRow previousRow = data_library.Rows[previousRowIndex];
+                    previousRow.Selected = true;
+
+                    // Get the file path of the selected song from the database
+                    string filePath = previousRow.Cells["Path"].Value.ToString();
+
+                    // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
+                    player.URL = filePath;
+
+                    // Start playing the song
+                    player.Ctlcontrols.play();
+
+                    // Update the index of the last played song
+                    lastPlayedIndex = previousRowIndex;
+                }
+                else
+                {
+                    // Loop back to the last song in the list
+                    int lastRowIndex = data_library.Rows.Count - 1;
+                    data_library.Rows[lastRowIndex].Selected = true;
+                    string filePath = data_library.Rows[lastRowIndex].Cells["Path"].Value.ToString();
+                    player.URL = filePath;
+                    player.Ctlcontrols.play();
+
+                    // Update the index of the last played song
+                    lastPlayedIndex = lastRowIndex;
+                }
+                /*
                 // changes the current selected item
                 if (list_recent.Items.Count >= 0)
                 {
@@ -486,10 +511,11 @@ namespace Duration
                     }
                     PlayFile(startIndex);
                 }
+                */
             }
             catch (Exception)
             {
-                MessageBox.Show("Oops, feature error", "Assistant");
+               // MessageBox.Show("Oops, feature error", "Assistant");
             }
         }
         // user clicks stop button
