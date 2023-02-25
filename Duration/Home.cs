@@ -183,32 +183,38 @@ namespace Duration
         // when user clicks play
         private void menu_library_play_Click(object sender, EventArgs e)
         {
-            // stop the current song
-            player.Ctlcontrols.stop();
-            playnext = false;
+            try
+            {
+                // stop the current song
+                player.Ctlcontrols.stop();
+                playnext = false;
 
-            // retrieve file path from database
-            DataGridViewRow selectedRow = data_library.SelectedRows[0];
-            string id = selectedRow.Cells[0].Value.ToString();
-            string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
+                // retrieve file path from database
+                DataGridViewRow selectedRow = data_library.SelectedRows[0];
+                string id = selectedRow.Cells[0].Value.ToString();
+                string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
 
-            //clear previous list
-            list_playlist.Items.Clear();
+                //clear previous list
+                list_playlist.Items.Clear();
 
-            TagLib.File file = TagLib.File.Create(path);
-            //list_recent.Items.Add(file.Tag.Title);
+                TagLib.File file = TagLib.File.Create(path);
+                //list_recent.Items.Add(file.Tag.Title);
 
-            this.Text = "Duration | " + file.Tag.Title;
+                this.Text = "Duration | " + file.Tag.Title;
 
-            //int selectedIndex = data_library.SelectedRows[0].Index;
-            //PlayNextSong(selectedIndex);
+                //int selectedIndex = data_library.SelectedRows[0].Index;
+                //PlayNextSong(selectedIndex);
 
-            player.URL = path;
-            player.Ctlcontrols.play();
+                player.URL = path;
+                player.Ctlcontrols.play();
 
-            // change play button styling
-            btn_play.Image = Image.FromFile(@"res/pause.png");
-            
+                // change play button styling
+                btn_play.Image = Image.FromFile(@"res/pause.png");
+            }
+            catch (Exception)
+            {
+                PlayNextSong();
+            }       
         }
         // change the volume
         private void volume_ValueChanged(object sender, EventArgs e)
@@ -268,7 +274,8 @@ namespace Duration
             // if the song is done playing
             else if (player.playState == WMPLib.WMPPlayState.wmppsMediaEnded)
             {
-                onAction?.Invoke(this, EventArgs.Empty);
+                // jump back to one
+                PlayNextSong();
             }
         }
         // universal method that controls both the datagrid and list
@@ -289,6 +296,7 @@ namespace Duration
 
                 // Get the next row index
                 int nextRowIndex = lastPlayedIndex + 1;
+                
 
                 // Check if the next row index is within the range of rows in the DataGridView
                 if (nextRowIndex >= 0 && nextRowIndex < data_library.Rows.Count)
@@ -309,7 +317,6 @@ namespace Duration
                     // Start playing the song
                     player.Ctlcontrols.play();
                     // Update the index of the last played song
-                    MessageBox.Show(nextRowIndex.ToString());
                     lastPlayedIndex = nextRowIndex;
                 }
                 else
@@ -320,15 +327,15 @@ namespace Duration
                     player.URL = filePath;
                     player.Ctlcontrols.play();
                     // Update the index of the last played song
-                    lastPlayedIndex = 0;
+                    lastPlayedIndex = nextRowIndex;
                 }
                         
                 // change play button styling
                 btn_play.Image = Image.FromFile(@"res/pause.png"); 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Oops, feature error", "Assistant");
+                MessageBox.Show("Oops, feature error \n" + ex.ToString(), "Assistant");
             }
         }
         // user clicks next button
@@ -526,8 +533,7 @@ namespace Duration
         private void btn_prev_Click(object sender, EventArgs e)
         {
             try
-            {
-                
+            { 
                 if (list_playlist.Items.Count > 0)
                 {
                     // Decrement the current song index variable
@@ -574,6 +580,7 @@ namespace Duration
 
         private void data_library_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            lastPlayedIndex = data_library.SelectedRows[0].Index;
             Tag_music();
         }
 
