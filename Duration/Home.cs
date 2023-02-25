@@ -20,6 +20,7 @@ namespace Duration
 
         private int startIndex = 0;
         private int nextRowIndex = 0;
+        private int currentIndex = -1;
         private int lastPlayedIndex = -1;
         private int row = 0;
         private string[] FileName, FilePath;
@@ -308,6 +309,7 @@ namespace Duration
                     // Start playing the song
                     player.Ctlcontrols.play();
                     // Update the index of the last played song
+                    MessageBox.Show(nextRowIndex.ToString());
                     lastPlayedIndex = nextRowIndex;
                 }
                 else
@@ -323,14 +325,6 @@ namespace Duration
                         
                 // change play button styling
                 btn_play.Image = Image.FromFile(@"res/pause.png"); 
-                /*
-                if (list_recent.Items.Count > 1 && index < list_recent.Items.Count - 1)
-                {
-                    startIndex = index;
-                    list_recent.SelectedIndex = index;
-                    PlayFile(startIndex);
-                }
-                */
             }
             catch (Exception)
             {
@@ -343,20 +337,21 @@ namespace Duration
             // Check if the song list from the playlist is not empty
             if (list_playlist.Items.Count > 0)
             {
+                // Move to the next song
+                currentIndex++;
                 // Check if we've reached the end of the playlist
                 if (startIndex >= list_playlist.Items.Count)
                 {
-                    // Reset the current song index variable to 0 to loop back to the beginning of the playlist
-                    startIndex = 0;
+                    // Reached the end of the playlist, start from the beginning
+                    currentIndex = 0;
                 }
-
                 // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
-                PlayFile(startIndex);
+                PlayFile(currentIndex);
                 // Start playing the song
-                list_playlist.SelectedIndex = startIndex;
+                list_playlist.SelectedIndex = currentIndex;
 
                 // Increment the current song index variable
-                startIndex++;
+                //startIndex++;
             }
             else
             {
@@ -536,20 +531,20 @@ namespace Duration
                 if (list_playlist.Items.Count > 0)
                 {
                     // Decrement the current song index variable
-                    startIndex--;
+                    currentIndex--;
 
                     // Check if we've reached the beginning of the playlist
-                    if (startIndex < 0)
+                    if (currentIndex < 0)
                     {
                         // Set the current song index variable to the last index of the playlist
-                        startIndex = list_playlist.Items.Count - 1;
+                        currentIndex = list_playlist.Items.Count - 1;
                     }
 
                     // Set the URL property of the axWindowsMediaPlayer control to the file path of the selected song
-                    PlayFile(startIndex);
+                    PlayFile(currentIndex);
 
                     // Select the new song in the list
-                    list_playlist.SelectedIndex = startIndex;
+                    list_playlist.SelectedIndex = currentIndex;
                 }
                 else
                 {
@@ -603,7 +598,7 @@ namespace Duration
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
 
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
-                //image_mini.Image = Image.FromStream(new MemoryStream(bin));
+
             }
             catch (Exception)
             {
