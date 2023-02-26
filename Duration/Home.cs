@@ -14,54 +14,32 @@ namespace Duration
             styling.styleDataGrid(data_library);
             load_Library(data_library);
         }
- 
+        // declare connection to a database and its styling
         private readonly Connection con = new Connection();
         private readonly DataGridStyling styling = new DataGridStyling();
 
+        // declare usable variables
         private int startIndex = 0;
-        private int nextRowIndex = 0;
         private int currentIndex = -1;
         private int lastPlayedIndex = -1;
-        private int row = 0;
         private string[] FileName, FilePath;
         public Boolean playnext = false;
         bool _playing = false;
         
-        // check to see if the player is working
-        public bool isplaying
-        {
-            get
-            {
-                return _playing;
-            }
-            set
-            {
-                _playing = value;
-                if (_playing)
-                {
-                    player.Ctlcontrols.pause();
-                }
-                else
-                {
-                    player.Ctlcontrols.play(); 
-                }
-            }
-        }
         // when the interface loads
         private void Home_Load(object sender, EventArgs e)
         {
-            startIndex = 0;
+            // do not play music
             playnext = false;
             StopPlayer();
             startIndex = data_library.CurrentCell.RowIndex;
-
         }
         // stop music method
         public void StopPlayer()
         {
             player.Ctlcontrols.stop();
         }
-        // play file method
+        // play music method
         public void PlayFile(int PlayListIndex)
         {
             if(list_playlist.Items.Count <= 0)
@@ -148,6 +126,9 @@ namespace Duration
         // hold current selected song from datagrid
         private void data_library_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // set index to the selected row in the datagrid
+            lastPlayedIndex = data_library.SelectedRows[0].Index;
+            // tag the music
             Tag_music();
         }
         // when user wants to add to library
@@ -389,11 +370,22 @@ namespace Duration
         // when a user is searching for music
         private void txt_search_KeyPress(object sender, KeyPressEventArgs e)
         {
-            int index = list_playlist.FindString(txt_search.Text);
-            if (0 <= index)
+            // if list control has items
+            if(list_playlist.Items.Count > 0)
             {
-                list_playlist.SelectedIndex = index;
+                // navigate to the specified item through its row
+                int index = list_playlist.FindString(txt_search.Text);
+                if (0 <= index)
+                {
+                    // set the selected index to the specified song
+                    list_playlist.SelectedIndex = index;
+                }
             }
+            else
+            {
+
+            }
+            
         }
         // when a user double clicks a song
         private void List_recent_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -550,7 +542,7 @@ namespace Duration
                     PlayFile(currentIndex);
 
                     // Select the new song in the list
-                    list_playlist.SelectedIndex = currentIndex;
+                    //list_playlist.SelectedIndex = currentIndex;
                 }
                 else
                 {
@@ -570,20 +562,16 @@ namespace Duration
         {
             player.Ctlcontrols.stop();
         }
-
-        private void data_library_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        // user clicks pause in datagrid context menu
+        private void pause_Click(object sender, EventArgs e)
         {
-            menu_library_play_Click(sender, e);
-            // display its tags
-            data_library_CellMouseClick(sender, e);
+            player.Ctlcontrols.pause();
         }
-
-        private void data_library_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        // user clicks stop in datagrid context menu
+        private void stop_Click(object sender, EventArgs e)
         {
-            lastPlayedIndex = data_library.SelectedRows[0].Index;
-            Tag_music();
+            player.Ctlcontrols.stop();
         }
-
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
