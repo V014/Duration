@@ -94,7 +94,7 @@
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingScreen.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoadingScreen.Designer.cs">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
