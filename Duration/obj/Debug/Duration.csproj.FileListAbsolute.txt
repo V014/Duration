@@ -4,7 +4,6 @@ c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\bin\Debug
 c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\bin\Debug\MetroFramework.Design.dll
 c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\bin\Debug\MetroFramework.dll
 c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\bin\Debug\MetroFramework.Fonts.dll
-c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\obj\Debug\Duration.csprojResolveAssemblyReference.cache
 c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\obj\Debug\Duration.home.resources
 c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\obj\Debug\Duration.Properties.Resources.resources
 c:\users\wanga\documents\visual studio 2015\Projects\Duration\Duration\obj\Debug\Duration.csproj.GenerateResource.Cache
@@ -61,3 +60,7 @@ C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\bin\Debug
 C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\bin\Debug\System.Drawing.Common.dll
 C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\bin\Debug\NAudio.WaveFormRenderer.xml
 C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\bin\Debug\System.Drawing.Common.xml
+C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug\Duration.csprojAssemblyReference.cache
+C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug\Duration.LoadingScreen.resources
+C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug\Duration.csproj.CoreCompileInputs.cache
+C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug\Duration.csproj.CopyComplete

@@ -94,9 +94,11 @@ namespace Duration
         // pull data from database
         public void load_Library(DataGridView datagrid)
         {
-            con.LoadData("SELECT id, path, title, artist, album, genre, year FROM library", datagrid);
+            con.LoadData("SELECT ID, Path, Title, Artist, Album, Genre, Year FROM library", datagrid);
+            
             datagrid.Columns[0].Visible = false;
             datagrid.Columns[1].Visible = false;
+            datagrid.Columns[2].Width = 150;
         }
         // tags the music and is enabled for multipurpose
         private void Tag_music()
@@ -106,14 +108,17 @@ namespace Duration
                 DataGridViewRow selectedRow = data_library.SelectedRows[0];
                 string id = selectedRow.Cells[0].Value.ToString();
                 string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
+                string plays = con.ReadString($"SELECT Played FROM library WHERE ID = '{id}'");
                 // obtain audio tag details
                 TagLib.File file = TagLib.File.Create(path);
                 // tag labels
                 lbl_title.Text = file.Tag.Title;
                 lbl_genre.Text = file.Tag.Genres[0];
                 lbl_album.Text = file.Tag.Album;
-                lbl_year.Text = file.Tag.Year.ToString();
+                lbl_year.Text = "Year : " + file.Tag.Year.ToString();
                 lbl_artist.Text = file.Tag.AlbumArtists[0];
+                lbl_track.Text = "Track : " + file.Tag.Track.ToString();
+                lbl_plays.Text = "Played : " + plays;
                 // tag image
                 var bin = (byte[])(file.Tag.Pictures[0].Data.Data);
                 image_artwork.Image = Image.FromStream(new MemoryStream(bin));
@@ -130,6 +135,19 @@ namespace Duration
             lastPlayedIndex = data_library.SelectedRows[0].Index;
             // tag the music
             Tag_music();
+            // check rating
+            int id = data_library.SelectedRows[0].Index;
+            string like = con.ReadString($"SELECT Liked FROM library WHERE ID = {id}");
+
+            if (like == "Liked")
+            {
+                image_like.Image = Image.FromFile(@"res/star.png");
+            }
+            else
+            {
+                image_like.Image = Image.FromFile(@"res/blank_star.png");
+            }
+            
         }
         // when user wants to add to library
         private void Menu_library_add_Click(object sender, EventArgs e)
@@ -169,23 +187,21 @@ namespace Duration
                 // stop the current song
                 player.Ctlcontrols.stop();
                 playnext = false;
-
                 // retrieve file path from database
                 DataGridViewRow selectedRow = data_library.SelectedRows[0];
                 string id = selectedRow.Cells[0].Value.ToString();
-                string path = con.ReadString($"SELECT path FROM library WHERE ID = '{id}'");
+                string path = con.ReadString($"SELECT Path FROM library WHERE ID = '{id}'");
+                // update play counter in db
+                con.ExecuteQuery($"UPDATE library SET Played = Played + 1 WHERE ID = '{id}'");
 
-                //clear previous list
+                // clear previous list
                 list_playlist.Items.Clear();
 
+                // set the title next to the app name
                 TagLib.File file = TagLib.File.Create(path);
-                //list_recent.Items.Add(file.Tag.Title);
-
                 this.Text = "Duration | " + file.Tag.Title;
 
-                //int selectedIndex = data_library.SelectedRows[0].Index;
-                //PlayNextSong(selectedIndex);
-
+                // play song
                 player.URL = path;
                 player.Ctlcontrols.play();
 
@@ -433,6 +449,7 @@ namespace Duration
         // when a user double clicks a song
         private void Data_library_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            // play music
             menu_library_play_Click(sender, e);
             // display its tags
             data_library_CellClick(sender, e);
@@ -572,6 +589,31 @@ namespace Duration
         {
             player.Ctlcontrols.stop();
         }
+        // when user clicks the star image
+        private void Image_like_Click(object sender, EventArgs e)
+        {
+            // check to see if the liking exists
+            try
+            {
+                int id = data_library.SelectedRows[0].Index;
+                string like = con.ReadString($"SELECT Liked FROM library WHERE ID = {id}");
+                if(like == "Liked")
+                {
+                    con.ExecuteQuery($"UPDATE library SET Liked = '' WHERE ID = {id}");
+                    image_like.Image = Image.FromFile(@"res/blank_star.png");
+                }
+                else
+                {
+                    con.ExecuteQuery($"UPDATE library SET Liked = 'Liked' WHERE ID = {id}");
+                    image_like.Image = Image.FromFile(@"res/star.png");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   
+            }
+        }
+
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -56,17 +56,5 @@ namespace Duration
             dataGrid.DataSource = DT;
             con.Close();
         }
-        // pulls data from the database and returns a dataTable
-        public DataTable ExportData(string query)
-        {
-            var conn = GetConnection();
-            var DB = new SQLiteDataAdapter(query, conn);
-            var DS = new DataSet();
-            var DT = new DataTable();
-            DB.Fill(DS);
-            DT = DS.Tables[0];
-            conn.Close();
-            return DT;
-        }
     }
 }

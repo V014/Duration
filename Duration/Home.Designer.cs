@@ -34,8 +34,12 @@
             this.panel_nowPlaying = new System.Windows.Forms.Panel();
             this.data_library = new System.Windows.Forms.DataGridView();
             this.menu_library = new MetroFramework.Controls.MetroContextMenu(this.components);
-            this.import = new System.Windows.Forms.ToolStripMenuItem();
             this.play = new System.Windows.Forms.ToolStripMenuItem();
+            this.pause = new System.Windows.Forms.ToolStripMenuItem();
+            this.stop = new System.Windows.Forms.ToolStripMenuItem();
+            this.next = new System.Windows.Forms.ToolStripMenuItem();
+            this.previous = new System.Windows.Forms.ToolStripMenuItem();
+            this.import = new System.Windows.Forms.ToolStripMenuItem();
             this.delete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_recent = new System.Windows.Forms.Panel();
             this.btn_newPlaylist = new System.Windows.Forms.Button();
@@ -70,10 +74,9 @@
             this.lbl_start = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_nav = new System.Windows.Forms.Panel();
-            this.pause = new System.Windows.Forms.ToolStripMenuItem();
-            this.stop = new System.Windows.Forms.ToolStripMenuItem();
-            this.next = new System.Windows.Forms.ToolStripMenuItem();
-            this.previous = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbl_track = new System.Windows.Forms.Label();
+            this.lbl_plays = new System.Windows.Forms.Label();
+            this.image_like = new System.Windows.Forms.PictureBox();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
@@ -92,6 +95,7 @@
             this.panel_end.SuspendLayout();
             this.panel_start.SuspendLayout();
             this.panel_nav.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.image_like)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_main
@@ -159,14 +163,6 @@
             this.menu_library.Name = "menu_library";
             this.menu_library.Size = new System.Drawing.Size(120, 158);
             // 
-            // import
-            // 
-            this.import.Image = ((System.Drawing.Image)(resources.GetObject("import.Image")));
-            this.import.Name = "import";
-            this.import.Size = new System.Drawing.Size(119, 22);
-            this.import.Text = "Import";
-            this.import.Click += new System.EventHandler(this.Menu_library_add_Click);
-            // 
             // play
             // 
             this.play.Image = ((System.Drawing.Image)(resources.GetObject("play.Image")));
@@ -174,6 +170,44 @@
             this.play.Size = new System.Drawing.Size(119, 22);
             this.play.Text = "Play";
             this.play.Click += new System.EventHandler(this.menu_library_play_Click);
+            // 
+            // pause
+            // 
+            this.pause.Image = ((System.Drawing.Image)(resources.GetObject("pause.Image")));
+            this.pause.Name = "pause";
+            this.pause.Size = new System.Drawing.Size(119, 22);
+            this.pause.Text = "Pause";
+            this.pause.Click += new System.EventHandler(this.pause_Click);
+            // 
+            // stop
+            // 
+            this.stop.Image = ((System.Drawing.Image)(resources.GetObject("stop.Image")));
+            this.stop.Name = "stop";
+            this.stop.Size = new System.Drawing.Size(119, 22);
+            this.stop.Text = "Stop";
+            this.stop.Click += new System.EventHandler(this.stop_Click);
+            // 
+            // next
+            // 
+            this.next.Image = ((System.Drawing.Image)(resources.GetObject("next.Image")));
+            this.next.Name = "next";
+            this.next.Size = new System.Drawing.Size(119, 22);
+            this.next.Text = "Next";
+            // 
+            // previous
+            // 
+            this.previous.Image = ((System.Drawing.Image)(resources.GetObject("previous.Image")));
+            this.previous.Name = "previous";
+            this.previous.Size = new System.Drawing.Size(119, 22);
+            this.previous.Text = "Previous";
+            // 
+            // import
+            // 
+            this.import.Image = ((System.Drawing.Image)(resources.GetObject("import.Image")));
+            this.import.Name = "import";
+            this.import.Size = new System.Drawing.Size(119, 22);
+            this.import.Text = "Import";
+            this.import.Click += new System.EventHandler(this.Menu_library_add_Click);
             // 
             // delete
             // 
@@ -281,6 +315,7 @@
             // 
             // panel_activity
             // 
+            this.panel_activity.Controls.Add(this.image_like);
             this.panel_activity.Controls.Add(this.btn_next);
             this.panel_activity.Controls.Add(this.btn_stop);
             this.panel_activity.Controls.Add(this.btn_play);
@@ -375,6 +410,8 @@
             // 
             this.panel_artwork.BackColor = System.Drawing.Color.Transparent;
             this.panel_artwork.Controls.Add(this.player);
+            this.panel_artwork.Controls.Add(this.lbl_plays);
+            this.panel_artwork.Controls.Add(this.lbl_track);
             this.panel_artwork.Controls.Add(this.lbl_genre);
             this.panel_artwork.Controls.Add(this.lbl_year);
             this.panel_artwork.Controls.Add(this.lbl_album);
@@ -384,7 +421,7 @@
             this.panel_artwork.Location = new System.Drawing.Point(5, 5);
             this.panel_artwork.Name = "panel_artwork";
             this.panel_artwork.Padding = new System.Windows.Forms.Padding(5);
-            this.panel_artwork.Size = new System.Drawing.Size(162, 271);
+            this.panel_artwork.Size = new System.Drawing.Size(162, 323);
             this.panel_artwork.TabIndex = 5;
             // 
             // lbl_genre
@@ -528,15 +565,14 @@
             // 
             // progressBar
             // 
-            this.progressBar.BackColor = System.Drawing.Color.Transparent;
+            this.progressBar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressBar.Location = new System.Drawing.Point(49, 0);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(869, 26);
-            this.progressBar.Style = MetroFramework.MetroColorStyle.Green;
+            this.progressBar.Style = MetroFramework.MetroColorStyle.Orange;
             this.progressBar.TabIndex = 0;
             this.progressBar.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.progressBar.UseCustomBackColor = true;
             this.progressBar.Value = 0;
             this.progressBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ProgressBar_Scroll);
             // 
@@ -587,7 +623,7 @@
             // 
             // panel_nav
             // 
-            this.panel_nav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.panel_nav.BackColor = System.Drawing.Color.Transparent;
             this.panel_nav.Controls.Add(this.panel_artwork);
             this.panel_nav.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_nav.Location = new System.Drawing.Point(0, 0);
@@ -596,35 +632,40 @@
             this.panel_nav.Size = new System.Drawing.Size(172, 487);
             this.panel_nav.TabIndex = 5;
             // 
-            // pause
+            // lbl_track
             // 
-            this.pause.Image = ((System.Drawing.Image)(resources.GetObject("pause.Image")));
-            this.pause.Name = "pause";
-            this.pause.Size = new System.Drawing.Size(152, 22);
-            this.pause.Text = "Pause";
-            this.pause.Click += new System.EventHandler(this.pause_Click);
+            this.lbl_track.AutoSize = true;
+            this.lbl_track.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_track.ForeColor = System.Drawing.Color.Gray;
+            this.lbl_track.Location = new System.Drawing.Point(10, 270);
+            this.lbl_track.Name = "lbl_track";
+            this.lbl_track.Size = new System.Drawing.Size(42, 13);
+            this.lbl_track.TabIndex = 7;
+            this.lbl_track.Text = "Track : ";
             // 
-            // stop
+            // lbl_plays
             // 
-            this.stop.Image = ((System.Drawing.Image)(resources.GetObject("stop.Image")));
-            this.stop.Name = "stop";
-            this.stop.Size = new System.Drawing.Size(152, 22);
-            this.stop.Text = "Stop";
-            this.stop.Click += new System.EventHandler(this.stop_Click);
+            this.lbl_plays.AutoSize = true;
+            this.lbl_plays.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_plays.ForeColor = System.Drawing.Color.Gray;
+            this.lbl_plays.Location = new System.Drawing.Point(10, 293);
+            this.lbl_plays.Name = "lbl_plays";
+            this.lbl_plays.Size = new System.Drawing.Size(41, 13);
+            this.lbl_plays.TabIndex = 7;
+            this.lbl_plays.Text = "Plays : ";
             // 
-            // next
+            // image_like
             // 
-            this.next.Image = ((System.Drawing.Image)(resources.GetObject("next.Image")));
-            this.next.Name = "next";
-            this.next.Size = new System.Drawing.Size(119, 22);
-            this.next.Text = "Next";
-            // 
-            // previous
-            // 
-            this.previous.Image = ((System.Drawing.Image)(resources.GetObject("previous.Image")));
-            this.previous.Name = "previous";
-            this.previous.Size = new System.Drawing.Size(119, 22);
-            this.previous.Text = "Previous";
+            this.image_like.BackColor = System.Drawing.Color.Transparent;
+            this.image_like.Dock = System.Windows.Forms.DockStyle.Right;
+            this.image_like.Image = ((System.Drawing.Image)(resources.GetObject("image_like.Image")));
+            this.image_like.Location = new System.Drawing.Point(144, 0);
+            this.image_like.Name = "image_like";
+            this.image_like.Size = new System.Drawing.Size(28, 48);
+            this.image_like.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_like.TabIndex = 8;
+            this.image_like.TabStop = false;
+            this.image_like.Click += new System.EventHandler(this.Image_like_Click);
             // 
             // Home
             // 
@@ -667,6 +708,7 @@
             this.panel_start.ResumeLayout(false);
             this.panel_start.PerformLayout();
             this.panel_nav.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.image_like)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -716,6 +758,9 @@
         private System.Windows.Forms.ToolStripMenuItem stop;
         private System.Windows.Forms.ToolStripMenuItem next;
         private System.Windows.Forms.ToolStripMenuItem previous;
+        private System.Windows.Forms.Label lbl_track;
+        private System.Windows.Forms.Label lbl_plays;
+        private System.Windows.Forms.PictureBox image_like;
     }
 }
 
