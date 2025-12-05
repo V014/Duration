@@ -49,12 +49,15 @@
             this.panel_search = new System.Windows.Forms.Panel();
             this.txt_search = new System.Windows.Forms.TextBox();
             this.panel_activity = new System.Windows.Forms.Panel();
+            this.image_like = new System.Windows.Forms.PictureBox();
             this.btn_next = new System.Windows.Forms.Button();
             this.btn_stop = new System.Windows.Forms.Button();
             this.btn_play = new System.Windows.Forms.Button();
             this.btn_prev = new System.Windows.Forms.Button();
             this.player = new AxWMPLib.AxWindowsMediaPlayer();
             this.panel_artwork = new System.Windows.Forms.Panel();
+            this.lbl_plays = new System.Windows.Forms.Label();
+            this.lbl_track = new System.Windows.Forms.Label();
             this.lbl_genre = new System.Windows.Forms.Label();
             this.lbl_year = new System.Windows.Forms.Label();
             this.lbl_album = new System.Windows.Forms.Label();
@@ -74,9 +77,7 @@
             this.lbl_start = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.panel_nav = new System.Windows.Forms.Panel();
-            this.lbl_track = new System.Windows.Forms.Label();
-            this.lbl_plays = new System.Windows.Forms.Label();
-            this.image_like = new System.Windows.Forms.PictureBox();
+            this.clearLibrary = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_main.SuspendLayout();
             this.panel_nowPlaying.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_library)).BeginInit();
@@ -85,6 +86,7 @@
             this.panel_playlist.SuspendLayout();
             this.panel_search.SuspendLayout();
             this.panel_activity.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.image_like)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
             this.panel_artwork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image_artwork)).BeginInit();
@@ -95,7 +97,6 @@
             this.panel_end.SuspendLayout();
             this.panel_start.SuspendLayout();
             this.panel_nav.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.image_like)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_main
@@ -159,15 +160,16 @@
             this.next,
             this.previous,
             this.import,
-            this.delete});
+            this.delete,
+            this.clearLibrary});
             this.menu_library.Name = "menu_library";
-            this.menu_library.Size = new System.Drawing.Size(120, 158);
+            this.menu_library.Size = new System.Drawing.Size(181, 202);
             // 
             // play
             // 
             this.play.Image = ((System.Drawing.Image)(resources.GetObject("play.Image")));
             this.play.Name = "play";
-            this.play.Size = new System.Drawing.Size(119, 22);
+            this.play.Size = new System.Drawing.Size(180, 22);
             this.play.Text = "Play";
             this.play.Click += new System.EventHandler(this.menu_library_play_Click);
             // 
@@ -175,7 +177,7 @@
             // 
             this.pause.Image = ((System.Drawing.Image)(resources.GetObject("pause.Image")));
             this.pause.Name = "pause";
-            this.pause.Size = new System.Drawing.Size(119, 22);
+            this.pause.Size = new System.Drawing.Size(180, 22);
             this.pause.Text = "Pause";
             this.pause.Click += new System.EventHandler(this.pause_Click);
             // 
@@ -183,7 +185,7 @@
             // 
             this.stop.Image = ((System.Drawing.Image)(resources.GetObject("stop.Image")));
             this.stop.Name = "stop";
-            this.stop.Size = new System.Drawing.Size(119, 22);
+            this.stop.Size = new System.Drawing.Size(180, 22);
             this.stop.Text = "Stop";
             this.stop.Click += new System.EventHandler(this.stop_Click);
             // 
@@ -191,21 +193,21 @@
             // 
             this.next.Image = ((System.Drawing.Image)(resources.GetObject("next.Image")));
             this.next.Name = "next";
-            this.next.Size = new System.Drawing.Size(119, 22);
+            this.next.Size = new System.Drawing.Size(180, 22);
             this.next.Text = "Next";
             // 
             // previous
             // 
             this.previous.Image = ((System.Drawing.Image)(resources.GetObject("previous.Image")));
             this.previous.Name = "previous";
-            this.previous.Size = new System.Drawing.Size(119, 22);
+            this.previous.Size = new System.Drawing.Size(180, 22);
             this.previous.Text = "Previous";
             // 
             // import
             // 
             this.import.Image = ((System.Drawing.Image)(resources.GetObject("import.Image")));
             this.import.Name = "import";
-            this.import.Size = new System.Drawing.Size(119, 22);
+            this.import.Size = new System.Drawing.Size(180, 22);
             this.import.Text = "Import";
             this.import.Click += new System.EventHandler(this.Menu_library_add_Click);
             // 
@@ -213,7 +215,7 @@
             // 
             this.delete.Image = ((System.Drawing.Image)(resources.GetObject("delete.Image")));
             this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(119, 22);
+            this.delete.Size = new System.Drawing.Size(180, 22);
             this.delete.Text = "Delete";
             this.delete.Click += new System.EventHandler(this.Delete_Click);
             // 
@@ -284,7 +286,7 @@
             this.lbl_title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(178)))), ((int)(((byte)(0)))));
             this.lbl_title.Location = new System.Drawing.Point(9, 20);
             this.lbl_title.Name = "lbl_title";
-            this.lbl_title.Size = new System.Drawing.Size(32, 13);
+            this.lbl_title.Size = new System.Drawing.Size(31, 13);
             this.lbl_title.TabIndex = 7;
             this.lbl_title.Text = "Title ";
             // 
@@ -325,6 +327,19 @@
             this.panel_activity.Name = "panel_activity";
             this.panel_activity.Size = new System.Drawing.Size(172, 48);
             this.panel_activity.TabIndex = 1;
+            // 
+            // image_like
+            // 
+            this.image_like.BackColor = System.Drawing.Color.Transparent;
+            this.image_like.Dock = System.Windows.Forms.DockStyle.Right;
+            this.image_like.Image = ((System.Drawing.Image)(resources.GetObject("image_like.Image")));
+            this.image_like.Location = new System.Drawing.Point(144, 0);
+            this.image_like.Name = "image_like";
+            this.image_like.Size = new System.Drawing.Size(28, 48);
+            this.image_like.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.image_like.TabIndex = 8;
+            this.image_like.TabStop = false;
+            this.image_like.Click += new System.EventHandler(this.Image_like_Click);
             // 
             // btn_next
             // 
@@ -423,6 +438,28 @@
             this.panel_artwork.Padding = new System.Windows.Forms.Padding(5);
             this.panel_artwork.Size = new System.Drawing.Size(162, 323);
             this.panel_artwork.TabIndex = 5;
+            // 
+            // lbl_plays
+            // 
+            this.lbl_plays.AutoSize = true;
+            this.lbl_plays.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_plays.ForeColor = System.Drawing.Color.Gray;
+            this.lbl_plays.Location = new System.Drawing.Point(10, 293);
+            this.lbl_plays.Name = "lbl_plays";
+            this.lbl_plays.Size = new System.Drawing.Size(41, 13);
+            this.lbl_plays.TabIndex = 7;
+            this.lbl_plays.Text = "Plays : ";
+            // 
+            // lbl_track
+            // 
+            this.lbl_track.AutoSize = true;
+            this.lbl_track.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_track.ForeColor = System.Drawing.Color.Gray;
+            this.lbl_track.Location = new System.Drawing.Point(10, 270);
+            this.lbl_track.Name = "lbl_track";
+            this.lbl_track.Size = new System.Drawing.Size(41, 13);
+            this.lbl_track.TabIndex = 7;
+            this.lbl_track.Text = "Track : ";
             // 
             // lbl_genre
             // 
@@ -565,6 +602,7 @@
             // 
             // progressBar
             // 
+            this.progressBar.BackColor = System.Drawing.Color.Transparent;
             this.progressBar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressBar.Location = new System.Drawing.Point(49, 0);
@@ -632,40 +670,12 @@
             this.panel_nav.Size = new System.Drawing.Size(172, 487);
             this.panel_nav.TabIndex = 5;
             // 
-            // lbl_track
+            // clearLibrary
             // 
-            this.lbl_track.AutoSize = true;
-            this.lbl_track.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_track.ForeColor = System.Drawing.Color.Gray;
-            this.lbl_track.Location = new System.Drawing.Point(10, 270);
-            this.lbl_track.Name = "lbl_track";
-            this.lbl_track.Size = new System.Drawing.Size(42, 13);
-            this.lbl_track.TabIndex = 7;
-            this.lbl_track.Text = "Track : ";
-            // 
-            // lbl_plays
-            // 
-            this.lbl_plays.AutoSize = true;
-            this.lbl_plays.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_plays.ForeColor = System.Drawing.Color.Gray;
-            this.lbl_plays.Location = new System.Drawing.Point(10, 293);
-            this.lbl_plays.Name = "lbl_plays";
-            this.lbl_plays.Size = new System.Drawing.Size(41, 13);
-            this.lbl_plays.TabIndex = 7;
-            this.lbl_plays.Text = "Plays : ";
-            // 
-            // image_like
-            // 
-            this.image_like.BackColor = System.Drawing.Color.Transparent;
-            this.image_like.Dock = System.Windows.Forms.DockStyle.Right;
-            this.image_like.Image = ((System.Drawing.Image)(resources.GetObject("image_like.Image")));
-            this.image_like.Location = new System.Drawing.Point(144, 0);
-            this.image_like.Name = "image_like";
-            this.image_like.Size = new System.Drawing.Size(28, 48);
-            this.image_like.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.image_like.TabIndex = 8;
-            this.image_like.TabStop = false;
-            this.image_like.Click += new System.EventHandler(this.Image_like_Click);
+            this.clearLibrary.Name = "clearLibrary";
+            this.clearLibrary.Size = new System.Drawing.Size(180, 22);
+            this.clearLibrary.Text = "Clear library";
+            this.clearLibrary.Click += new System.EventHandler(this.ClearLibrary_Click);
             // 
             // Home
             // 
@@ -695,6 +705,7 @@
             this.panel_search.ResumeLayout(false);
             this.panel_search.PerformLayout();
             this.panel_activity.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.image_like)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
             this.panel_artwork.ResumeLayout(false);
             this.panel_artwork.PerformLayout();
@@ -709,7 +720,6 @@
             this.panel_start.ResumeLayout(false);
             this.panel_start.PerformLayout();
             this.panel_nav.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.image_like)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -762,6 +772,7 @@
         private System.Windows.Forms.Label lbl_track;
         private System.Windows.Forms.Label lbl_plays;
         private System.Windows.Forms.PictureBox image_like;
+        private System.Windows.Forms.ToolStripMenuItem clearLibrary;
     }
 }
 

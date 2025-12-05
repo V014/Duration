@@ -64,3 +64,28 @@ C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug
 C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug\Duration.LoadingScreen.resources
 C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug\Duration.csproj.CoreCompileInputs.cache
 C:\Users\Wanga\Documents\Visual Studio 2015\Projects\Duration\Duration\obj\Debug\Duration.csproj.CopyComplete
+D:\coding\C#\Duration\Duration\bin\Debug\Duration.exe.config
+D:\coding\C#\Duration\Duration\bin\Debug\Duration.exe
+D:\coding\C#\Duration\Duration\bin\Debug\Duration.pdb
+D:\coding\C#\Duration\Duration\bin\Debug\MetroFramework.Design.dll
+D:\coding\C#\Duration\Duration\bin\Debug\MetroFramework.dll
+D:\coding\C#\Duration\Duration\bin\Debug\MetroFramework.Fonts.dll
+D:\coding\C#\Duration\Duration\bin\Debug\NAudio.Core.dll
+D:\coding\C#\Duration\Duration\bin\Debug\NAudio.WaveFormRenderer.dll
+D:\coding\C#\Duration\Duration\bin\Debug\System.Drawing.Common.dll
+D:\coding\C#\Duration\Duration\bin\Debug\NAudio.WaveFormRenderer.xml
+D:\coding\C#\Duration\Duration\bin\Debug\System.Drawing.Common.xml
+D:\coding\C#\Duration\Duration\bin\Debug\Interop.WMPLib.dll
+D:\coding\C#\Duration\Duration\bin\Debug\AxInterop.WMPLib.dll
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.csproj.AssemblyReference.cache
+D:\coding\C#\Duration\Duration\obj\Debug\Interop.WMPLib.dll
+D:\coding\C#\Duration\Duration\obj\Debug\AxInterop.WMPLib.dll
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.csproj.ResolveComReference.cache
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.Home.resources
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.LoadingScreen.resources
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.Properties.Resources.resources
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.csproj.GenerateResource.cache
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.csproj.CoreCompileInputs.cache
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.csproj.Up2Date
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.exe
+D:\coding\C#\Duration\Duration\obj\Debug\Duration.pdb

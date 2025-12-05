@@ -619,6 +619,15 @@ namespace Duration
             Application.Exit();
         }
 
+        // when user wants to clear their library of music
+        // may be non existing songs or wants to start fresh
+        private void ClearLibrary_Click(object sender, EventArgs e)
+        {
+            // nuke database
+            con.ExecuteQuery($"DELETE FROM library");
+            load_Library(data_library);
+        }
+
         // when the recent list is changed
         private void list_recent_SelectedIndexChanged(object sender, EventArgs e)
         {
